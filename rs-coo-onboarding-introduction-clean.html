@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RS COO Onboarding: CPR Methodology Mastery - Renaissanse Solutions</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            position: relative;
+        }
+
+        .logo {
+            font-size: 2.5em;
+            font-weight: 800;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+        }
+
+        .course-title {
+            font-size: 2.2em;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .course-subtitle {
+            font-size: 1.3em;
+            color: #7f8c8d;
+            margin-bottom: 20px;
+        }
+
+        .welcome-banner {
+            background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 15px;
+        }
+
+        .stat-number {
+            font-size: 2em;
+            font-weight: 800;
+            color: #667eea;
+        }
+
+        .stat-label {
+            font-size: 0.9em;
+            color: #7f8c8d;
+            font-weight: 600;
+        }
+
+        .content-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .mission-critical {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            color: white;
+            border: 3px solid #922b21;
+        }
+
+        .section-title {
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            color: #2c3e50;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .section-title.white {
+            color: white;
+        }
+
+        .highlight-box {
+            background: rgba(102, 126, 234, 0.1);
+            border: 2px solid #667eea;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .white-highlight {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .your-role {
+            background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);
+            color: #2c3e50;
+        }
+
+        .role-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .role-item {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            border-left: 5px solid #667eea;
+            transition: transform 0.3s ease;
+        }
+
+        .role-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .role-icon {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .cpr-mastery {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            color: #2c3e50;
+        }
+
+        .cpr-components {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .cpr-component {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 10px;
+            text-align: center;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            flex: 1;
+            min-width: 200px;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .cpr-component:hover {
+            transform: scale(1.05);
+        }
+
+        .cpr-letter {
+            font-size: 3em;
+            font-weight: 800;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .cpr-word {
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .cpr-description {
+            font-size: 0.9em;
+            color: #7f8c8d;
+        }
+
+        .training-path {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            color: #2c3e50;
+        }
+
+        .lesson-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .lesson-card {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .lesson-card:hover {
+            transform: translateY(-5px);
+            border-color: #667eea;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .lesson-number {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .lesson-title {
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+
+        .lesson-focus {
+            font-size: 0.9em;
+            color: #e67e22;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .lesson-description {
+            font-size: 0.9em;
+            color: #7f8c8d;
+            margin-bottom: 10px;
+        }
+
+        .lesson-duration {
+            font-size: 0.8em;
+            color: #667eea;
+            font-weight: 600;
+        }
+
+        .success-metrics {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 20px 0;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .metric-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .metric-icon {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .interactive-btn {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 10px 5px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .interactive-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .begin-journey {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+            padding: 40px;
+            border-radius: 15px;
+            margin-top: 30px;
+        }
+
+        .begin-title {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            font-weight: 800;
+        }
+
+        .begin-btn {
+            background: white;
+            color: #667eea;
+            border: none;
+            padding: 20px 50px;
+            border-radius: 30px;
+            font-size: 1.3em;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .begin-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .expectations-section {
+            background: rgba(52, 152, 219, 0.1);
+            border-left: 5px solid #3498db;
+            padding: 25px;
+            margin: 20px 0;
+            border-radius: 10px;
+        }
+
+        .floating-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .hero-stats {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .cpr-components {
+                flex-direction: column;
+            }
+            
+            .lesson-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating Particles Background -->
+    <div class="floating-particles" id="particles"></div>
+
+    <div class="container">
+        <!-- Header Section -->
+        <div class="header">
+            <div class="logo">RENAISSANSE SOLUTIONS</div>
+            <h1 class="course-title">COO Onboarding: CPR Methodology Mastery</h1>
+            <p class="course-subtitle">Internal Training Program for Incoming Chief Operating Officer</p>
+            
+            <div class="welcome-banner">
+                <h3>🎯 Welcome to Your COO Leadership Journey</h3>
+                <p>This comprehensive program will equip you to lead CPR implementation across all RS departments and train our teams to deliver exceptional client transformations.</p>
+            </div>
+            
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <div class="stat-number">8</div>
+                    <div class="stat-label">Mastery Modules</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">12-15</div>
+                    <div class="stat-label">Training Hours</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">100+</div>
+                    <div class="stat-label">Implementation Tools</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">30</div>
+                    <div class="stat-label">Days to Master</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mission Critical Understanding -->
+        <div class="content-card mission-critical">
+            <h2 class="section-title white">🚨 Mission Critical: Your Role at RS</h2>
+            <div class="white-highlight">
+                <h3>The Stakes: RS's Success Depends on Your CPR Mastery</h3>
+                <p>Renaissanse Solutions is positioned to become the premier consulting firm for large companies experiencing disruption. <strong>As our COO, you are the operational backbone</strong> that will:</p>
+                <ul style="margin-left: 20px; margin-top: 15px;">
+                    <li>🎯 <strong>Lead CPR implementation</strong> across all internal departments</li>
+                    <li>⚙️ <strong>Train department heads</strong> to deliver CPR excellence to clients</li>
+                    <li>🔧 <strong>Ensure operational readiness</strong> for rapid scaling and client demand</li>
+                    <li>📊 <strong>Maintain quality standards</strong> as we grow from startup to industry leader</li>
+                    <li>🚀 <strong>Build the systems</strong> that differentiate RS in the marketplace</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Your Dual Role -->
+        <div class="content-card your-role">
+            <h2 class="section-title">🎯 Your Dual Role: Internal Leader & External Enabler</h2>
+            <p>As RS's COO, you operate in two critical dimensions:</p>
+            
+            <div class="role-grid">
+                <div class="role-item">
+                    <span class="role-icon">🏢</span>
+                    <h4>Internal Operations Leader</h4>
+                    <p><strong>Build RS's operational excellence:</strong></p>
+                    <ul style="margin-left: 15px; margin-top: 10px;">
+                        <li>Implement CPR across all RS departments</li>
+                        <li>Create scalable operational systems</li>
+                        <li>Ensure quality and consistency as we grow</li>
+                        <li>Lead internal transformation initiatives</li>
+                    </ul>
+                </div>
+                <div class="role-item">
+                    <span class="role-icon">🎓</span>
+                    <h4>Internal CPR Trainer & Coach</h4>
+                    <p><strong>Enable department success:</strong></p>
+                    <ul style="margin-left: 15px; margin-top: 10px;">
+                        <li>Train department heads on CPR methodology</li>
+                        <li>Coach teams through client implementations</li>
+                        <li>Ensure consistent CPR delivery quality</li>
+                        <li>Share best practices across departments</li>
+                    </ul>
+                </div>
+                <div class="role-item">
+                    <span class="role-icon">🎯</span>
+                    <h4>Strategic Implementation Architect</h4>
+                    <p><strong>Design RS's competitive advantage:</strong></p>
+                    <ul style="margin-left: 15px; margin-top: 10px;">
+                        <li>Develop proprietary implementation frameworks</li>
+                        <li>Create client delivery methodologies</li>
+                        <li>Build measurement and success tracking systems</li>
+                        <li>Establish RS's operational brand</li>
+                    </ul>
+                </div>
+                <div class="role-item">
+                    <span class="role-icon">🚀</span>
+                    <h4>Growth Enablement Leader</h4>
+                    <p><strong>Prepare RS for exponential scaling:</strong></p>
+                    <ul style="margin-left: 15px; margin-top: 10px;">
+                        <li>Build systems that support 10x growth</li>
+                        <li>Create knowledge management platforms</li>
+                        <li>Develop new hire onboarding programs</li>
+                        <li>Establish operational performance standards</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- CPR Mastery Requirements -->
+        <div class="content-card cpr-mastery">
+            <h2 class="section-title">🎓 CPR Framework: What You Must Master</h2>
+            <p>Deep understanding of our core methodology is non-negotiable for your success:</p>
+            
+            <div class="cpr-components">
+                <div class="cpr-component" onclick="expandCPR('C')">
+                    <div class="cpr-letter">C</div>
+                    <div class="cpr-word">Comprehensive</div>
+                    <div class="cpr-description">Holistic transformation across all operational dimensions</div>
+                </div>
+                <div class="cpr-component" onclick="expandCPR('P')">
+                    <div class="cpr-letter">P</div>
+                    <div class="cpr-word">Performance</div>
+                    <div class="cpr-description">Measurable results and accountability systems</div>
+                </div>
+                <div class="cpr-component" onclick="expandCPR('R')">
+                    <div class="cpr-letter">R</div>
+                    <div class="cpr-word">Recalibration</div>
+                    <div class="cpr-description">Continuous optimization and adaptive improvement</div>
+                </div>
+            </div>
+            
+            <div id="cpr-details" style="display: none; margin-top: 20px;">
+                <!-- CPR details will be populated by JavaScript -->
+            </div>
+        </div>
+
+        <!-- Training Path -->
+        <div class="content-card training-path">
+            <h2 class="section-title">📚 Your 30-Day Mastery Path</h2>
+            <p>Eight progressive modules designed to build your expertise and implementation capability:</p>
+            
+            <div class="lesson-grid">
+                <div class="lesson-card" onclick="previewLesson(1)">
+                    <div class="lesson-number">1</div>
+                    <div class="lesson-title">The COO's Role in CPR Transformation</div>
+                    <div class="lesson-focus">🎯 Focus: Foundation Building</div>
+                    <div class="lesson-description">Build operational frameworks that scale RS from startup to industry leader</div>
+                    <div class="lesson-duration">⏱️ 90 minutes</div>
+                </div>
+                
+                <div class="lesson-card" onclick="previewLesson(2)">
+                    <div class="lesson-number">2</div>
+                    <div class="lesson-title">Operational Excellence in CPR Implementation</div>
+                    <div class="lesson-focus">⚙️ Focus: Systems Mastery</div>
+                    <div class="lesson-description">Advanced frameworks for managing multiple transformation initiatives simultaneously</div>
+                    <div class="lesson-duration">⏱️ 2 hours</div>
+                </div>
+                
+                <div class="lesson-card" onclick="previewLesson(3)">
+                    <div class="lesson-number">3</div>
+                    <div class="lesson-title">Cross-Department Integration & Training</div>
+                    <div class="lesson-focus">🎓 Focus: Internal Training</div>
+                    <div class="lesson-description">How to train and coach RS department heads on CPR methodology</div>
+                    <div class="lesson-duration">⏱️ 2 hours</div>
+                </div>
+                
+                <div class="lesson-card" onclick="previewLesson(4)">
+                    <div class="lesson-number">4</div>
+                    <div class="lesson-title">Performance Measurement and Analytics</div>
+                    <div class="lesson-focus">📊 Focus: Data-Driven Excellence</div>
+                    <div class="lesson-description">Building measurement systems for both internal operations and client success</div>
+                    <div class="lesson-duration">⏱️ 1.5 hours</div>
+                </div>
+                
+                <div class="lesson-card" onclick="previewLesson(5)">
+                    <div class="lesson-number">5</div>
+                    <div class="lesson-title">Leading Organizational Change at RS</div>
+                    <div class="lesson-focus">🚀 Focus: Change Leadership</div>
+                    <div class="lesson-description">Managing internal transformation while scaling client delivery capabilities</div>
+                    <div class="lesson-duration">⏱️ 2 hours</div>
+                </div>
+                
+                <div class="lesson-card" onclick="previewLesson(6)">
+                    <div class="lesson-number">6</div>
+                    <div class="lesson-title">Resource Optimization and Capacity Planning</div>
+                    <div class="lesson-focus">📈 Focus: Growth Management</div>
+                    <div class="lesson-description">Building systems that support RS's rapid scaling and client demand</div>
+                    <div class="lesson-duration">⏱️ 1.5 hours</div>
+                </div>
+                
+                <div class="lesson-card" onclick="previewLesson(7)">
+                    <div class="lesson-number">7</div>
+                    <div class="lesson-title">Crisis Management and Operational Resilience</div>
+                    <div class="lesson-focus">🛡️ Focus: Risk Management</div>
+                    <div class="lesson-description">Protecting RS operations and maintaining client delivery under pressure</div>
+                    <div class="lesson-duration">⏱️ 2 hours</div>
+                </div>
+                
+                <div class="lesson-card" onclick="previewLesson(8)">
+                    <div class="lesson-number">8</div>
+                    <div class="lesson-title">Scaling RS for Market Leadership</div>
+                    <div class="lesson-focus">🏆 Focus: Strategic Growth</div>
+                    <div class="lesson-description">Preparing operations for RS's evolution from disruptor to market leader</div>
+                    <div class="lesson-duration">⏱️ 2 hours</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Success Metrics -->
+        <div class="success-metrics">
+            <h2>📊 Your Success Will Be Measured By</h2>
+            
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <span class="metric-icon">🎯</span>
+                    <h4>Internal Implementation</h4>
+                    <p>CPR adoption and results across all RS departments within 90 days</p>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-icon">🎓</span>
+                    <h4>Training Effectiveness</h4>
+                    <p>Department head competency in CPR delivery and client satisfaction scores</p>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-icon">📈</span>
+                    <h4>Operational Excellence</h4>
+                    <p>System efficiency, quality metrics, and scalability performance indicators</p>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-icon">🚀</span>
+                    <h4>Growth Enablement</h4>
+                    <p>RS's readiness to scale operations and handle increased client demand</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Expectations -->
+        <div class="expectations-section">
+            <h3>📋 What's Expected of You</h3>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li><strong>Complete all 8 modules within 30 days</strong> of your start date</li>
+                <li><strong>Achieve 90%+ on all assessments</strong> - you'll be training others</li>
+                <li><strong>Begin internal CPR implementation</strong> immediately upon module completion</li>
+                <li><strong>Conduct first department head training</strong> within 45 days</li>
+                <li><strong>Establish operational metrics and reporting</strong> within 60 days</li>
+                <li><strong>Demonstrate measurable operational improvements</strong> within 90 days</li>
+            </ul>
+        </div>
+
+        <!-- Begin Journey -->
+        <div class="begin-journey">
+            <h2 class="begin-title">🚀 Ready to Lead RS's Operational Excellence?</h2>
+            <p style="font-size: 1.2em; margin-bottom: 20px;">Your journey to becoming RS's CPR implementation leader starts now.</p>
+            
+            <div style="margin: 30px 0;">
+                <p><strong>✅ Comprehensive methodology mastery</strong> - Deep understanding of CPR principles</p>
+                <p><strong>✅ Practical implementation tools</strong> - Ready-to-use frameworks and templates</p>
+                <p><strong>✅ Internal training capabilities</strong> - Skills to coach and develop your teams</p>
+                <p><strong>✅ Operational leadership excellence</strong> - Systems thinking for sustainable growth</p>
+            </div>
+            
+            <button class="begin-btn" onclick="startTraining()">🎯 Begin Module 1</button>
+            <br>
+            <button class="interactive-btn" onclick="downloadOnboardingGuide()" style="margin-top: 15px;">📄 Download COO Onboarding Guide</button>
+        </div>
+    </div>
+
+    <script>
+        // Create floating particles
+        function createParticles() {
+            const container = document.getElementById('particles');
+            for (let i = 0; i < 20; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.width = (Math.random() * 10 + 5) + 'px';
+                particle.style.height = particle.style.width;
+                particle.style.animationDelay = Math.random() * 6 + 's';
+                container.appendChild(particle);
+            }
+        }
+
+        function expandCPR(letter) {
+            const details = {
+                'C': {
+                    title: 'Comprehensive Approach for RS Implementation',
+                    content: '<div class="highlight-box"><h4>🏗️ How You\'ll Implement Comprehensive Transformation at RS</h4><p><strong>As COO, you\'ll lead comprehensive change across:</strong></p><ul style="margin-left: 20px; margin-top: 10px;"><li><strong>People Systems:</strong> Train department heads, develop RS culture, design org structure for growth</li><li><strong>Process Excellence:</strong> Standardize client delivery, optimize internal workflows, eliminate inefficiencies</li><li><strong>Technology Integration:</strong> Implement project management systems, automate reporting, build knowledge management</li><li><strong>Performance Management:</strong> Create departmental KPIs, establish accountability systems, measure client success</li><li><strong>Strategic Alignment:</strong> Connect all operations to RS\'s mission of helping disrupted companies transform</li></ul><p style="margin-top: 15px;"><em>Your role: Ensure no operational element operates in isolation - everything must work together seamlessly.</em></p></div>'
+                },
+                'P': {
+                    title: 'Performance Excellence Standards for RS',
+                    content: '<div class="highlight-box"><h4>📈 Performance Metrics You\'ll Establish and Monitor</h4><p><strong>You\'ll create measurement systems for:</strong></p><ul style="margin-left: 20px; margin-top: 10px;"><li><strong>Internal Operations:</strong> Department efficiency, quality scores, cross-functional collaboration metrics</li><li><strong>Client Delivery:</strong> Project success rates, client satisfaction, implementation speed and quality</li><li><strong>Team Development:</strong> Skills advancement, certification completion, internal mobility success</li><li><strong>Business Growth:</strong> Revenue per employee, client retention, referral generation</li><li><strong>Innovation Capacity:</strong> New methodology development, improvement suggestions implemented</li></ul><p style="margin-top: 15px;"><em>Your accountability: Every RS operation must demonstrate measurable contribution to company and client success.</em></p></div>'
+                },
+                'R': {
+                    title: 'Recalibration Systems for Continuous RS Improvement',
+                    content: '<div class="highlight-box"><h4>🔄 How You\'ll Build Adaptive Operations at RS</h4><p><strong>You\'ll establish recalibration systems for:</strong></p><ul style="margin-left: 20px; margin-top: 10px;"><li><strong>Monthly Operations Reviews:</strong> Assess department performance, identify improvement opportunities</li><li><strong>Client Feedback Integration:</strong> Rapidly incorporate learnings into delivery methodologies</li><li><strong>Market Adaptation:</strong> Adjust RS operations based on industry trends and competitive landscape</li><li><strong>Team Development Cycles:</strong> Continuously upgrade skills and capabilities across all departments</li><li><strong>System Optimization:</strong> Regular evaluation and enhancement of all operational processes</li></ul><p style="margin-top: 15px;"><em>Your mission: Transform RS into a learning organization that gets stronger with every client engagement and market challenge.</em></p></div>'
+                }
+            };
+            
+            const detailsDiv = document.getElementById('cpr-details');
+            detailsDiv.innerHTML = details[letter].content;
+            detailsDiv.style.display = 'block';
+            detailsDiv.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function previewLesson(lessonNumber) {
+            const lessonDetails = {
+                1: "Foundation building: Understanding your role as RS's operational transformation leader, building systems for scale, and creating the operational DNA that will define RS's competitive advantage.",
+                2: "Systems mastery: Advanced frameworks for managing multiple client engagements while maintaining operational excellence and building internal capabilities.",
+                3: "Internal training: Developing your skills as a trainer and coach to enable department heads to deliver exceptional CPR results to clients.",
+                4: "Measurement excellence: Creating data-driven decision frameworks and KPI systems for both internal operations and client success tracking.",
+                5: "Change leadership: Leading RS's internal transformation while simultaneously scaling our client delivery capabilities.",
+                6: "Growth management: Building operational systems that support RS's rapid scaling and increasing client demand without sacrificing quality.",
+                7: "Risk management: Protecting RS operations and maintaining client delivery excellence even under pressure and unexpected challenges.",
+                8: "Strategic growth: Preparing RS's operations for evolution from startup disruptor to established market leader."
+            };
+            
+            alert(`Module ${lessonNumber} Preview:\n\n${lessonDetails[lessonNumber]}\n\nThis module will equip you with the specific skills and frameworks needed for your success as RS's COO.`);
+        }
+
+        function startTraining() {
+            // Redirect to Lesson 1
+            if (confirm('Ready to begin your COO training journey?\n\nModule 1 will take approximately 90 minutes to complete and covers the foundational elements of your role as RS\'s operational leader.')) {
+                window.location.href = 'renaissanse-coo-lesson1-all-content-final.html';
+            }
+        }
+
+        function downloadOnboardingGuide() {
+            alert('COO Onboarding Guide download feature - would provide a comprehensive PDF with expectations, timelines, success metrics, and organizational context in the full system.');
+        }
+
+        // Initialize particles when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            createParticles();
+        });
+    </script>
+</body>
+</html>
