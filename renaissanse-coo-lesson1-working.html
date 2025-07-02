@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Renaissanse Solutions COO Training - Lesson 1</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            position: relative;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+
+        .logo {
+            font-size: 2.5em;
+            font-weight: 800;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .lesson-title {
+            font-size: 2em;
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+
+        .duration {
+            background: #3498db;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 25px;
+            display: inline-block;
+            font-weight: 600;
+        }
+
+        .content-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+        }
+
+        .objectives {
+            background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);
+            color: #2c3e50;
+        }
+
+        .objectives ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .objectives li {
+            padding: 10px 0;
+            padding-left: 30px;
+            position: relative;
+        }
+
+        .objectives li::before {
+            content: "🎯";
+            position: absolute;
+            left: 0;
+            font-size: 1.2em;
+        }
+
+        .scenario-box {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+            border-left: 5px solid #e74c3c;
+        }
+
+        .scenario-title {
+            font-size: 1.4em;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+
+        .client-challenge {
+            background: rgba(231, 76, 60, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 10px 0;
+            border-left: 4px solid #e74c3c;
+        }
+
+        .client-success {
+            background: rgba(46, 204, 113, 0.2);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 10px 0;
+            border-left: 4px solid #27ae60;
+        }
+
+        .interactive-btn {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 10px 5px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .interactive-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .highlight-box {
+            background: rgba(102, 126, 234, 0.1);
+            border: 2px solid #667eea;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+
+        .progress-bar {
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 25px;
+            height: 20px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            height: 100%;
+            width: 0%;
+            border-radius: 25px;
+            transition: width 0.5s ease;
+        }
+
+        .progress-tracker {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .progress-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 4px solid #e9ecef;
+            transition: all 0.3s ease;
+        }
+
+        .progress-item.completed {
+            background: rgba(46, 204, 113, 0.1);
+            border-left-color: #27ae60;
+        }
+
+        .progress-icon {
+            font-size: 1.5em;
+            margin-right: 15px;
+            width: 40px;
+            text-align: center;
+        }
+
+        .progress-text {
+            flex: 1;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .progress-status {
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: 600;
+            background: #ecf0f1;
+            color: #7f8c8d;
+        }
+
+        .progress-status.completed {
+            background: #27ae60;
+            color: white;
+        }
+
+        .time-tracker {
+            background: rgba(52, 152, 219, 0.1);
+            border-radius: 10px;
+            padding: 15px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .time-display {
+            font-size: 1.5em;
+            font-weight: 700;
+            color: #3498db;
+        }
+
+        .quiz-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 25px 0;
+        }
+
+        .quiz-question {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+
+        .quiz-options {
+            list-style: none;
+            padding: 0;
+        }
+
+        .quiz-options li {
+            padding: 12px;
+            margin: 8px 0;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .quiz-options li:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateX(5px);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .quiz-correct {
+            background: rgba(46, 204, 113, 0.3) !important;
+            border-color: #27ae60 !important;
+        }
+
+        .quiz-wrong {
+            background: rgba(231, 76, 60, 0.3) !important;
+            border-color: #e74c3c !important;
+        }
+
+        .certificate-section {
+            background: linear-gradient(135deg, #f7dc6f 0%, #f4d03f 100%);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+            text-align: center;
+            border: 3px solid #f1c40f;
+            display: none;
+        }
+
+        .certificate-icon {
+            font-size: 4em;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .certificate-title {
+            font-size: 2em;
+            color: #8b6914;
+            margin-bottom: 15px;
+            font-weight: 800;
+        }
+
+        .download-certificate {
+            background: #8b6914;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 10px;
+        }
+
+        .download-certificate:hover {
+            background: #a68817;
+            transform: translateY(-2px);
+        }
+
+        .next-lesson {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 30px;
+        }
+
+        .cta-button {
+            background: white;
+            color: #667eea;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 25px;
+            font-size: 1.2em;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 15px;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header Section -->
+        <div class="header">
+            <div class="logo-container">
+                <div class="logo">RENAISSANSE SOLUTIONS</div>
+            </div>
+            <h1 class="lesson-title">COO Executive Training Program</h1>
+            <h2>Lesson 1: The COO's Role in CPR Transformation</h2>
+            <span class="duration">📚 Duration: 90 minutes</span>
+        </div>
+
+        <!-- Time Tracker -->
+        <div class="time-tracker">
+            <h4>⏱️ Session Time</h4>
+            <div class="time-display" id="session-time">00:00</div>
+            <p>Recommended completion time: 90 minutes</p>
+        </div>
+
+        <!-- Progress Tracker -->
+        <div class="content-card">
+            <h3>📊 Lesson Progress Tracker</h3>
+            <div class="progress-tracker">
+                <div class="progress-item" id="progress-objectives">
+                    <span class="progress-icon">🎯</span>
+                    <span class="progress-text">Learning Objectives</span>
+                    <span class="progress-status" id="status-objectives">Completed</span>
+                </div>
+                <div class="progress-item" id="progress-scenario">
+                    <span class="progress-icon">🚀</span>
+                    <span class="progress-text">Opening Scenario</span>
+                    <span class="progress-status" id="status-scenario">Not Started</span>
+                </div>
+                <div class="progress-item" id="progress-assessment">
+                    <span class="progress-icon">📋</span>
+                    <span class="progress-text">Assessment</span>
+                    <span class="progress-status" id="status-assessment">Not Started</span>
+                </div>
+                <div class="progress-item" id="progress-quiz">
+                    <span class="progress-icon">🎯</span>
+                    <span class="progress-text">Knowledge Check</span>
+                    <span class="progress-status" id="status-quiz">Not Started</span>
+                </div>
+            </div>
+            <div class="overall-progress">
+                <p><strong>Overall Completion:</strong> <span id="overall-percentage">25%</span></p>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="overall-progress-bar" style="width: 25%;"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Learning Objectives -->
+        <div class="content-card objectives">
+            <h3>🎯 Learning Objectives</h3>
+            <ul>
+                <li>Understand the unique COO perspective in CPR implementation</li>
+                <li>Identify operational integration points for transformation</li>
+                <li>Assess organizational readiness from an operational lens</li>
+                <li>Create your personal COO transformation blueprint</li>
+            </ul>
+        </div>
+
+        <!-- Opening Scenario -->
+        <div class="content-card">
+            <div class="scenario-box">
+                <h3 class="scenario-title">🚀 Opening Scenario: Building RS's Foundation for Success</h3>
+                <p><strong>Setting:</strong> Renaissanse Solutions is 18 months post-launch. You've built operational systems that support multiple Fortune 500 clients.</p>
+                
+                <div class="highlight-box">
+                    <h4>🎬 Monday Morning Crisis:</h4>
+                    <p>Your systems are being tested across three major clients:</p>
+                </div>
+
+                <div class="client-challenge">
+                    <strong>TechCorp (Fortune 100):</strong> CEO questioning CPR ROI after 6 weeks
+                </div>
+
+                <div class="client-challenge">
+                    <strong>ManufacturingGiant:</strong> 3 weeks behind schedule due to resistance
+                </div>
+
+                <div class="client-challenge">
+                    <strong>RetailChain:</strong> Wants to accelerate timeline by 50%
+                </div>
+
+                <div class="highlight-box">
+                    <h4>✅ Your Team's Response:</h4>
+                    <div class="client-success">
+                        🎯 <strong>Senior Consultant:</strong> "Our framework handled TechCorp perfectly - they renewed for Phase 2"
+                    </div>
+                    <div class="client-success">
+                        ⚙️ <strong>Practice Manager:</strong> "ManufacturingGiant triggered our resistance protocol - back on track"
+                    </div>
+                    <div class="client-success">
+                        🚀 <strong>Operations Director:</strong> "RetailChain fits our scalability model - we can accommodate"
+                    </div>
+                </div>
+
+                <button class="interactive-btn" onclick="completeScenario()">✅ Complete Scenario Analysis</button>
+            </div>
+        </div>
+
+        <!-- Simple Assessment -->
+        <div class="content-card">
+            <h3>📋 Quick Assessment</h3>
+            <p>Rate your understanding of COO responsibilities (1-5 scale):</p>
+            <div style="margin: 20px 0;">
+                <label>Strategic Planning: </label>
+                <input type="range" min="1" max="5" value="3" id="strategic-rating" style="margin: 0 10px;">
+                <span id="strategic-value">3</span>/5
+            </div>
+            <div style="margin: 20px 0;">
+                <label>Operational Excellence: </label>
+                <input type="range" min="1" max="5" value="3" id="operational-rating" style="margin: 0 10px;">
+                <span id="operational-value">3</span>/5
+            </div>
+            <button class="interactive-btn" onclick="completeAssessment()">📊 Submit Assessment</button>
+        </div>
+
+        <!-- Knowledge Check -->
+        <div class="quiz-section">
+            <h3>🎯 Knowledge Check</h3>
+            
+            <div class="quiz-question">
+                <h4>Question 1: Primary COO Focus</h4>
+                <p>What should be a COO's primary focus when implementing CPR transformation?</p>
+                <ul class="quiz-options">
+                    <li onclick="selectAnswer(this, false)">a) Ensuring minimal operational disruption</li>
+                    <li onclick="selectAnswer(this, true)">b) Building systems that scale transformation success</li>
+                    <li onclick="selectAnswer(this, false)">c) Managing stakeholder expectations</li>
+                </ul>
+            </div>
+
+            <div class="quiz-question">
+                <h4>Question 2: System Building</h4>
+                <p>Why is systematic approach important for COOs?</p>
+                <ul class="quiz-options">
+                    <li onclick="selectAnswer(this, false)">a) It reduces workload</li>
+                    <li onclick="selectAnswer(this, true)">b) It ensures consistent, scalable results</li>
+                    <li onclick="selectAnswer(this, false)">c) It impresses clients</li>
+                </ul>
+            </div>
+
+            <button class="interactive-btn" onclick="completeQuiz()">✅ Complete Knowledge Check</button>
+        </div>
+
+        <!-- Certificate Section -->
+        <div class="certificate-section" id="completion-certificate">
+            <div class="certificate-icon">🏆</div>
+            <h2 class="certificate-title">Congratulations!</h2>
+            <p>You have successfully completed<br><strong>COO Training - Lesson 1</strong></p>
+            <p>Renaissanse Solutions Executive Training Program</p>
+            <button class="download-certificate" onclick="generateCertificate()">📜 Download Certificate</button>
+        </div>
+
+        <!-- Next Lesson -->
+        <div class="next-lesson">
+            <h3>🚀 Coming Next: Lesson 2</h3>
+            <h4>Operational Excellence in CPR Implementation</h4>
+            <p>Learn advanced frameworks for managing multiple transformation initiatives while maintaining operational excellence.</p>
+            <button class="cta-button" onclick="proceedToLesson2()">Continue to Lesson 2</button>
+        </div>
+    </div>
+
+    <script>
+        let sessionStartTime = Date.now();
+        let progress = {
+            objectives: true,
+            scenario: false,
+            assessment: false,
+            quiz: false
+        };
+        let correctAnswers = 0;
+        let totalQuestions = 2;
+
+        // Start timer
+        function startTimer() {
+            setInterval(() => {
+                const elapsed = Date.now() - sessionStartTime;
+                const minutes = Math.floor(elapsed / 60000);
+                const seconds = Math.floor((elapsed % 60000) / 1000);
+                document.getElementById('session-time').textContent = 
+                    `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            }, 1000);
+        }
+
+        function updateProgress() {
+            const completed = Object.values(progress).filter(Boolean).length;
+            const total = Object.keys(progress).length;
+            const percentage = Math.round((completed / total) * 100);
+            
+            document.getElementById('overall-percentage').textContent = `${percentage}%`;
+            document.getElementById('overall-progress-bar').style.width = `${percentage}%`;
+            
+            if (percentage === 100) {
+                document.getElementById('completion-certificate').style.display = 'block';
+            }
+        }
+
+        function markComplete(section) {
+            if (!progress[section]) {
+                progress[section] = true;
+                document.getElementById(`progress-${section}`).classList.add('completed');
+                document.getElementById(`status-${section}`).textContent = 'Completed';
+                document.getElementById(`status-${section}`).classList.add('completed');
+                updateProgress();
+            }
+        }
+
+        function completeScenario() {
+            markComplete('scenario');
+            alert('Scenario completed! You understand the importance of systematic operational frameworks.');
+        }
+
+        function completeAssessment() {
+            markComplete('assessment');
+            alert('Assessment completed! Your self-evaluation helps identify development areas.');
+        }
+
+        function selectAnswer(element, isCorrect) {
+            const siblings = element.parentElement.children;
+            for (let sibling of siblings) {
+                sibling.classList.remove('quiz-correct', 'quiz-wrong');
+                sibling.onclick = null;
+            }
+            
+            element.classList.add(isCorrect ? 'quiz-correct' : 'quiz-wrong');
+            
+            if (isCorrect) {
+                correctAnswers++;
+            }
+        }
+
+        function completeQuiz() {
+            markComplete('quiz');
+            const score = Math.round((correctAnswers / totalQuestions) * 100);
+            alert(`Quiz completed! You scored ${score}% (${correctAnswers}/${totalQuestions} correct).`);
+        }
+
+        function generateCertificate() {
+            alert('Certificate generation feature - would download a personalized certificate in the full version!');
+        }
+
+        function proceedToLesson2() {
+            alert('Lesson 2 will be available in the complete training series!');
+        }
+
+        // Initialize slider values
+        document.getElementById('strategic-rating').addEventListener('input', function() {
+            document.getElementById('strategic-value').textContent = this.value;
+        });
+
+        document.getElementById('operational-rating').addEventListener('input', function() {
+            document.getElementById('operational-value').textContent = this.value;
+        });
+
+        // Start the timer when page loads
+        startTimer();
+    </script>
+</body>
+</html>
