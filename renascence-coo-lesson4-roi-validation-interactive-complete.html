@@ -1,0 +1,1860 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RS COO Training - Lesson 4: Performance Measurement & ROI Validation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        // RS Coach Feature
+        function showRSCoach(message, type = 'info') {
+            const coach = document.getElementById('rs-coach') || createRSCoach();
+            
+            const messages = {
+                welcome: "Welcome! I'm your RS Coach. I'll guide you through mastering ROI validation strategies that silence competitor objections.",
+                roi_calc: "Excellent ROI calculation! Notice how our guaranteed performance model outperforms traditional consulting approaches.",
+                dashboard: "These metrics demonstrate real-time accountability - something McKinsey and Bain can't match.",
+                boardroom: "Remember: Lead with data, guarantee outcomes, and emphasize sustainability. You've got this!",
+                competitive: "Use these competitive insights to position RS as the low-risk, high-return choice.",
+                mastery: "Outstanding! You've mastered ROI defense. Boards will see RS as the obvious choice."
+            };
+            
+            coach.innerHTML = `
+                <div style="display: flex; align-items: center; margin-bottom: 10px;">
+                    <div style="font-size: 2em; margin-right: 10px;">🤖</div>
+                    <div style="font-weight: 600;">RS Coach</div>
+                </div>
+                <p>${messages[message] || message}</p>
+            `;
+            
+            coach.style.display = 'block';
+            
+            setTimeout(() => {
+                coach.style.display = 'none';
+            }, 5000);
+        }
+
+        function createRSCoach() {
+            const coach = document.createElement('div');
+            coach.id = 'rs-coach';
+            coach.style.cssText = `
+                position: fixed;
+                bottom: 20px;
+                left: 20px;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: white;
+                padding: 20px;
+                border-radius: 15px;
+                max-width: 300px;
+                z-index: 1000;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+                display: none;
+                animation: slideInLeft 0.3s ease;
+            `;
+            document.body.appendChild(coach);
+            return coach;
+        }
+
+        // Initialize the lesson
+        document.addEventListener('DOMContentLoaded', function() {
+            calculateROI();
+            updateProgress(60);
+            initializeAnimations();
+            
+            // Show welcome coach message
+            setTimeout(() => {
+                showRSCoach('welcome');
+            }, 2000);
+        });
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .logo {
+            font-size: 2.5em;
+            font-weight: 800;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .lesson-title {
+            font-size: 2em;
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+
+        .subtitle {
+            font-size: 1.3em;
+            color: #667eea;
+            font-style: italic;
+            margin-bottom: 15px;
+        }
+
+        .duration {
+            background: #3498db;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 25px;
+            display: inline-block;
+            font-weight: 600;
+        }
+
+        .content-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .objectives {
+            background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);
+            color: #2c3e50;
+        }
+
+        .objectives h3 {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .objectives ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .objectives li {
+            padding: 10px 0;
+            padding-left: 30px;
+            position: relative;
+        }
+
+        .objectives li::before {
+            content: "🎯";
+            position: absolute;
+            left: 0;
+            font-size: 1.2em;
+        }
+
+        .scenario-box {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+            border-left: 5px solid #e74c3c;
+        }
+
+        .scenario-title {
+            font-size: 1.4em;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .boardroom-challenge {
+            background: rgba(231, 76, 60, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 10px 0;
+            border-left: 4px solid #e74c3c;
+        }
+
+        .executive-name {
+            font-weight: 700;
+            color: #e74c3c;
+        }
+
+        .interactive-btn {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 10px 5px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .interactive-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .roi-calculator {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+        }
+
+        .calculator-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .calculator-input {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .calculator-input label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .calculator-input input {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #e1e8ed;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: border-color 0.3s ease;
+        }
+
+        .calculator-input input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .roi-results {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .roi-metric {
+            display: inline-block;
+            margin: 10px 20px;
+            text-align: center;
+        }
+
+        .roi-value {
+            font-size: 2.5em;
+            font-weight: 800;
+            display: block;
+        }
+
+        .roi-label {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+
+        .dashboard-simulator {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #e1e8ed;
+        }
+
+        .dashboard-title {
+            font-size: 1.5em;
+            color: #2c3e50;
+            font-weight: 700;
+        }
+
+        .refresh-btn {
+            background: #2ecc71;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: all 0.3s ease;
+        }
+
+        .refresh-btn:hover {
+            background: #27ae60;
+            transform: scale(1.05);
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .metric-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            border-left: 4px solid #667eea;
+            transition: transform 0.3s ease;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .metric-number {
+            font-size: 2em;
+            font-weight: 800;
+            color: #667eea;
+            display: block;
+        }
+
+        .metric-title {
+            font-size: 0.9em;
+            color: #6c757d;
+            margin-top: 5px;
+        }
+
+        .trend-indicator {
+            font-size: 0.8em;
+            margin-top: 5px;
+        }
+
+        .trend-up {
+            color: #2ecc71;
+        }
+
+        .trend-down {
+            color: #e74c3c;
+        }
+
+        .boardroom-simulation {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+        }
+
+        .stakeholder-panel {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .stakeholder-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .stakeholder-card:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.05);
+        }
+
+        .stakeholder-avatar {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .stakeholder-role {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .concern-level {
+            font-size: 0.8em;
+            padding: 3px 8px;
+            border-radius: 10px;
+            margin-top: 5px;
+        }
+
+        .concern-high {
+            background: rgba(231, 76, 60, 0.3);
+        }
+
+        .concern-medium {
+            background: rgba(243, 156, 18, 0.3);
+        }
+
+        .concern-low {
+            background: rgba(46, 204, 113, 0.3);
+        }
+
+        .competitive-analysis {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+        }
+
+        .competitor-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .competitor-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .competitor-name {
+            font-size: 1.2em;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .weakness-highlight {
+            background: rgba(231, 76, 60, 0.1);
+            padding: 10px;
+            border-radius: 8px;
+            margin: 10px 0;
+            border-left: 3px solid #e74c3c;
+        }
+
+        .rs-advantage {
+            background: rgba(46, 204, 113, 0.1);
+            padding: 10px;
+            border-radius: 8px;
+            margin: 10px 0;
+            border-left: 3px solid #2ecc71;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background: white;
+            margin: 5% auto;
+            padding: 30px;
+            border-radius: 15px;
+            width: 80%;
+            max-width: 800px;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .close:hover {
+            color: #667eea;
+        }
+
+        .progress-bar {
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 25px;
+            height: 20px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            height: 100%;
+            width: 60%;
+            border-radius: 25px;
+            transition: width 0.5s ease;
+        }
+
+        .did-you-know {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 5px solid #f39c12;
+            position: relative;
+        }
+
+        .did-you-know::before {
+            content: "💡";
+            font-size: 2em;
+            position: absolute;
+            top: 15px;
+            right: 20px;
+        }
+
+        .did-you-know h4 {
+            color: #e67e22;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+
+        .next-lesson {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 30px;
+        }
+
+        .cta-button {
+            background: white;
+            color: #667eea;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 25px;
+            font-size: 1.2em;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 15px;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .calculator-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .metrics-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stakeholder-panel {
+                grid-template-columns: 1fr;
+            }
+            
+            .competitor-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .section-divider {
+            height: 4px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            border-radius: 2px;
+            margin: 30px 0;
+        }
+
+        .highlight-box {
+            background: rgba(102, 126, 234, 0.1);
+            border: 2px solid #667eea;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+
+        .kpi-builder {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .kpi-category {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 10px 0;
+            border-left: 4px solid #667eea;
+        }
+
+        .kpi-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #e1e8ed;
+        }
+
+        .kpi-item:last-child {
+            border-bottom: none;
+        }
+
+        .kpi-checkbox {
+            margin-right: 10px;
+        }
+
+        .kpi-impact {
+            font-size: 0.8em;
+            color: #6c757d;
+        }
+
+        .defense-strategies {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+        }
+
+        .strategy-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 15px;
+            margin: 10px 0;
+            transition: all 0.3s ease;
+        }
+
+        .strategy-card:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateX(5px);
+        }
+
+        .red-team-section {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            color: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+        }
+
+        .proposal-comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .proposal-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        .proposal-header {
+            font-size: 1.2em;
+            font-weight: 700;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .proposal-metric {
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .proposal-metric:last-child {
+            border-bottom: none;
+        }
+
+        .metric-advantage {
+            color: #2ecc71;
+            font-weight: 600;
+        }
+
+        .metric-disadvantage {
+            color: #e74c3c;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header Section -->
+        <div class="header">
+            <div class="logo">RENASCENCE SOLUTIONS</div>
+            <h1 class="lesson-title">COO Executive Training Program</h1>
+            <h2>Lesson 4: Performance Measurement & ROI Validation</h2>
+            <p class="subtitle">Proving Transformation Value to Boards, Investors & C-suite Allies</p>
+            <span class="duration">📊 Duration: 90 minutes</span>
+        </div>
+
+        <!-- Learning Objectives -->
+        <div class="content-card objectives">
+            <h3>🎯 Learning Objectives</h3>
+            <ul>
+                <li>Master quantifiable ROI defense strategies that silence McKinsey/Bain/BCG objections</li>
+                <li>Build executive dashboards that demonstrate CPR transformation value in real-time</li>
+                <li>Develop board-ready presentations with irrefutable performance metrics</li>
+                <li>Create competitive positioning frameworks showing RS's measurable advantages</li>
+            </ul>
+        </div>
+
+        <!-- Progress Indicator -->
+        <div class="content-card">
+            <h3>📊 Course Progress</h3>
+            <div class="progress-bar">
+                <div class="progress-fill"></div>
+            </div>
+            <p><strong>Lesson 4 of 8</strong> | Performance Mastery Phase</p>
+        </div>
+
+        <!-- Opening Scenario -->
+        <div class="content-card">
+            <div class="scenario-box">
+                <h3 class="scenario-title">🔥 The Crucible Moment: Defending $2.5M Investment</h3>
+                <p><strong>Setting:</strong> TechCorp's quarterly board meeting. Six months into RS's transformation engagement. The CFO just received a competing proposal from McKinsey promising "faster results at lower cost."</p>
+                
+                <div class="highlight-box">
+                    <h4>⚡ The Challenge</h4>
+                    <p>You have 15 minutes to justify continuing with RS versus switching to McKinsey's "proven methodology." Every metric you present will be scrutinized. Every dollar questioned. Your response determines not just this contract—but RS's reputation in the Fortune 500 market.</p>
+                </div>
+
+                <div class="boardroom-challenge">
+                    <div class="executive-name">CFO Patricia Chen:</div>
+                    <p>"McKinsey shows 23% productivity gains in month 3. We're at 11%. Why are we paying premium rates for inferior results?"</p>
+                </div>
+
+                <div class="boardroom-challenge">
+                    <div class="executive-name">CEO Michael Rodriguez:</div>
+                    <p>"I need to see concrete ROI numbers. Not methodology. Not process. Numbers that justify this investment to our shareholders."</p>
+                </div>
+
+                <div class="boardroom-challenge">
+                    <div class="executive-name">Board Member Sarah Kim:</div>
+                    <p>"McKinsey's proposal includes risk mitigation. What guarantees does RS provide against transformation failure?"</p>
+                </div>
+
+                <button class="interactive-btn" onclick="startBoardroomSimulation()">🎯 Enter the Boardroom</button>
+                <div id="boardroom-preview" style="display: none; margin-top: 20px;">
+                    <div class="highlight-box">
+                        <h4>🎭 Your Challenge:</h4>
+                        <p>Use RS's performance data, competitive intelligence, and ROI validation tools to defend our methodology. Every stakeholder has different concerns—your responses must be data-driven and compelling.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <!-- ROI Calculator Tool -->
+        <div class="content-card">
+            <div class="roi-calculator">
+                <h3>💰 RS ROI Calculator: Quantifying Transformation Value</h3>
+                <p>Build the financial case that no competitor can match:</p>
+
+                <div class="calculator-grid">
+                    <div class="calculator-input">
+                        <label for="baseline-revenue">Baseline Annual Revenue ($M)</label>
+                        <input type="number" id="baseline-revenue" value="500" onchange="calculateROI()">
+                    </div>
+                    <div class="calculator-input">
+                        <label for="efficiency-gain">Efficiency Improvement (%)</label>
+                        <input type="number" id="efficiency-gain" value="18" onchange="calculateROI()">
+                    </div>
+                    <div class="calculator-input">
+                        <label for="cost-reduction">Cost Reduction (%)</label>
+                        <input type="number" id="cost-reduction" value="12" onchange="calculateROI()">
+                    </div>
+                    <div class="calculator-input">
+                        <label for="rs-investment">RS Investment ($M)</label>
+                        <input type="number" id="rs-investment" value="2.5" onchange="calculateROI()">
+                    </div>
+                    <div class="calculator-input">
+                        <label for="implementation-months">Implementation Period (Months)</label>
+                        <input type="number" id="implementation-months" value="12" onchange="calculateROI()">
+                    </div>
+                    <div class="calculator-input">
+                        <label for="risk-mitigation">Risk Mitigation Value ($M)</label>
+                        <input type="number" id="risk-mitigation" value="15" onchange="calculateROI()">
+                    </div>
+                </div>
+
+                <button class="interactive-btn" onclick="calculateROI()">🔢 Calculate ROI Impact</button>
+
+                <div class="roi-results" id="roi-results">
+                    <h4>RS Transformation ROI Analysis</h4>
+                    <div class="roi-metric">
+                        <span class="roi-value" id="total-roi">847%</span>
+                        <span class="roi-label">Total ROI</span>
+                    </div>
+                    <div class="roi-metric">
+                        <span class="roi-value" id="payback-period">3.6</span>
+                        <span class="roi-label">Payback (Months)</span>
+                    </div>
+                    <div class="roi-metric">
+                        <span class="roi-value" id="annual-value">$127M</span>
+                        <span class="roi-label">Annual Value</span>
+                    </div>
+                    <div class="roi-metric">
+                        <span class="roi-value" id="competitive-advantage">312%</span>
+                        <span class="roi-label">vs McKinsey ROI</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Executive Dashboard Simulator -->
+        <div class="content-card">
+            <div class="dashboard-simulator">
+                <div class="dashboard-header">
+                    <div class="dashboard-title">🎛️ Executive CPR Dashboard</div>
+                    <button class="refresh-btn" onclick="refreshMetrics()">🔄 Refresh Metrics</button>
+                </div>
+                
+                <div class="metrics-grid" id="metrics-grid">
+                    <div class="metric-card">
+                        <span class="metric-number" id="productivity-metric">23.7%</span>
+                        <div class="metric-title">Productivity Gain</div>
+                        <div class="trend-indicator trend-up" id="productivity-trend">↗ +2.3% this month</div>
+                    </div>
+                    <div class="metric-card">
+                        <span class="metric-number" id="cost-metric">$47.2M</span>
+                        <div class="metric-title">Cost Savings YTD</div>
+                        <div class="trend-indicator trend-up" id="cost-trend">↗ Ahead of target</div>
+                    </div>
+                    <div class="metric-card">
+                        <span class="metric-number" id="engagement-metric">87%</span>
+                        <div class="metric-title">Employee Engagement</div>
+                        <div class="trend-indicator trend-up" id="engagement-trend">↗ +12% vs baseline</div>
+                    </div>
+                    <div class="metric-card">
+                        <span class="metric-number" id="timeline-metric">94%</span>
+                        <div class="metric-title">On-Schedule Delivery</div>
+                        <div class="trend-indicator trend-up" id="timeline-trend">↗ Exceeding target</div>
+                    </div>
+                    <div class="metric-card">
+                        <span class="metric-number" id="quality-metric">96.3%</span>
+                        <div class="metric-title">Quality Score</div>
+                        <div class="trend-indicator trend-up" id="quality-trend">↗ Industry leading</div>
+                    </div>
+                    <div class="metric-card">
+                        <span class="metric-number" id="satisfaction-metric">9.2/10</span>
+                        <div class="metric-title">Client Satisfaction</div>
+                        <div class="trend-indicator trend-up" id="satisfaction-trend">↗ Premium tier</div>
+                    </div>
+                </div>
+
+                <button class="interactive-btn" onclick="generateExecutiveReport()">📋 Generate Board Report</button>
+            </div>
+        </div>
+
+        <!-- Did You Know -->
+        <div class="did-you-know">
+            <h4>Did You Know?</h4>
+            <p>Fortune 500 boards reject <strong>73% of transformation proposals</strong> due to inadequate ROI validation. Companies using RS's quantitative defense methodology achieve <strong>94% board approval rates</strong> and secure average funding increases of <strong>47%</strong> above initial requests.</p>
+        </div>
+
+        <!-- Competitive Analysis Framework -->
+        <div class="content-card">
+            <div class="competitive-analysis">
+                <h3>⚔️ Competitive Intelligence: Why RS Wins</h3>
+                <p>Master the data points that differentiate RS from traditional consulting:</p>
+
+                <div class="competitor-grid">
+                    <div class="competitor-card">
+                        <div class="competitor-name">McKinsey & Company</div>
+                        <div class="weakness-highlight">
+                            <strong>Implementation Gap:</strong> 67% of McKinsey recommendations never fully implemented
+                        </div>
+                        <div class="rs-advantage">
+                            <strong>RS Advantage:</strong> 94% implementation success with embedded accountability
+                        </div>
+                    </div>
+                    <div class="competitor-card">
+                        <div class="competitor-name">Bain & Company</div>
+                        <div class="weakness-highlight">
+                            <strong>Speed Illusion:</strong> Quick wins that create long-term sustainability issues
+                        </div>
+                        <div class="rs-advantage">
+                            <strong>RS Advantage:</strong> Sustainable transformation with 3-year performance guarantees
+                        </div>
+                        <div class="weakness-highlight">
+                            <strong>Narrow Focus:</strong> Single-department optimization missing cross-functional impact
+                        </div>
+                        <div class="rs-advantage">
+                            <strong>RS Advantage:</strong> Holistic CPR methodology affecting entire organization
+                        </div>
+                    </div>
+                    <div class="competitor-card">
+                        <div class="competitor-name">Boston Consulting Group</div>
+                        <div class="weakness-highlight">
+                            <strong>Theory-Heavy:</strong> Academic models that struggle in real operational environments
+                        </div>
+                        <div class="rs-advantage">
+                            <strong>RS Advantage:</strong> Battle-tested frameworks with Fortune 500 validation
+                        </div>
+                        <div class="weakness-highlight">
+                            <strong>Cost Overruns:</strong> Average 34% budget increase due to scope creep
+                        </div>
+                        <div class="rs-advantage">
+                            <strong>RS Advantage:</strong> Fixed-fee model with performance-based bonuses
+                        </div>
+                    </div>
+                </div>
+
+                <button class="interactive-btn" onclick="openCompetitiveIntelligence()">📊 Build Competitive Defense</button>
+            </div>
+        </div>
+
+        <!-- KPI Builder Workshop -->
+        <div class="content-card">
+            <div class="kpi-builder">
+                <h3>🎯 Executive KPI Builder: Your Transformation Scorecard</h3>
+                <p>Select the metrics that will prove RS's transformation value:</p>
+
+                <div class="kpi-category">
+                    <h4>💰 Financial Performance Indicators</h4>
+                    <div class="kpi-item">
+                        <label><input type="checkbox" class="kpi-checkbox" checked> Revenue Growth Rate</label>
+                        <span class="kpi-impact">High Impact: Direct shareholder value</span>
+                    </div>
+                    <div class="kpi-item">
+                        <label><input type="checkbox" class="kpi-checkbox" checked> Operating Margin Improvement</label>
+                        <span class="kpi-impact">High Impact: Efficiency demonstration</span>
+                    </div>
+                    <div class="kpi-item">
+                        <label><input type="checkbox" class="kpi-checkbox"> Cash Flow Optimization</label>
+                        <span class="kpi-impact">Medium Impact: Working capital efficiency</span>
+                    </div>
+                    <div class="kpi-item">
+                        <label><input type="checkbox" class="kpi-checkbox" checked> Cost Per Unit Reduction</label>
+                        <span class="kpi-impact">High Impact: Operational excellence proof</span>
+                    </div>
+                </div>
+
+                <div class="kpi-category">
+                    <h4>⚡ Operational Excellence Metrics</h4>
+                    <div class="kpi-item">
+                        <label><input type="checkbox" class="kpi-checkbox" checked> Process Cycle Time</label>
+                        <span class="kpi-impact">High Impact: Speed improvement validation</span>
+                    </div>
+                    <div class="kpi-item">
+                        <label><input type="checkbox" class="kpi-checkbox" checked> Quality Score (Six Sigma)</label>
+                        <span class="kpi-impact">High Impact: Excellence demonstration</span>
+                    </div>
+                    <div class="kpi-item">
+                        <label><input type="checkbox" class="kpi-checkbox"> Resource Utilization Rate</label>
+                        <span class="kpi-impact">Medium Impact: Efficiency indicator</span>
+                    </div>
+                    <div class="kpi-item">
+                        <label><input type="checkbox" class="kpi-checkbox" checked> Customer Satisfaction Index</label>
+                        <span class="kpi-impact">High Impact: Market validation</span>
+                    </div>
+                </div>
+
+                <div class="kpi-category">
+                    <h4>🚀 Strategic Transformation Indicators</h4>
+                    <div class="kpi-item">
+                        <label><input type="checkbox" class="kpi-checkbox" checked> Digital Adoption Rate</label>
+                        <span class="kpi-impact">High Impact: Future-readiness proof</span>
+                    </div>
+                    <div class="kpi-item">
+                        <label><input type="checkbox" class="kpi-checkbox"> Innovation Pipeline Value</label>
+                        <span class="kpi-impact">Medium Impact: Growth potential</span>
+                    </div>
+                    <div class="kpi-item">
+                        <label><input type="checkbox" class="kpi-checkbox" checked> Employee Engagement Score</label>
+                        <span class="kpi-impact">High Impact: Sustainability indicator</span>
+                    </div>
+                    <div class="kpi-item">
+                        <label><input type="checkbox" class="kpi-checkbox" checked> Time-to-Market Acceleration</label>
+                        <span class="kpi-impact">High Impact: Competitive advantage</span>
+                    </div>
+                </div>
+
+                <button class="interactive-btn" onclick="buildCustomKPIs()">🔧 Build Your KPI Dashboard</button>
+            </div>
+        </div>
+
+        <!-- Boardroom Defense Strategies -->
+        <div class="content-card">
+            <div class="defense-strategies">
+                <h3>🛡️ Boardroom Defense Strategies: Data-Driven Responses</h3>
+                <p>Master the responses that convert skeptics into advocates:</p>
+
+                <div class="strategy-card" onclick="expandStrategy('objection1')">
+                    <h4>🎯 Objection: "Results are too slow compared to competitors"</h4>
+                    <p><strong>Defense:</strong> "Our 18-month ROI averages 340% vs industry standard 180%. Quality transformation requires foundation-building that competitors skip."</p>
+                </div>
+
+                <div class="strategy-card" onclick="expandStrategy('objection2')">
+                    <h4>💰 Objection: "McKinsey costs less with faster delivery"</h4>
+                    <p><strong>Defense:</strong> "McKinsey's total cost including re-work averages 147% of initial proposal. RS fixed-fee model with performance guarantees eliminates hidden costs."</p>
+                </div>
+
+                <div class="strategy-card" onclick="expandStrategy('objection3')">
+                    <h4>📊 Objection: "Where's the proof of sustainable change?"</h4>
+                    <p><strong>Defense:</strong> "92% of RS clients maintain improvement 3 years post-engagement vs 34% industry average. Our CPR methodology embeds change into organizational DNA."</p>
+                </div>
+
+                <div class="strategy-card" onclick="expandStrategy('objection4')">
+                    <h4>⚠️ Objection: "What guarantees do we have against failure?"</h4>
+                    <p><strong>Defense:</strong> "RS provides performance guarantees with penalty clauses. If KPIs aren't met, we refund 50% and continue working at no cost until targets achieved."</p>
+                </div>
+
+                <button class="interactive-btn" onclick="practiceDefenses()">🎭 Practice Defense Scenarios</button>
+            </div>
+        </div>
+
+        <!-- Red Team Challenge -->
+        <div class="content-card">
+            <div class="red-team-section">
+                <h3>🔴 Red Team Challenge: RS vs McKinsey Proposal</h3>
+                <p>A Fortune 100 company is choosing between RS and McKinsey. Use data to win:</p>
+
+                <div class="proposal-comparison">
+                    <div class="proposal-card">
+                        <div class="proposal-header">McKinsey Proposal</div>
+                        <div class="proposal-metric">
+                            <strong>Timeline:</strong> <span class="metric-advantage">6 months</span>
+                        </div>
+                        <div class="proposal-metric">
+                            <strong>Cost:</strong> <span class="metric-advantage">$1.8M</span>
+                        </div>
+                        <div class="proposal-metric">
+                            <strong>Guaranteed ROI:</strong> <span class="metric-disadvantage">None</span>
+                        </div>
+                        <div class="proposal-metric">
+                            <strong>Implementation Support:</strong> <span class="metric-disadvantage">3 months</span>
+                        </div>
+                        <div class="proposal-metric">
+                            <strong>Performance Tracking:</strong> <span class="metric-disadvantage">Quarterly reports</span>
+                        </div>
+                        <div class="proposal-metric">
+                            <strong>Success Rate:</strong> <span class="metric-disadvantage">67% (industry avg)</span>
+                        </div>
+                    </div>
+                    <div class="proposal-card">
+                        <div class="proposal-header">RS Proposal</div>
+                        <div class="proposal-metric">
+                            <strong>Timeline:</strong> <span class="metric-disadvantage">12 months</span>
+                        </div>
+                        <div class="proposal-metric">
+                            <strong>Cost:</strong> <span class="metric-disadvantage">$2.5M</span>
+                        </div>
+                        <div class="proposal-metric">
+                            <strong>Guaranteed ROI:</strong> <span class="metric-advantage">250% minimum</span>
+                        </div>
+                        <div class="proposal-metric">
+                            <strong>Implementation Support:</strong> <span class="metric-advantage">24 months</span>
+                        </div>
+                        <div class="proposal-metric">
+                            <strong>Performance Tracking:</strong> <span class="metric-advantage">Real-time dashboard</span>
+                        </div>
+                        <div class="proposal-metric">
+                            <strong>Success Rate:</strong> <span class="metric-advantage">94% (verified)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="interactive-btn" onclick="startRedTeamChallenge()">⚔️ Win This Competition</button>
+            </div>
+        </div>
+
+        <!-- Boardroom Simulation -->
+        <div class="content-card" id="boardroom-simulator" style="display: none;">
+            <div class="boardroom-simulation">
+                <h3>🎭 Live Boardroom Simulation</h3>
+                <p>Defend RS's methodology against challenging stakeholders:</p>
+
+                <div class="stakeholder-panel">
+                    <div class="stakeholder-card" onclick="selectStakeholder('cfo')">
+                        <span class="stakeholder-avatar">💼</span>
+                        <div class="stakeholder-role">CFO Patricia Chen</div>
+                        <div class="concern-level concern-high">High Concern</div>
+                    </div>
+                    <div class="stakeholder-card" onclick="selectStakeholder('ceo')">
+                        <span class="stakeholder-avatar">👔</span>
+                        <div class="stakeholder-role">CEO Michael Rodriguez</div>
+                        <div class="concern-level concern-medium">Medium Concern</div>
+                    </div>
+                    <div class="stakeholder-card" onclick="selectStakeholder('board')">
+                        <span class="stakeholder-avatar">📊</span>
+                        <div class="stakeholder-role">Board Member Sarah Kim</div>
+                        <div class="concern-level concern-high">High Concern</div>
+                    </div>
+                    <div class="stakeholder-card" onclick="selectStakeholder('coo')">
+                        <span class="stakeholder-avatar">⚙️</span>
+                        <div class="stakeholder-role">COO James Park</div>
+                        <div class="concern-level concern-low">Low Concern</div>
+                    </div>
+                </div>
+
+                <div id="stakeholder-dialogue" style="display: none; margin-top: 20px;">
+                    <div class="highlight-box">
+                        <h4 id="dialogue-title">Stakeholder Challenge</h4>
+                        <p id="dialogue-content">Challenge content will appear here</p>
+                        <div id="response-options" style="margin-top: 15px;">
+                            <!-- Response options will be populated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Knowledge Validation Quiz -->
+        <div class="content-card">
+            <div class="defense-strategies">
+                <h3>📝 ROI Mastery Validation</h3>
+                
+                <div class="strategy-card">
+                    <h4>Question 1: Primary ROI Defense</h4>
+                    <p>When a board member questions RS's higher cost, your strongest response is:</p>
+                    <div style="margin: 10px 0;">
+                        <label style="display: block; margin: 5px 0;"><input type="radio" name="q1" value="a"> a) Emphasize RS's prestigious client list</label>
+                        <label style="display: block; margin: 5px 0;"><input type="radio" name="q1" value="b"> b) Present total cost of ownership including failure risk</label>
+                        <label style="display: block; margin: 5px 0;"><input type="radio" name="q1" value="c"> c) Defend premium pricing as quality indicator</label>
+                        <label style="display: block; margin: 5px 0;"><input type="radio" name="q1" value="d"> d) Offer to match competitor pricing</label>
+                    </div>
+                </div>
+
+                <div class="strategy-card">
+                    <h4>Question 2: Competitive Differentiation</h4>
+                    <p>RS's strongest advantage over McKinsey/Bain/BCG is:</p>
+                    <div style="margin: 10px 0;">
+                        <label style="display: block; margin: 5px 0;"><input type="radio" name="q2" value="a"> a) Lower cost structure</label>
+                        <label style="display: block; margin: 5px 0;"><input type="radio" name="q2" value="b"> b) Faster implementation timeline</label>
+                        <label style="display: block; margin: 5px 0;"><input type="radio" name="q2" value="c"> c) Guaranteed performance outcomes with accountability</label>
+                        <label style="display: block; margin: 5px 0;"><input type="radio" name="q2" value="d"> d) More experienced consultants</label>
+                    </div>
+                </div>
+
+                <button class="interactive-btn" onclick="submitROIQuiz()">📊 Validate ROI Mastery</button>
+            </div>
+        </div>
+
+        <!-- Executive Report Modal -->
+        <div id="reportModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal('reportModal')">&times;</span>
+                <h2>📋 Executive Transformation Report</h2>
+                <div id="executive-report-content">
+                    <!-- Report content will be generated by JavaScript -->
+                </div>
+                <button class="interactive-btn" onclick="downloadReport()">📥 Download Report</button>
+            </div>
+        </div>
+
+        <!-- Competitive Intelligence Modal -->
+        <div id="competitiveModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal('competitiveModal')">&times;</span>
+                <h2>⚔️ Competitive Intelligence Dashboard</h2>
+                <div id="competitive-content">
+                    <!-- Competitive analysis will be generated by JavaScript -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Next Lesson Teaser -->
+        <div class="next-lesson">
+            <h3>🚀 Coming Up in Lesson 5</h3>
+            <p>You'll master crisis leadership and transformation recovery—the skills that differentiate RS COOs when implementations face unexpected obstacles, stakeholder resistance, or market disruptions.</p>
+            
+            <div class="highlight-box" style="background: rgba(255, 255, 255, 0.1); border-color: white;">
+                <h4>💡 Pre-Lesson 5 Challenge:</h4>
+                <p>Identify a real transformation failure case study from the past 2 years. Analyze what went wrong and how RS's methodology would have prevented the failure. This will prepare you for advanced crisis leadership scenarios.</p>
+            </div>
+            
+            <button class="cta-button">Continue to Lesson 5 →</button>
+        </div>
+    </div>
+
+    <script>
+        // Global variables for tracking progress and state
+        let currentROI = 847;
+        let currentMetrics = {
+            productivity: 23.7,
+            cost: 47.2,
+            engagement: 87,
+            timeline: 94,
+            quality: 96.3,
+            satisfaction: 9.2
+        };
+        let quizScore = 0;
+        let selectedStakeholder = null;
+
+        // Global variables for tracking progress and state
+        let currentROI = 847;
+        let currentMetrics = {
+            productivity: 23.7,
+            cost: 47.2,
+            engagement: 87,
+            timeline: 94,
+            quality: 96.3,
+            satisfaction: 9.2
+        };
+        let quizScore = 0;
+        let selectedStakeholder = null;
+
+        // ROI Calculator Functions
+        function calculateROI() {
+            const baselineRevenue = parseFloat(document.getElementById('baseline-revenue').value) || 500;
+            const efficiencyGain = parseFloat(document.getElementById('efficiency-gain').value) || 18;
+            const costReduction = parseFloat(document.getElementById('cost-reduction').value) || 12;
+            const rsInvestment = parseFloat(document.getElementById('rs-investment').value) || 2.5;
+            const implementationMonths = parseFloat(document.getElementById('implementation-months').value) || 12;
+            const riskMitigation = parseFloat(document.getElementById('risk-mitigation').value) || 15;
+
+            // Calculate annual value
+            const efficiencyValue = baselineRevenue * (efficiencyGain / 100);
+            const costSavings = baselineRevenue * 0.3 * (costReduction / 100); // Assuming 30% cost base
+            const annualValue = efficiencyValue + costSavings + riskMitigation;
+            
+            // Calculate ROI
+            const totalROI = ((annualValue - rsInvestment) / rsInvestment * 100);
+            const paybackPeriod = (rsInvestment / (annualValue / 12));
+            const competitiveAdvantage = totalROI / 2.71; // Based on industry averages
+
+            // Update display
+            document.getElementById('total-roi').textContent = Math.round(totalROI) + '%';
+            document.getElementById('payback-period').textContent = paybackPeriod.toFixed(1);
+            document.getElementById('annual-value').textContent = 'highlight">
+                            <strong>ROI Blind Spot:</strong> Abstract strategy frameworks without measurable outcomes
+                        </div>
+                        <div class="rs-advantage">
+                            <strong>RS Advantage:</strong> Real-time performance tracking with guaranteed metrics
+                        </div>
+                        <div class="weakness- + annualValue.toFixed(0) + 'M';
+            document.getElementById('competitive-advantage').textContent = Math.round(competitiveAdvantage) + '%';
+
+            currentROI = totalROI;
+            
+            // Add visual feedback
+            if (totalROI > 500) {
+                document.getElementById('roi-results').style.background = 'linear-gradient(135deg, #2ecc71 0%, #27ae60 100%)';
+            } else if (totalROI > 300) {
+                document.getElementById('roi-results').style.background = 'linear-gradient(135deg, #f39c12 0%, #e67e22 100%)';
+            } else {
+                document.getElementById('roi-results').style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+            }
+            
+            // Show RS Coach feedback
+            if (totalROI > 500) {
+                showRSCoach('roi_calc');
+            }
+        }
+
+        // Dashboard Functions
+        function refreshMetrics() {
+            // Simulate real-time metric updates
+            const variations = {
+                productivity: (Math.random() - 0.5) * 2,
+                cost: (Math.random() - 0.5) * 5,
+                engagement: (Math.random() - 0.5) * 3,
+                timeline: (Math.random() - 0.5) * 2,
+                quality: (Math.random() - 0.5) * 1,
+                satisfaction: (Math.random() - 0.5) * 0.3
+            };
+
+            // Update metrics with variations
+            currentMetrics.productivity = Math.max(0, currentMetrics.productivity + variations.productivity);
+            currentMetrics.cost = Math.max(0, currentMetrics.cost + variations.cost);
+            currentMetrics.engagement = Math.max(0, Math.min(100, currentMetrics.engagement + variations.engagement));
+            currentMetrics.timeline = Math.max(0, Math.min(100, currentMetrics.timeline + variations.timeline));
+            currentMetrics.quality = Math.max(0, Math.min(100, currentMetrics.quality + variations.quality));
+            currentMetrics.satisfaction = Math.max(0, Math.min(10, currentMetrics.satisfaction + variations.satisfaction));
+
+            // Update display
+            document.getElementById('productivity-metric').textContent = currentMetrics.productivity.toFixed(1) + '%';
+            document.getElementById('cost-metric').textContent = 'highlight">
+                            <strong>ROI Blind Spot:</strong> Abstract strategy frameworks without measurable outcomes
+                        </div>
+                        <div class="rs-advantage">
+                            <strong>RS Advantage:</strong> Real-time performance tracking with guaranteed metrics
+                        </div>
+                        <div class="weakness- + currentMetrics.cost.toFixed(1) + 'M';
+            document.getElementById('engagement-metric').textContent = Math.round(currentMetrics.engagement) + '%';
+            document.getElementById('timeline-metric').textContent = Math.round(currentMetrics.timeline) + '%';
+            document.getElementById('quality-metric').textContent = currentMetrics.quality.toFixed(1) + '%';
+            document.getElementById('satisfaction-metric').textContent = currentMetrics.satisfaction.toFixed(1) + '/10';
+
+            // Update trends
+            updateTrendIndicators(variations);
+            
+            // Visual feedback
+            animateMetricRefresh();
+            updateProgress(80);
+            
+            // Show RS Coach feedback
+            showRSCoach('dashboard');
+        };
+
+        function updateTrendIndicators(variations) {
+            const trends = {
+                'productivity-trend': variations.productivity > 0 ? '↗ Improving' : '↘ Monitor closely',
+                'cost-trend': variations.cost > 0 ? '↗ Ahead of target' : '↘ Below projection',
+                'engagement-trend': variations.engagement > 0 ? '↗ Strong momentum' : '↘ Needs attention',
+                'timeline-trend': variations.timeline > 0 ? '↗ Exceeding target' : '↘ On track',
+                'quality-trend': variations.quality > 0 ? '↗ Industry leading' : '↗ Maintaining excellence',
+                'satisfaction-trend': variations.satisfaction > 0 ? '↗ Premium tier' : '↗ Strong performance'
+            };
+
+            Object.keys(trends).forEach(id => {
+                const element = document.getElementById(id);
+                if (element) {
+                    element.textContent = trends[id];
+                    element.className = variations[id.replace('-trend', '')] > 0 ? 'trend-indicator trend-up' : 'trend-indicator trend-down';
+                }
+            });
+        }
+
+        function animateMetricRefresh() {
+            const cards = document.querySelectorAll('.metric-card');
+            cards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.style.transform = 'scale(1.05)';
+                    setTimeout(() => {
+                        card.style.transform = 'scale(1)';
+                    }, 200);
+                }, index * 100);
+            });
+        }
+
+        // Executive Report Generation
+        window.generateExecutiveReport = function() {
+            const reportContent = `
+                <div style="text-align: left;">
+                    <h3>🎯 Executive Summary</h3>
+                    <p><strong>RS Transformation Status:</strong> Exceeding performance targets across all key metrics</p>
+                    <p><strong>ROI Achievement:</strong> ${currentROI.toFixed(0)}% return on investment (Target: 250%)</p>
+                    <p><strong>Risk Mitigation:</strong> All critical risks identified and mitigated</p>
+                    
+                    <h3>📊 Key Performance Indicators</h3>
+                    <ul>
+                        <li><strong>Productivity Gain:</strong> ${currentMetrics.productivity.toFixed(1)}% (Industry benchmark: 15%)</li>
+                        <li><strong>Cost Savings:</strong> ${currentMetrics.cost.toFixed(1)}M YTD (Target: $35M)</li>
+                        <li><strong>Employee Engagement:</strong> ${Math.round(currentMetrics.engagement)}% (Industry average: 67%)</li>
+                        <li><strong>Quality Score:</strong> ${currentMetrics.quality.toFixed(1)}% (Six Sigma standard)</li>
+                        <li><strong>Client Satisfaction:</strong> ${currentMetrics.satisfaction.toFixed(1)}/10 (Premium tier)</li>
+                    </ul>
+
+                    <h3>🏆 Competitive Advantage Analysis</h3>
+                    <p><strong>vs McKinsey:</strong> 47% faster implementation, 23% lower total cost</p>
+                    <p><strong>vs Bain:</strong> 89% higher sustainability rate, 156% better ROI</p>
+                    <p><strong>vs BCG:</strong> 234% improvement in measurable outcomes</p>
+
+                    <h3>🚀 Strategic Recommendations</h3>
+                    <ol>
+                        <li>Accelerate Phase 2 implementation based on current success metrics</li>
+                        <li>Expand RS methodology to additional business units</li>
+                        <li>Establish RS as strategic transformation partner for 3-year roadmap</li>
+                    </ol>
+
+                    <h3>📈 Financial Impact Projection</h3>
+                    <p><strong>12-Month Value:</strong> ${(currentROI * 2.5 / 100 * 100).toFixed(0)}M</p>
+                    <p><strong>3-Year Value:</strong> ${(currentROI * 2.5 / 100 * 280).toFixed(0)}M</p>
+                    <p><strong>Sustainability Factor:</strong> 94% (RS clients maintain improvements 3+ years)</p>
+                </div>
+            `;
+            
+            document.getElementById('executive-report-content').innerHTML = reportContent;
+            document.getElementById('reportModal').style.display = 'block';
+            updateProgress(90);
+        }
+
+        // Competitive Intelligence Functions
+        function openCompetitiveIntelligence() {
+            const competitiveContent = `
+                <div style="text-align: left;">
+                    <h3>⚔️ Market Position Analysis</h3>
+                    
+                    <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                        <h4>🎯 RS Market Advantage</h4>
+                        <ul>
+                            <li><strong>Implementation Success Rate:</strong> 94% vs 67% industry average</li>
+                            <li><strong>Client Retention:</strong> 97% vs 78% industry average</li>
+                            <li><strong>ROI Guarantee:</strong> Only firm offering performance-based pricing</li>
+                            <li><strong>Sustainability:</strong> 92% maintain improvements after 3 years</li>
+                        </ul>
+                    </div>
+
+                    <h3>📊 Competitive Weaknesses to Exploit</h3>
+                    
+                    <div style="background: rgba(231, 76, 60, 0.1); padding: 15px; border-radius: 8px; margin: 10px 0;">
+                        <h4>McKinsey & Company</h4>
+                        <ul>
+                            <li>67% of recommendations never fully implemented</li>
+                            <li>No ROI guarantees or performance accountability</li>
+                            <li>Average cost overrun: 34% above initial proposal</li>
+                            <li>Theoretical frameworks struggle in operational reality</li>
+                        </ul>
+                    </div>
+
+                    <div style="background: rgba(231, 76, 60, 0.1); padding: 15px; border-radius: 8px; margin: 10px 0;">
+                        <h4>Bain & Company</h4>
+                        <ul>
+                            <li>Quick wins create long-term sustainability issues</li>
+                            <li>Single-department focus misses cross-functional impact</li>
+                            <li>23% of clients experience performance regression within 18 months</li>
+                            <li>Limited post-implementation support</li>
+                        </ul>
+                    </div>
+
+                    <div style="background: rgba(231, 76, 60, 0.1); padding: 15px; border-radius: 8px; margin: 10px 0;">
+                        <h4>Boston Consulting Group</h4>
+                        <ul>
+                            <li>Academic models often fail in real-world application</li>
+                            <li>High consultant turnover affects project continuity</li>
+                            <li>Rigid methodologies don't adapt to client culture</li>
+                            <li>Limited quantitative tracking of transformation success</li>
+                        </ul>
+                    </div>
+
+                    <h3>🏆 Win Strategy Against Big 3</h3>
+                    <ol>
+                        <li><strong>Lead with Guarantees:</strong> Performance-based pricing eliminates client risk</li>
+                        <li><strong>Prove Sustainability:</strong> 3-year success tracking vs competitor 6-month focus</li>
+                        <li><strong>Demonstrate ROI:</strong> Real-time dashboards vs quarterly status reports</li>
+                        <li><strong>Show Total Value:</strong> Include implementation support in cost comparison</li>
+                    </ol>
+                </div>
+            `;
+            
+            document.getElementById('competitive-content').innerHTML = competitiveContent;
+            document.getElementById('competitiveModal').style.display = 'block';
+            
+            // Show RS Coach guidance
+            showRSCoach('competitive');
+        }
+
+        // Boardroom Simulation Functions
+        function startBoardroomSimulation() {
+            document.getElementById('boardroom-preview').style.display = 'block';
+            document.getElementById('boardroom-simulator').style.display = 'block';
+            document.getElementById('boardroom-simulator').scrollIntoView({behavior: 'smooth'});
+            updateProgress(70);
+            
+            // Show RS Coach guidance
+            showRSCoach('boardroom');
+        }
+
+        function selectStakeholder(stakeholderType) {
+            selectedStakeholder = stakeholderType;
+            
+            const dialogues = {
+                cfo: {
+                    title: "CFO Patricia Chen's Challenge",
+                    content: "\"McKinsey shows 23% productivity gains in month 3. We're at 11%. Their proposal costs $700K less. Why should we continue with RS when the numbers clearly favor McKinsey?\"",
+                    responses: [
+                        {text: "McKinsey's metrics exclude implementation costs and rework", correct: true},
+                        {text: "RS focuses on sustainable, long-term improvements", correct: false},
+                        {text: "We need more time to show RS's value", correct: false}
+                    ]
+                },
+                ceo: {
+                    title: "CEO Michael Rodriguez's Challenge",
+                    content: "\"I need concrete ROI numbers for our shareholders. Not methodology, not process improvements - actual financial impact that justifies this investment. Can you provide that?\"",
+                    responses: [
+                        {text: "Present real-time dashboard with quantified savings", correct: true},
+                        {text: "Explain the complexity of measuring transformation ROI", correct: false},
+                        {text: "Reference other successful client case studies", correct: false}
+                    ]
+                },
+                board: {
+                    title: "Board Member Sarah Kim's Challenge", 
+                    content: "\"McKinsey offers risk mitigation insurance and has a proven track record with Fortune 100 companies. What guarantees does RS provide against transformation failure?\"",
+                    responses: [
+                        {text: "RS provides performance guarantees with penalty clauses", correct: true},
+                        {text: "Transformation always involves inherent risks", correct: false},
+                        {text: "RS has strong insurance coverage for projects", correct: false}
+                    ]
+                },
+                coo: {
+                    title: "COO James Park's Support",
+                    content: "\"I've seen RS's methodology in action. The operational improvements are measurable and sustainable. What data can we show the board to reinforce this decision?\"",
+                    responses: [
+                        {text: "Present comprehensive KPI dashboard and trend analysis", correct: true},
+                        {text: "Share positive feedback from department heads", correct: false},
+                        {text: "Highlight RS's innovative approaches", correct: false}
+                    ]
+                }
+            };
+
+            const dialogue = dialogues[stakeholderType];
+            document.getElementById('dialogue-title').textContent = dialogue.title;
+            document.getElementById('dialogue-content').textContent = dialogue.content;
+            
+            let responseHTML = '';
+            dialogue.responses.forEach((response, index) => {
+                responseHTML += `
+                    <div style="margin: 10px 0;">
+                        <button class="interactive-btn" style="width: 100%; text-align: left; padding: 10px 20px;" 
+                                onclick="window.respondToStakeholder(${index}, ${response.correct})">
+                            ${String.fromCharCode(97 + index)}) ${response.text}
+                        </button>
+                    </div>
+                `;
+            });
+            
+            document.getElementById('response-options').innerHTML = responseHTML;
+            document.getElementById('stakeholder-dialogue').style.display = 'block';
+        }
+
+        function respondToStakeholder(responseIndex, isCorrect) {
+            const responses = document.querySelectorAll('#response-options button');
+            responses.forEach(btn => btn.disabled = true);
+            
+            if (isCorrect) {
+                responses[responseIndex].style.background = 'linear-gradient(45deg, #2ecc71, #27ae60)';
+                responses[responseIndex].innerHTML += ' ✅';
+                quizScore += 25;
+                showFeedback('Excellent! Data-driven responses build credibility and trust.', 'success');
+            } else {
+                responses[responseIndex].style.background = 'linear-gradient(45deg, #e74c3c, #c0392b)';
+                responses[responseIndex].innerHTML += ' ❌';
+                showFeedback('Consider leading with quantifiable metrics and guarantees instead.', 'error');
+            }
+            
+            setTimeout(() => {
+                document.getElementById('stakeholder-dialogue').style.display = 'none';
+                updateProgress(85);
+            }, 3000);
+        }
+
+        // KPI Builder Functions
+        function buildCustomKPIs() {
+            const selectedKPIs = [];
+            const checkboxes = document.querySelectorAll('.kpi-checkbox:checked');
+            
+            checkboxes.forEach(checkbox => {
+                const label = checkbox.parentNode.textContent.trim();
+                selectedKPIs.push(label);
+            });
+            
+            if (selectedKPIs.length < 5) {
+                showFeedback('Select at least 5 KPIs for a comprehensive dashboard.', 'warning');
+                return;
+            }
+            
+            const kpiReport = `
+                <h3>🎯 Your Custom KPI Dashboard</h3>
+                <p><strong>Selected Metrics (${selectedKPIs.length}):</strong></p>
+                <ul>
+                    ${selectedKPIs.map(kpi => `<li>${kpi}</li>`).join('')}
+                </ul>
+                <p><strong>Dashboard Impact Score:</strong> ${Math.min(100, selectedKPIs.length * 8)}/100</p>
+                <p><strong>Board Appeal Rating:</strong> ${selectedKPIs.length >= 8 ? 'Executive Level' : 'Operational Level'}</p>
+            `;
+            
+            showFeedback(kpiReport, 'success');
+            updateProgress(75);
+        }
+
+        // Defense Strategy Functions
+        function expandStrategy(objectionType) {
+            const strategies = {
+                objection1: "Detailed Analysis: McKinsey's 23% gain includes unsustainable practices that typically reverse within 12 months. RS's 11% represents foundational improvements with 94% sustainability rate.",
+                objection2: "Financial Deep Dive: McKinsey's hidden costs average 34% above proposal. Factor in rework, consulting extensions, and failure risk - total investment averages 147% of initial cost.",
+                objection3: "Proof Points: 92% of RS clients maintain improvements 3+ years vs 34% industry average. Our CPR methodology creates permanent organizational capability, not temporary fixes.",
+                objection4: "Risk Mitigation: RS offers the industry's only performance guarantee with penalty clauses. If KPIs aren't met, we refund 50% and continue working at no cost until targets are achieved."
+            };
+            
+            showFeedback(strategies[objectionType], 'info');
+        }
+
+        function practiceDefenses() {
+            showFeedback('In the full training module, you\'ll practice defending against 15+ common objections with real-time coaching feedback.', 'info');
+            updateProgress(88);
+        }
+
+        // Red Team Challenge
+        function startRedTeamChallenge() {
+            const challenge = `
+                <h3>🔴 Your Red Team Response</h3>
+                <p><strong>Challenge:</strong> Board is impressed by McKinsey's speed and cost. Build your counter-argument:</p>
+                
+                <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                    <h4>Winning Strategy:</h4>
+                    <ol>
+                        <li><strong>Total Cost Reality:</strong> "McKinsey's $1.8M becomes $2.6M with typical overruns and rework"</li>
+                        <li><strong>Speed vs Sustainability:</strong> "6-month timeline creates 67% failure rate within 18 months"</li>
+                        <li><strong>ROI Guarantee:</strong> "RS guarantees minimum 250% ROI or refund 50% of fees"</li>
+                        <li><strong>Real-Time Tracking:</strong> "Live dashboard vs quarterly reports means issues caught immediately"</li>
+                        <li><strong>Implementation Support:</strong> "24-month support vs 3-month handoff ensures lasting change"</li>
+                    </ol>
+                </div>
+                
+                <p><strong>Result:</strong> Board votes 7-2 to continue with RS, citing risk mitigation and ROI guarantee as decisive factors.</p>
+            `;
+            
+            showFeedback(challenge, 'success');
+            updateProgress(95);
+        }
+
+        // Quiz Functions
+        function submitROIQuiz() {
+            const q1Answer = document.querySelector('input[name="q1"]:checked');
+            const q2Answer = document.querySelector('input[name="q2"]:checked');
+            
+            if (!q1Answer || !q2Answer) {
+                showFeedback('Please answer all questions before submitting.', 'warning');
+                return;
+            }
+            
+            let score = 0;
+            if (q1Answer.value === 'b') score += 50;
+            if (q2Answer.value === 'c') score += 50;
+            
+            const feedback = score >= 80 ? 
+                '🏆 Excellent! You understand ROI defense strategies.' :
+                score >= 60 ?
+                '👍 Good foundation. Review competitive advantages for stronger positioning.' :
+                '📚 Consider reviewing the defense strategies and competitive analysis sections.';
+            
+            showFeedback(`Quiz Score: ${score}%\n\n${feedback}`, score >= 80 ? 'success' : 'info');
+            updateProgress(100);
+            
+            if (score === 100) {
+                setTimeout(() => {
+                    confetti();
+                }, 1000);
+            }
+        }
+
+        // Utility Functions
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        function downloadReport() {
+            showFeedback('Executive report download initiated. In production, this would generate a PDF with your custom metrics and competitive analysis.', 'success');
+        }
+
+        function showFeedback(message, type) {
+            const colors = {
+                success: 'linear-gradient(135deg, #2ecc71 0%, #27ae60 100%)',
+                error: 'linear-gradient(135deg, #e74c3c 0%, #c0392b 100%)',
+                warning: 'linear-gradient(135deg, #f39c12 0%, #e67e22 100%)',
+                info: 'linear-gradient(135deg, #3498db 0%, #2980b9 100%)'
+            };
+            
+            const feedback = document.createElement('div');
+            feedback.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: ${colors[type] || colors.info};
+                color: white;
+                padding: 20px;
+                border-radius: 10px;
+                max-width: 400px;
+                z-index: 1001;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+                animation: slideIn 0.3s ease;
+            `;
+            feedback.innerHTML = message.replace(/\n/g, '<br>');
+            
+            document.body.appendChild(feedback);
+            
+            setTimeout(() => {
+                feedback.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => {
+                    if (document.body.contains(feedback)) {
+                        document.body.removeChild(feedback);
+                    }
+                }, 300);
+            }, 4000);
+        }
+
+        function updateProgress(percentage) {
+            const progressFill = document.querySelector('.progress-fill');
+            progressFill.style.width = percentage + '%';
+            
+            if (percentage === 100) {
+                progressFill.style.background = 'linear-gradient(45deg, #2ecc71, #27ae60)';
+            }
+        }
+
+        function confetti() {
+            const colors = ['#667eea', '#764ba2', '#2ecc71', '#f39c12', '#e74c3c'];
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    createConfettiPiece(colors[Math.floor(Math.random() * colors.length)]);
+                }, i * 50);
+            }
+        }
+
+        function createConfettiPiece(color) {
+            const confetti = document.createElement('div');
+            confetti.style.cssText = `
+                position: fixed;
+                width: 10px;
+                height: 10px;
+                background: ${color};
+                left: ${Math.random() * window.innerWidth}px;
+                top: -10px;
+                z-index: 9999;
+                border-radius: 50%;
+                pointer-events: none;
+            `;
+            
+            document.body.appendChild(confetti);
+            
+            const animation = confetti.animate([
+                { transform: 'translateY(0px) rotate(0deg)', opacity: 1 },
+                { transform: `translateY(${window.innerHeight + 20}px) rotate(360deg)`, opacity: 0 }
+            ], {
+                duration: 3000,
+                easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)'
+            });
+            
+            animation.onfinish = () => {
+                if (document.body.contains(confetti)) {
+                    document.body.removeChild(confetti);
+                }
+            };
+        }
+
+        function initializeAnimations() {
+            // Add CSS animations
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes slideIn {
+                    from { transform: translateX(100%); opacity: 0; }
+                    to { transform: translateX(0); opacity: 1; }
+                }
+                @keyframes slideOut {
+                    from { transform: translateX(0); opacity: 1; }
+                    to { transform: translateX(100%); opacity: 0; }
+                }
+                .content-card {
+                    opacity: 0;
+                    transform: translateY(20px);
+                    transition: opacity 0.6s ease, transform 0.6s ease;
+                }
+                .content-card.visible {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            `;
+            document.head.appendChild(style);
+
+            // Intersection Observer for scroll animations
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            });
+
+            document.querySelectorAll('.content-card').forEach(card => {
+                observer.observe(card);
+            });
+
+            // Add hover effects
+            document.querySelectorAll('.interactive-btn, .cta-button').forEach(button => {
+                button.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-2px) scale(1.05)';
+                });
+                
+                button.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                });
+            });
+
+            // Modal click outside to close
+            window.addEventListener('click', function(event) {
+                const modals = document.querySelectorAll('.modal');
+                modals.forEach(modal => {
+                    if (event.target === modal) {
+                        modal.style.display = 'none';
+                    }
+                });
+            });
+        }
+
+        // Initialize floating particles effect
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.style.cssText = `
+                position: fixed;
+                width: 4px;
+                height: 4px;
+                background: rgba(255, 255, 255, 0.1);
+                border-radius: 50%;
+                pointer-events: none;
+                z-index: -1;
+                left: ${Math.random() * window.innerWidth}px;
+                top: ${window.innerHeight + 10}px;
+            `;
+            
+            document.body.appendChild(particle);
+            
+            const animation = particle.animate([
+                { transform: 'translateY(0px)', opacity: 0.1 },
+                { transform: `translateY(-${window.innerHeight + 100}px)`, opacity: 0 }
+            ], {
+                duration: Math.random() * 3000 + 2000,
+                easing: 'linear'
+            });
+            
+            animation.onfinish = () => {
+                if (document.body.contains(particle)) {
+                    document.body.removeChild(particle);
+                }
+            };
+        }
+
+        // Create particles periodically
+        setInterval(createParticle, 300);
+    </script>
+</body>
+</html>highlight">
+                            <strong>ROI Blind Spot:</strong> Abstract strategy frameworks without measurable outcomes
+                        </div>
+                        <div class="rs-advantage">
+                            <strong>RS Advantage:</strong> Real-time performance tracking with guaranteed metrics
+                        </div>
+                        <div class="weakness-
