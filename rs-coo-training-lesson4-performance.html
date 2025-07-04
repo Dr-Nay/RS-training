@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>RS COO Training - Lesson 4: Performance Measurement & ROI Validation</title>
+  <style>
+    /* Same as original CSS */
+    @keyframes confettiFall {
+      to { 
+        transform: translateY(110vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- SAME HTML CONTENT AS BEFORE -->
+
+<script type="text/javascript">
+  // Encapsulate logic in a module
+  const RSApp = (() => {
+    const state = {
+      currentROI: 847,
+      currentMetrics: {
+        productivity: 23.7,
+        cost: 47.2,
+        engagement: 87,
+        timeline: 94,
+        quality: 96.3,
+        satisfaction: 9.2
+      },
+      progressLevel: 60
+    };
+
+    function calculateROI() {
+      try {
+        const baselineRevenue = parseFloat(document.getElementById('baseline-revenue').value) || 500;
+        const efficiencyGain = parseFloat(document.getElementById('efficiency-gain').value) || 18;
+        const costReduction = parseFloat(document.getElementById('cost-reduction').value) || 12;
+        const rsInvestment = parseFloat(document.getElementById('rs-investment').value) || 2.5;
+        const implementationMonths = parseFloat(document.getElementById('implementation-months').value) || 12;
+        const riskMitigation = parseFloat(document.getElementById('risk-mitigation').value) || 15;
+
+        const efficiencyValue = baselineRevenue * (efficiencyGain / 100);
+        const costSavings = baselineRevenue * 0.3 * (costReduction / 100);
+        const annualValue = efficiencyValue + costSavings + riskMitigation;
+
+        const totalROI = ((annualValue - rsInvestment) / rsInvestment * 100);
+        const paybackPeriod = (rsInvestment / (annualValue / 12));
+        const competitiveAdvantage = totalROI / 2.71;
+
+        document.getElementById('total-roi').textContent = Math.round(totalROI) + '%';
+        document.getElementById('payback-period').textContent = paybackPeriod.toFixed(1);
+        document.getElementById('annual-value').textContent = '$' + annualValue.toFixed(0) + 'M';
+        document.getElementById('competitive-advantage').textContent = Math.round(competitiveAdvantage) + '%';
+
+        state.currentROI = totalROI;
+
+        const roiResults = document.getElementById('roi-results');
+        if (totalROI > 500) {
+          roiResults.style.background = 'linear-gradient(135deg, #2ecc71 0%, #27ae60 100%)';
+          showRSCoach('Excellent ROI calculation!');
+        } else if (totalROI > 300) {
+          roiResults.style.background = 'linear-gradient(135deg, #f39c12 0%, #e67e22 100%)';
+        }
+
+        updateProgress(75);
+      } catch (error) {
+        console.error('ROI calculation error:', error);
+      }
+    }
+
+    function refreshMetrics() {
+      try {
+        const variations = {
+          productivity: (Math.random() - 0.5) * 2,
+          cost: (Math.random() - 0.5) * 5,
+          engagement: (Math.random() - 0.5) * 3,
+          timeline: (Math.random() - 0.5) * 2,
+          quality: (Math.random() - 0.5) * 1,
+          satisfaction: (Math.random() - 0.5) * 0.3
+        };
+
+        state.currentMetrics.productivity = Math.max(0, state.currentMetrics.productivity + variations.productivity);
+        state.currentMetrics.cost = Math.max(0, state.currentMetrics.cost + variations.cost);
+        state.currentMetrics.engagement = Math.max(0, Math.min(100, state.currentMetrics.engagement + variations.engagement));
+        state.currentMetrics.timeline = Math.max(0, Math.min(100, state.currentMetrics.timeline + variations.timeline));
+        state.currentMetrics.quality = Math.max(0, Math.min(100, state.currentMetrics.quality + variations.quality));
+        state.currentMetrics.satisfaction = Math.max(0, Math.min(10, state.currentMetrics.satisfaction + variations.satisfaction));
+
+        document.getElementById('productivity-metric').textContent = state.currentMetrics.productivity.toFixed(1) + '%';
+        document.getElementById('cost-metric').textContent = '$' + state.currentMetrics.cost.toFixed(1) + 'M';
+        document.getElementById('engagement-metric').textContent = Math.round(state.currentMetrics.engagement) + '%';
+        document.getElementById('timeline-metric').textContent = Math.round(state.currentMetrics.timeline) + '%';
+        document.getElementById('quality-metric').textContent = state.currentMetrics.quality.toFixed(1) + '%';
+        document.getElementById('satisfaction-metric').textContent = state.currentMetrics.satisfaction.toFixed(1) + '/10';
+
+        const cards = document.querySelectorAll('.metric-card');
+        cards.forEach((card, index) => {
+          setTimeout(() => {
+            card.style.transform = 'scale(1.05)';
+            setTimeout(() => card.style.transform = 'scale(1)', 200);
+          }, index * 100);
+        });
+
+        showRSCoach('These metrics demonstrate real-time accountability.');
+        updateProgress(80);
+      } catch (error) {
+        console.error('Metrics refresh error:', error);
+      }
+    }
+
+    function startBoardroomChallenge() {
+      try {
+        const preview = document.getElementById('boardroom-preview');
+        if (preview) preview.style.display = 'block';
+        showRSCoach('Lead with data, guarantee outcomes.');
+        updateProgress(85);
+      } catch (error) {
+        console.error('Boardroom challenge error:', error);
+      }
+    }
+
+    function generateExecutiveReport() {
+      try {
+        const reportContent = `
+          <h2 style="color: #667eea;">📋 Executive Transformation Report</h2>
+          <p><strong>ROI:</strong> ${state.currentROI.toFixed(0)}%</p>
+          <p><strong>Productivity:</strong> ${state.currentMetrics.productivity.toFixed(1)}%</p>
+          <p><strong>Cost Savings:</strong> $${state.currentMetrics.cost.toFixed(1)}M</p>
+          <p><strong>Satisfaction:</strong> ${state.currentMetrics.satisfaction.toFixed(1)}/10</p>
+        `;
+        showModal(reportContent);
+        showRSCoach('Report generated!', 8000);
+        updateProgress(95);
+      } catch (error) {
+        console.error('Report generation error:', error);
+      }
+    }
+
+    function openCompetitiveIntelligence() {
+      try {
+        const content = `<h2>⚔️ Competitive Intelligence Dashboard</h2>`;
+        showModal(content);
+        showRSCoach('Use these insights to position RS.', 8000);
+      } catch (error) {
+        console.error('Competitive intelligence error:', error);
+      }
+    }
+
+    function startMasteryChallenge() {
+      try {
+        const result = document.getElementById('mastery-result');
+        if (result) result.style.display = 'block';
+        updateProgress(100);
+        setTimeout(() => {
+          createConfetti();
+          showRSCoach('🌟 Outstanding! You\'ve mastered ROI defense.', 12000);
+        }, 1000);
+      } catch (error) {
+        console.error('Mastery challenge error:', error);
+      }
+    }
+
+    function showRSCoach(message, duration = 8000) {
+      try {
+        const coach = document.getElementById('rs-coach');
+        const messageEl = document.getElementById('coach-message');
+        messageEl.textContent = message;
+        coach.style.display = 'block';
+        setTimeout(() => {
+          coach.style.opacity = '0';
+          setTimeout(() => {
+            coach.style.display = 'none';
+            coach.style.opacity = '1';
+          }, 300);
+        }, duration);
+      } catch (error) {
+        console.error('RS Coach error:', error);
+      }
+    }
+
+    function closeRSCoach() {
+      try {
+        const coach = document.getElementById('rs-coach');
+        if (coach) coach.style.display = 'none';
+      } catch (error) {
+        console.error('Close coach error:', error);
+      }
+    }
+
+    function showModal(content) {
+      try {
+        const modal = document.getElementById('content-modal');
+        const modalBody = document.getElementById('modal-body');
+        modalBody.innerHTML = content;
+        modal.style.display = 'block';
+        modal.onclick = function(event) {
+          if (event.target === modal) closeModal();
+        };
+      } catch (error) {
+        console.error('Modal display error:', error);
+      }
+    }
+
+    function closeModal() {
+      try {
+        const modal = document.getElementById('content-modal');
+        if (modal) modal.style.display = 'none';
+      } catch (error) {
+        console.error('Modal close error:', error);
+      }
+    }
+
+    function initializeCollapsibles() {
+      try {
+        const collapsibles = document.querySelectorAll('.collapsible');
+        collapsibles.forEach(button => {
+          button.addEventListener('click', function () {
+            this.classList.toggle('active');
+            const content = this.nextElementSibling;
+            if (content.classList.contains('active')) {
+              content.classList.remove('active');
+            } else {
+              document.querySelectorAll('.collapsible-content.active').forEach(c => {
+                c.classList.remove('active');
+                c.previousElementSibling.classList.remove('active');
+              });
+              content.classList.add('active');
+            }
+          });
+        });
+      } catch (error) {
+        console.error('Collapsibles initialization error:', error);
+      }
+    }
+
+    function updateProgress(percentage) {
+      try {
+        state.progressLevel = Math.max(0, Math.min(100, percentage));
+        const progressFill = document.querySelector('.progress-fill');
+        if (progressFill) {
+          progressFill.style.width = state.progressLevel + '%';
+          if (state.progressLevel >= 95) {
+            progressFill.style.background = 'linear-gradient(45deg, #2ecc71, #27ae60)';
+          }
+        }
+      } catch (error) {
+        console.error('Progress update error:', error);
+      }
+    }
+
+    function createConfetti() {
+      try {
+        const colors = ['#667eea', '#764ba2', '#2ecc71', '#f39c12', '#e74c3c'];
+        for (let i = 0; i < 50; i++) {
+          setTimeout(() => {
+            createConfettiPiece(colors[Math.floor(Math.random() * colors.length)]);
+          }, i * 50);
+        }
+      } catch (error) {
+        console.error('Confetti error:', error);
+      }
+    }
+
+    function createConfettiPiece(color) {
+      try {
+        const confetti = document.createElement('div');
+        confetti.style.cssText = `
+          position: fixed;
+          width: 10px;
+          height: 10px;
+          background: ${color};
+          left: ${Math.random() * window.innerWidth}px;
+          top: -10px;
+          z-index: 9999;
+          border-radius: 50%;
+          pointer-events: none;
+          animation: confettiFall 3s linear forwards;
+        `;
+        document.body.appendChild(confetti);
+        setTimeout(() => {
+          if (document.body.contains(confetti)) document.body.removeChild(confetti);
+        }, 3000);
+      } catch (error) {
+        console.error('Confetti piece error:', error);
+      }
+    }
+
+    function initializeScrollAnimations() {
+      try {
+        const observer = new IntersectionObserver(entries => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) entry.target.classList.add('visible');
+          });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.content-card').forEach(card => observer.observe(card));
+      } catch (error) {
+        console.error('Scroll animations error:', error);
+      }
+    }
+
+    return {
+      calculateROI,
+      refreshMetrics,
+      startBoardroomChallenge,
+      generateExecutiveReport,
+      openCompetitiveIntelligence,
+      startMasteryChallenge,
+      showRSCoach,
+      closeRSCoach,
+      showModal,
+      closeModal,
+      initializeCollapsibles,
+      updateProgress,
+      createConfetti,
+      initializeScrollAnimations
+    };
+  })();
+
+  document.addEventListener('DOMContentLoaded', () => {
+    RSApp.calculateROI();
+    RSApp.initializeCollapsibles();
+    RSApp.initializeScrollAnimations();
+    RSApp.updateProgress(60);
+
+    setTimeout(() => {
+      RSApp.showRSCoach('🎯 Welcome! I\'m your RS Coach. Let\'s make you unstoppable in the boardroom!', 10000);
+    }, 2000);
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') {
+      RSApp.closeModal();
+      RSApp.closeRSCoach();
+    }
+  });
+</script>
+
+</body>
+</html>
