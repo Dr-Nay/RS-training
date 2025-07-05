@@ -1,0 +1,1750 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RS COO Training - Lesson 3: Cross-Department Integration & Executive Training</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            animation: gradientShift 20s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+            20% { background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%); }
+            40% { background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); }
+            60% { background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%); }
+            80% { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .logo {
+            font-size: 2.5em;
+            font-weight: 800;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .lesson-title {
+            font-size: 2em;
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+
+        .subtitle {
+            font-size: 1.3em;
+            color: #667eea;
+            font-style: italic;
+            margin-bottom: 15px;
+        }
+
+        .duration {
+            background: #3498db;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 25px;
+            display: inline-block;
+            font-weight: 600;
+        }
+
+        .content-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .content-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .objectives {
+            background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);
+            color: #2c3e50;
+        }
+
+        .objectives h3 {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+        }
+
+        .objectives ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .objectives li {
+            padding: 10px 0;
+            padding-left: 30px;
+            position: relative;
+        }
+
+        .objectives li::before {
+            content: "🎯";
+            position: absolute;
+            left: 0;
+            font-size: 1.2em;
+        }
+
+        .scenario-box {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+            border-left: 5px solid #e74c3c;
+        }
+
+        .scenario-title {
+            font-size: 1.4em;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+
+        .department-challenge {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 10px 0;
+            border-left: 4px solid #e74c3c;
+        }
+
+        .department-name {
+            font-weight: 700;
+            color: #e74c3c;
+        }
+
+        .interactive-btn {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 10px 5px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            animation: pulse 3s infinite;
+        }
+
+        .interactive-btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 12px 30px rgba(102, 126, 234, 0.4);
+            animation: none;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+
+        .stakeholder-mapping {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+        }
+
+        .mapping-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .stakeholder-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .stakeholder-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 15px 35px rgba(102, 126, 234, 0.2);
+        }
+
+        .stakeholder-card.selected {
+            border: 3px solid #667eea;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        }
+
+        .stakeholder-avatar {
+            font-size: 3em;
+            margin-bottom: 10px;
+        }
+
+        .stakeholder-title {
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+
+        .stakeholder-influence {
+            font-size: 0.9em;
+            color: #6c757d;
+        }
+
+        .influence-high {
+            color: #e74c3c;
+            font-weight: 600;
+        }
+
+        .influence-medium {
+            color: #f39c12;
+            font-weight: 600;
+        }
+
+        .influence-low {
+            color: #2ecc71;
+            font-weight: 600;
+        }
+
+        .department-workshop {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .department-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            border-bottom: 2px solid #e1e8ed;
+            margin-bottom: 20px;
+        }
+
+        .tab-button {
+            background: none;
+            border: none;
+            padding: 15px 20px;
+            cursor: pointer;
+            font-weight: 600;
+            color: #6c757d;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+        }
+
+        .tab-button:hover {
+            color: #667eea;
+        }
+
+        .tab-button.active {
+            color: #667eea;
+            border-bottom-color: #667eea;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .cpr-customizer {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+
+        .cpr-element {
+            background: white;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+            border-left: 4px solid #667eea;
+        }
+
+        .cpr-letter {
+            font-size: 1.5em;
+            font-weight: 800;
+            color: #667eea;
+            display: inline-block;
+            width: 40px;
+        }
+
+        .resistance-simulator {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+        }
+
+        .resistance-scenario {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+            border-left: 4px solid #e74c3c;
+        }
+
+        .resistance-type {
+            font-weight: 700;
+            color: #e74c3c;
+            margin-bottom: 10px;
+        }
+
+        .response-options {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .response-btn {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: left;
+        }
+
+        .response-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateX(5px);
+        }
+
+        .response-btn.correct {
+            background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+            border-color: #2ecc71;
+        }
+
+        .response-btn.incorrect {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            border-color: #e74c3c;
+        }
+
+        .alignment-dashboard {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .alignment-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #e1e8ed;
+        }
+
+        .alignment-title {
+            font-size: 1.5em;
+            color: #2c3e50;
+            font-weight: 700;
+        }
+
+        .sync-btn {
+            background: #2ecc71;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: all 0.3s ease;
+        }
+
+        .sync-btn:hover {
+            background: #27ae60;
+            transform: scale(1.05);
+        }
+
+        .alignment-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .alignment-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            border-left: 4px solid #667eea;
+            transition: all 0.3s ease;
+        }
+
+        .alignment-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .alignment-score {
+            font-size: 2.5em;
+            font-weight: 800;
+            color: #667eea;
+            display: block;
+        }
+
+        .alignment-label {
+            font-size: 0.9em;
+            color: #6c757d;
+            margin-top: 5px;
+        }
+
+        .alignment-trend {
+            font-size: 0.8em;
+            margin-top: 10px;
+        }
+
+        .trend-up {
+            color: #2ecc71;
+        }
+
+        .trend-down {
+            color: #e74c3c;
+        }
+
+        .progress-bar {
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 25px;
+            height: 20px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            height: 100%;
+            width: 45%;
+            border-radius: 25px;
+            transition: width 0.5s ease;
+        }
+
+        .did-you-know {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 5px solid #f39c12;
+            position: relative;
+        }
+
+        .did-you-know::before {
+            content: "💡";
+            font-size: 2em;
+            position: absolute;
+            top: 15px;
+            right: 20px;
+        }
+
+        .did-you-know h4 {
+            color: #e67e22;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+
+        .highlight-box {
+            background: rgba(102, 126, 234, 0.1);
+            border: 2px solid #667eea;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+
+        .section-divider {
+            height: 4px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            border-radius: 2px;
+            margin: 30px 0;
+        }
+
+        .next-lesson {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 30px;
+        }
+
+        .cta-button {
+            background: white;
+            color: #667eea;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 25px;
+            font-size: 1.2em;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 15px;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* RS Coach Styles */
+        #rs-coach {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 20px;
+            max-width: 350px;
+            z-index: 10000;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+            border: 2px solid rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+            display: none;
+            animation: slideInLeft 0.5s ease-out;
+        }
+
+        .coach-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .coach-avatar {
+            font-size: 2.5em;
+            margin-right: 15px;
+            animation: pulse 2s infinite;
+        }
+
+        .coach-info h4 {
+            font-weight: 700;
+            font-size: 1.1em;
+            margin-bottom: 2px;
+        }
+
+        .coach-info p {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+
+        .coach-message {
+            line-height: 1.4;
+            margin-bottom: 15px;
+        }
+
+        .coach-controls {
+            text-align: right;
+        }
+
+        .coach-close {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .coach-close:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .training-module-builder {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 20px 0;
+        }
+
+        .module-components {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .module-component {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .module-component:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.05);
+        }
+
+        .module-component.selected {
+            border-color: #2ecc71;
+            background: rgba(46, 204, 113, 0.2);
+        }
+
+        .component-icon {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .component-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .component-desc {
+            font-size: 0.8em;
+            opacity: 0.8;
+        }
+
+        @keyframes slideInLeft {
+            from { transform: translateX(-100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 10001;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background: white;
+            margin: 5% auto;
+            padding: 30px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 800px;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s ease;
+            position: absolute;
+            top: 15px;
+            right: 20px;
+        }
+
+        .close:hover {
+            color: #667eea;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .mapping-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .alignment-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .module-components {
+                grid-template-columns: 1fr;
+            }
+
+            .department-tabs {
+                flex-direction: column;
+            }
+
+            .tab-button {
+                width: 100%;
+                text-align: left;
+            }
+
+            #rs-coach {
+                left: 10px;
+                right: 10px;
+                max-width: none;
+                bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header Section -->
+        <div class="header">
+            <div class="logo">RENAISSANCE SOLUTIONS</div>
+            <h1 class="lesson-title">COO Executive Training Program</h1>
+            <h2>Lesson 3: Cross-Department Integration & Executive Training</h2>
+            <p class="subtitle">Orchestrating Transformation Across All Business Functions</p>
+            <span class="duration">🔗 Duration: 90 minutes</span>
+        </div>
+
+        <!-- Learning Objectives -->
+        <div class="content-card objectives">
+            <h3>🎯 Learning Objectives</h3>
+            <ul>
+                <li>Master stakeholder mapping and influence strategies across all departments</li>
+                <li>Develop department-specific CPR implementation frameworks</li>
+                <li>Build executive training programs that create transformation champions</li>
+                <li>Handle resistance and drive alignment at the C-suite level</li>
+                <li>Create sustainable cross-functional collaboration systems</li>
+            </ul>
+        </div>
+
+        <!-- Progress Indicator -->
+        <div class="content-card">
+            <h3>📊 Course Progress</h3>
+            <div class="progress-bar">
+                <div class="progress-fill"></div>
+            </div>
+            <p><strong>Lesson 3 of 8</strong> | Integration Mastery Phase</p>
+        </div>
+
+        <!-- Opening Scenario -->
+        <div class="content-card">
+            <div class="scenario-box">
+                <h3 class="scenario-title">🌐 The Integration Challenge: Uniting Seven Departments</h3>
+                <p><strong>Setting:</strong> GlobalTech Corp, six weeks into CPR transformation. You've successfully implemented the methodology in Operations, but now face the complex challenge of expanding across all departments while each executive claims "we're different."</p>
+                
+                <div class="highlight-box">
+                    <h4>⚡ Your Mission</h4>
+                    <p>Transform seven distinct departments with unique cultures, priorities, and resistance patterns into a unified transformation force. Each department head must become a CPR champion who can train their teams and sustain change long-term.</p>
+                </div>
+
+                <div class="department-challenge">
+                    <div class="department-name">Sales (VP Jennifer Walsh):</div>
+                    <p>"CPR sounds like operations jargon. Our people need to focus on revenue, not internal processes."</p>
+                </div>
+
+                <div class="department-challenge">
+                    <div class="department-name">IT (CTO Marcus Singh):</div>
+                    <p>"We already have Agile methodologies. Adding another framework will confuse our teams."</p>
+                </div>
+
+                <div class="department-challenge">
+                    <div class="department-name">Finance (CFO Patricia Chen):</div>
+                    <p>"Show me the ROI before we disrupt our quarterly reporting processes."</p>
+                </div>
+
+                <div class="department-challenge">
+                    <div class="department-name">HR (CHRO David Kim):</div>
+                    <p>"Change management is our expertise. We don't need external frameworks."</p>
+                </div>
+
+                <button class="interactive-btn" onclick="startIntegrationChallenge()">🎯 Begin the Integration Challenge</button>
+                <div id="integration-preview" style="display: none; margin-top: 20px;">
+                    <div class="highlight-box">
+                        <h4>🧭 Your Strategy Toolkit:</h4>
+                        <p>Use stakeholder mapping, department-specific CPR customization, resistance handling techniques, and executive training modules to create enterprise-wide transformation alignment.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <!-- Stakeholder Mapping Tool -->
+        <div class="content-card">
+            <div class="stakeholder-mapping">
+                <h3>🗺️ Executive Stakeholder Mapping: Know Your Transformation Allies</h3>
+                <p>Identify influence levels and alignment strategies for each executive stakeholder:</p>
+
+                <div class="mapping-grid" id="stakeholder-grid">
+                    <div class="stakeholder-card" onclick="selectStakeholder('ceo')" data-stakeholder="ceo">
+                        <div class="stakeholder-avatar">👑</div>
+                        <div class="stakeholder-title">CEO Sarah Thompson</div>
+                        <div class="stakeholder-influence influence-high">High Influence</div>
+                        <div style="font-size: 0.8em; margin-top: 5px;">Transformation Sponsor</div>
+                    </div>
+
+                    <div class="stakeholder-card" onclick="selectStakeholder('sales')" data-stakeholder="sales">
+                        <div class="stakeholder-avatar">💼</div>
+                        <div class="stakeholder-title">VP Sales Jennifer Walsh</div>
+                        <div class="stakeholder-influence influence-high">High Influence</div>
+                        <div style="font-size: 0.8em; margin-top: 5px;">Revenue Driver</div>
+                    </div>
+
+                    <div class="stakeholder-card" onclick="selectStakeholder('cto')" data-stakeholder="cto">
+                        <div class="stakeholder-avatar">💻</div>
+                        <div class="stakeholder-title">CTO Marcus Singh</div>
+                        <div class="stakeholder-influence influence-high">High Influence</div>
+                        <div style="font-size: 0.8em; margin-top: 5px;">Tech Innovation</div>
+                    </div>
+
+                    <div class="stakeholder-card" onclick="selectStakeholder('cfo')" data-stakeholder="cfo">
+                        <div class="stakeholder-avatar">📊</div>
+                        <div class="stakeholder-title">CFO Patricia Chen</div>
+                        <div class="stakeholder-influence influence-high">High Influence</div>
+                        <div style="font-size: 0.8em; margin-top: 5px;">Financial Oversight</div>
+                    </div>
+
+                    <div class="stakeholder-card" onclick="selectStakeholder('hr')" data-stakeholder="hr">
+                        <div class="stakeholder-avatar">👥</div>
+                        <div class="stakeholder-title">CHRO David Kim</div>
+                        <div class="stakeholder-influence influence-medium">Medium Influence</div>
+                        <div style="font-size: 0.8em; margin-top: 5px;">People & Culture</div>
+                    </div>
+
+                    <div class="stakeholder-card" onclick="selectStakeholder('marketing')" data-stakeholder="marketing">
+                        <div class="stakeholder-avatar">📈</div>
+                        <div class="stakeholder-title">CMO Lisa Rodriguez</div>
+                        <div class="stakeholder-influence influence-medium">Medium Influence</div>
+                        <div style="font-size: 0.8em; margin-top: 5px;">Brand & Growth</div>
+                    </div>
+
+                    <div class="stakeholder-card" onclick="selectStakeholder('legal')" data-stakeholder="legal">
+                        <div class="stakeholder-avatar">⚖️</div>
+                        <div class="stakeholder-title">General Counsel Amy Foster</div>
+                        <div class="stakeholder-influence influence-low">Low Influence</div>
+                        <div style="font-size: 0.8em; margin-top: 5px;">Risk & Compliance</div>
+                    </div>
+
+                    <div class="stakeholder-card" onclick="selectStakeholder('supply')" data-stakeholder="supply">
+                        <div class="stakeholder-avatar">🚚</div>
+                        <div class="stakeholder-title">VP Supply Chain Robert Lee</div>
+                        <div class="stakeholder-influence influence-medium">Medium Influence</div>
+                        <div style="font-size: 0.8em; margin-top: 5px;">Operations Excellence</div>
+                    </div>
+                </div>
+
+                <button class="interactive-btn" onclick="analyzeStakeholderMap()">🔍 Analyze Stakeholder Dynamics</button>
+                
+                <div id="stakeholder-analysis" style="display: none; margin-top: 20px;">
+                    <div class="highlight-box">
+                        <h4>🎯 Stakeholder Influence Analysis</h4>
+                        <div id="analysis-content">
+                            <!-- Analysis content will be populated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Department-Specific CPR Workshop -->
+        <div class="content-card">
+            <div class="department-workshop">
+                <h3>🎛️ Department-Specific CPR Customization Workshop</h3>
+                <p>Adapt the CPR methodology to each department's unique context and language:</p>
+
+                <div class="department-tabs">
+                    <button class="tab-button active" onclick="openDepartmentTab(event, 'sales-tab')">Sales</button>
+                    <button class="tab-button" onclick="openDepartmentTab(event, 'technology-tab')">Technology</button>
+                    <button class="tab-button" onclick="openDepartmentTab(event, 'finance-tab')">Finance</button>
+                    <button class="tab-button" onclick="openDepartmentTab(event, 'hr-tab')">Human Resources</button>
+                    <button class="tab-button" onclick="openDepartmentTab(event, 'marketing-tab')">Marketing</button>
+                </div>
+
+                <div id="sales-tab" class="tab-content active">
+                    <h4>💼 Sales Department CPR Framework</h4>
+                    <div class="cpr-customizer">
+                        <div class="cpr-element">
+                            <span class="cpr-letter">C</span>
+                            <strong>Customer-Centric:</strong> Comprehensive understanding of customer journey, pain points, and value drivers
+                            <div style="margin-top: 10px; color: #6c757d;">
+                                <em>Sales Translation:</em> "Know every touchpoint that affects deal velocity and customer lifetime value"
+                            </div>
+                        </div>
+                        <div class="cpr-element">
+                            <span class="cpr-letter">P</span>
+                            <strong>Pipeline Performance:</strong> Measurable improvements in conversion rates, cycle times, and revenue per rep
+                            <div style="margin-top: 10px; color: #6c757d;">
+                                <em>Sales Translation:</em> "Optimize every stage of the funnel for predictable revenue growth"
+                            </div>
+                        </div>
+                        <div class="cpr-element">
+                            <span class="cpr-letter">R</span>
+                            <strong>Revenue Recalibration:</strong> Continuous optimization based on market feedback and performance data
+                            <div style="margin-top: 10px; color: #6c757d;">
+                                <em>Sales Translation:</em> "Adapt strategies based on what's actually driving deals, not assumptions"
+                            </div>
+                        </div>
+                    </div>
+                    <button class="interactive-btn" onclick="applyCPRCustomization('sales')">📋 Apply Sales CPR Framework</button>
+                </div>
+
+                <div id="technology-tab" class="tab-content">
+                    <h4>💻 Technology Department CPR Framework</h4>
+                    <div class="cpr-customizer">
+                        <div class="cpr-element">
+                            <span class="cpr-letter">C</span>
+                            <strong>Code & Architecture:</strong> Comprehensive system design thinking and technical debt management
+                            <div style="margin-top: 10px; color: #6c757d;">
+                                <em>Tech Translation:</em> "Build scalable solutions that support business objectives, not just technical elegance"
+                            </div>
+                        </div>
+                        <div class="cpr-element">
+                            <span class="cpr-letter">P</span>
+                            <strong>Performance & Delivery:</strong> Measurable improvements in system reliability, deployment speed, and user satisfaction
+                            <div style="margin-top: 10px; color: #6c757d;">
+                                <em>Tech Translation:</em> "Optimize for business impact metrics, not just technical KPIs"
+                            </div>
+                        </div>
+                        <div class="cpr-element">
+                            <span class="cpr-letter">R</span>
+                            <strong>Rapid Response:</strong> Continuous integration of user feedback and market demands into development cycles
+                            <div style="margin-top: 10px; color: #6c757d;">
+                                <em>Tech Translation:</em> "Iterate based on business value and user needs, not feature completeness"
+                            </div>
+                        </div>
+                    </div>
+                    <button class="interactive-btn" onclick="applyCPRCustomization('technology')">⚙️ Apply Technology CPR Framework</button>
+                </div>
+
+                <div id="finance-tab" class="tab-content">
+                    <h4>📊 Finance Department CPR Framework</h4>
+                    <div class="cpr-customizer">
+                        <div class="cpr-element">
+                            <span class="cpr-letter">C</span>
+                            <strong>Capital & Strategy:</strong> Comprehensive financial modeling that supports business strategy and growth
+                            <div style="margin-top: 10px; color: #6c757d;">
+                                <em>Finance Translation:</em> "Align financial planning with strategic objectives and market opportunities"
+                            </div>
+                        </div>
+                        <div class="cpr-element">
+                            <span class="cpr-letter">P</span>
+                            <strong>Profitability Focus:</strong> Measurable improvements in margins, cash flow, and return on investment
+                            <div style="margin-top: 10px; color: #6c757d;">
+                                <em>Finance Translation:</em> "Drive financial performance through strategic analysis and operational insight"
+                            </div>
+                        </div>
+                        <div class="cpr-element">
+                            <span class="cpr-letter">R</span>
+                            <strong>Risk Recalibration:</strong> Continuous adjustment of financial strategies based on market conditions and performance
+                            <div style="margin-top: 10px; color: #6c757d;">
+                                <em>Finance Translation:</em> "Adapt financial models based on actual results and changing market dynamics"
+                            </div>
+                        </div>
+                    </div>
+                    <button class="interactive-btn" onclick="applyCPRCustomization('finance')">💰 Apply Finance CPR Framework</button>
+                </div>
+
+                <div id="hr-tab" class="tab-content">
+                    <h4>👥 Human Resources CPR Framework</h4>
+                    <div class="cpr-customizer">
+                        <div class="cpr-element">
+                            <span class="cpr-letter">C</span>
+                            <strong>Culture & Capability:</strong> Comprehensive understanding of organizational culture and talent development
+                            <div style="margin-top: 10px; color: #6c757d;">
+                                <em>HR Translation:</em> "Build culture and capabilities that drive business performance and employee engagement"
+                            </div>
+                        </div>
+                        <div class="cpr-element">
+                            <span class="cpr-letter">P</span>
+                            <strong>People Performance:</strong> Measurable improvements in engagement, retention, and productivity
+                            <div style="margin-top: 10px; color: #6c757d;">
+                                <em>HR Translation:</em> "Optimize talent systems for business impact and employee satisfaction"
+                            </div>
+                        </div>
+                        <div class="cpr-element">
+                            <span class="cpr-letter">R</span>
+                            <strong>Responsive Adaptation:</strong> Continuous evolution of people strategies based on business needs and employee feedback
+                            <div style="margin-top: 10px; color: #6c757d;">
+                                <em>HR Translation:</em> "Adapt talent strategies based on changing business requirements and workforce expectations"
+                            </div>
+                        </div>
+                    </div>
+                    <button class="interactive-btn" onclick="applyCPRCustomization('hr')">🏢 Apply HR CPR Framework</button>
+                </div>
+
+                <div id="marketing-tab" class="tab-content">
+                    <h4>📈 Marketing Department CPR Framework</h4>
+                    <div class="cpr-customizer">
+                        <div class="cpr-element">
+                            <span class="cpr-letter">C</span>
+                            <strong>Customer & Brand:</strong> Comprehensive understanding of market positioning and customer experience
+                            <div style="margin-top: 10px; color: #6c757d;">
+                                <em>Marketing Translation:</em> "Create brand experiences that drive customer acquisition and loyalty"
+                            </div>
+                        </div>
+                        <div class="cpr-element">
+                            <span class="cpr-letter">P</span>
+                            <strong>Pipeline & Impact:</strong> Measurable improvements in lead quality, conversion rates, and brand value
+                            <div style="margin-top: 10px; color: #6c757d;">
+                                <em>Marketing Translation:</em> "Optimize campaigns for qualified leads and measurable business impact"
+                            </div>
+                        </div>
+                        <div class="cpr-element">
+                            <span class="cpr-letter">R</span>
+                            <strong>Real-time Response:</strong> Continuous optimization based on campaign performance and market feedback
+                            <div style="margin-top: 10px; color: #6c757d;">
+                                <em>Marketing Translation:</em> "Adapt messaging and tactics based on market response and customer behavior"
+                            </div>
+                        </div>
+                    </div>
+                    <button class="interactive-btn" onclick="applyCPRCustomization('marketing')">🎯 Apply Marketing CPR Framework</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Did You Know -->
+        <div class="did-you-know">
+            <h4>Did You Know?</h4>
+            <p>Organizations with <strong>cross-functional alignment</strong> are <strong>67% more likely</strong> to achieve transformation success. COOs who create department-specific CPR frameworks see <strong>89% faster adoption rates</strong> compared to one-size-fits-all approaches.</p>
+        </div>
+
+        <!-- Resistance Handling Simulator -->
+        <div class="content-card">
+            <div class="resistance-simulator">
+                <h3>🛡️ Resistance Handling Simulator: Executive Challenge Scenarios</h3>
+                <p>Practice managing common resistance patterns from department heads:</p>
+
+                <div class="resistance-scenario" id="current-scenario">
+                    <div class="resistance-type">Scenario Loading...</div>
+                    <div id="scenario-content">Select "Start Simulation" to begin practicing resistance handling techniques.</div>
+                    <div class="response-options" id="response-options" style="display: none;">
+                        <!-- Response options will be populated by JavaScript -->
+                    </div>
+                </div>
+
+                <button class="interactive-btn" onclick="startResistanceSimulation()">🎭 Start Resistance Simulation</button>
+                <button class="interactive-btn" onclick="nextScenario()" id="next-scenario-btn" style="display: none;">➡️ Next Scenario</button>
+            </div>
+        </div>
+
+        <!-- Cross-Functional Alignment Dashboard -->
+        <div class="content-card">
+            <div class="alignment-dashboard">
+                <div class="alignment-header">
+                    <div class="alignment-title">📊 Cross-Functional Alignment Dashboard</div>
+                    <button class="sync-btn" onclick="syncAlignment()">🔄 Sync Status</button>
+                </div>
+                
+                <div class="alignment-grid" id="alignment-grid">
+                    <div class="alignment-card">
+                        <span class="alignment-score" id="overall-alignment">78%</span>
+                        <div class="alignment-label">Overall Alignment</div>
+                        <div class="alignment-trend trend-up" id="overall-trend">↗ +5% this week</div>
+                    </div>
+                    <div class="alignment-card">
+                        <span class="alignment-score" id="executive-buy-in">85%</span>
+                        <div class="alignment-label">Executive Buy-in</div>
+                        <div class="alignment-trend trend-up" id="executive-trend">↗ Strong momentum</div>
+                    </div>
+                    <div class="alignment-card">
+                        <span class="alignment-score" id="training-completion">92%</span>
+                        <div class="alignment-label">Training Completion</div>
+                        <div class="alignment-trend trend-up" id="training-trend">↗ Ahead of schedule</div>
+                    </div>
+                    <div class="alignment-card">
+                        <span class="alignment-score" id="implementation-rate">71%</span>
+                        <div class="alignment-label">Implementation Rate</div>
+                        <div class="alignment-trend trend-up" id="implementation-trend">↗ Accelerating</div>
+                    </div>
+                    <div class="alignment-card">
+                        <span class="alignment-score" id="resistance-level">23%</span>
+                        <div class="alignment-label">Resistance Level</div>
+                        <div class="alignment-trend trend-down" id="resistance-trend">↘ Declining</div>
+                    </div>
+                    <div class="alignment-card">
+                        <span class="alignment-score" id="cross-collaboration">88%</span>
+                        <div class="alignment-label">Cross-Collaboration</div>
+                        <div class="alignment-trend trend-up" id="collaboration-trend">↗ Excellent</div>
+                    </div>
+                </div>
+
+                <button class="interactive-btn" onclick="generateAlignmentReport()">📋 Generate Alignment Report</button>
+            </div>
+        </div>
+
+        <!-- Executive Training Module Builder -->
+        <div class="content-card">
+            <div class="training-module-builder">
+                <h3>🎓 Executive Training Module Builder</h3>
+                <p>Design custom training programs for each department head:</p>
+
+                <div style="background: rgba(255,255,255,0.1); border-radius: 10px; padding: 20px; margin: 20px 0;">
+                    <h4>Select Training Components:</h4>
+                    <div class="module-components" id="training-components">
+                        <div class="module-component" onclick="selectTrainingComponent(this, 'cpr-foundation')" data-component="cpr-foundation">
+                            <div class="component-icon">🏗️</div>
+                            <div class="component-title">CPR Foundation</div>
+                            <div class="component-desc">Core methodology overview</div>
+                        </div>
+                        <div class="module-component" onclick="selectTrainingComponent(this, 'change-leadership')" data-component="change-leadership">
+                            <div class="component-icon">👑</div>
+                            <div class="component-title">Change Leadership</div>
+                            <div class="component-desc">Leading transformation in their department</div>
+                        </div>
+                        <div class="module-component" onclick="selectTrainingComponent(this, 'resistance-management')" data-component="resistance-management">
+                            <div class="component-icon">🛡️</div>
+                            <div class="component-title">Resistance Management</div>
+                            <div class="component-desc">Handling team pushback effectively</div>
+                        </div>
+                        <div class="module-component" onclick="selectTrainingComponent(this, 'metrics-tracking')" data-component="metrics-tracking">
+                            <div class="component-icon">📊</div>
+                            <div class="component-title">Metrics & Tracking</div>
+                            <div class="component-desc">Measuring transformation success</div>
+                        </div>
+                        <div class="module-component" onclick="selectTrainingComponent(this, 'team-coaching')" data-component="team-coaching">
+                            <div class="component-icon">🎯</div>
+                            <div class="component-title">Team Coaching</div>
+                            <div class="component-desc">Training their teams on CPR</div>
+                        </div>
+                        <div class="module-component" onclick="selectTrainingComponent(this, 'stakeholder-alignment')" data-component="stakeholder-alignment">
+                            <div class="component-icon">🤝</div>
+                            <div class="component-title">Stakeholder Alignment</div>
+                            <div class="component-desc">Building cross-department collaboration</div>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: 20px;">
+                        <h5>Selected Components: <span id="selected-count">0</span>/6</h5>
+                        <div style="margin-top: 10px;">
+                            <strong>Estimated Training Duration:</strong> <span id="training-duration">0 hours</span>
+                        </div>
+                        <div style="margin-top: 5px;">
+                            <strong>Recommended Delivery:</strong> <span id="delivery-method">Select components to see recommendations</span>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="interactive-btn" onclick="buildTrainingProgram()">🔧 Build Custom Training Program</button>
+                <div id="training-program-result" style="display: none; margin-top: 20px;">
+                    <!-- Training program results will be populated here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Final Integration Challenge -->
+        <div class="content-card">
+            <h3>🏆 Master Integration Challenge: The Executive Summit</h3>
+            <p>Put all your skills together in this comprehensive cross-department scenario:</p>
+            
+            <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 15px; padding: 30px; margin: 20px 0;">
+                <h4>🎯 The Summit Challenge</h4>
+                <p><strong>Context:</strong> You're leading a quarterly executive summit where all department heads must present their CPR implementation progress. Some are thriving, others are struggling, and one is actively undermining the transformation.</p>
+                
+                <div style="background: rgba(255,255,255,0.1); border-radius: 10px; padding: 20px; margin: 20px 0;">
+                    <h5>📋 Your Challenge Toolkit:</h5>
+                    <ul style="line-height: 1.6;">
+                        <li>🗺️ Stakeholder influence mapping for strategic positioning</li>
+                        <li>🎛️ Department-specific CPR frameworks for targeted guidance</li>
+                        <li>🛡️ Resistance handling techniques for difficult conversations</li>
+                        <li>📊 Real-time alignment data for evidence-based discussions</li>
+                        <li>🎓 Custom training recommendations for struggling departments</li>
+                    </ul>
+                </div>
+                
+                <button class="interactive-btn" onclick="startIntegrationMaster()" style="background: linear-gradient(45deg, #2ecc71, #27ae60);">🚀 Accept the Summit Challenge</button>
+                
+                <div id="integration-master-result" style="display: none; margin-top: 25px; text-align: center; background: rgba(255,255,255,0.1); border-radius: 10px; padding: 20px;">
+                    <div style="font-size: 3em; margin-bottom: 15px;">🏆</div>
+                    <h3>Cross-Department Integration Master!</h3>
+                    <p style="margin: 15px 0; line-height: 1.6;">You've successfully orchestrated transformation across all seven departments. Executive alignment is at 94%, resistance has dropped to 8%, and cross-functional collaboration is at an all-time high.</p>
+                    <div style="background: rgba(255,255,255,0.2); padding: 20px; border-radius: 10px; margin: 20px 0;">
+                        <h4>🎯 Your Integration Results:</h4>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-top: 15px;">
+                            <div><strong>Executive Alignment:</strong><br>94%</div>
+                            <div><strong>Department Buy-in:</strong><br>97%</div>
+                            <div><strong>Training Effectiveness:</strong><br>91%</div>
+                            <div><strong>Resistance Mitigation:</strong><br>92%</div>
+                        </div>
+                    </div>
+                    <p style="font-weight: 600;">You're now ready to scale CPR transformation across any enterprise organization!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Next Lesson Teaser -->
+        <div class="next-lesson">
+            <h3>🚀 Coming Up in Lesson 4</h3>
+            <p>You'll master performance measurement and ROI validation—the skills needed to prove transformation value to boards, investors, and C-suite stakeholders with quantifiable results.</p>
+            
+            <div class="highlight-box" style="background: rgba(255, 255, 255, 0.1); border-color: white;">
+                <h4>💡 Pre-Lesson 4 Challenge:</h4>
+                <p>Identify 5 key performance metrics that best demonstrate CPR transformation success in your current organization. Consider both leading and lagging indicators that would convince a skeptical CFO.</p>
+            </div>
+            
+            <button class="cta-button">Continue to Lesson 4 →</button>
+        </div>
+    </div>
+
+    <!-- RS Coach -->
+    <div id="rs-coach">
+        <div class="coach-header">
+            <div class="coach-avatar">🤖</div>
+            <div class="coach-info">
+                <h4>RS Coach</h4>
+                <p>Your Integration Guide</p>
+            </div>
+        </div>
+        <div class="coach-message" id="coach-message">
+            Welcome! I'll guide you through mastering cross-department integration and executive training strategies.
+        </div>
+        <div class="coach-controls">
+            <button class="coach-close" onclick="closeRSCoach()">✕</button>
+        </div>
+    </div>
+
+    <!-- Modal for detailed reports -->
+    <div id="reportModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <div id="modal-content">
+                <!-- Modal content will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Global state variables
+        let selectedStakeholders = [];
+        let currentResistanceScenario = 0;
+        let trainingComponents = [];
+        let alignmentData = {
+            overall: 78,
+            executive: 85,
+            training: 92,
+            implementation: 71,
+            resistance: 23,
+            collaboration: 88
+        };
+        let progressLevel = 45;
+
+        // Resistance scenarios data
+        const resistanceScenarios = [
+            {
+                type: "The Skeptical Sales Leader",
+                content: "VP Sales Jennifer Walsh: 'This CPR framework will slow down our sales process. My team needs to focus on closing deals, not learning new methodologies. We're already hitting our numbers.'",
+                responses: [
+                    {text: "Acknowledge her success and show how CPR will accelerate deal velocity", correct: true},
+                    {text: "Insist that all departments must follow the same process", correct: false},
+                    {text: "Offer to exempt sales from CPR if they maintain performance", correct: false}
+                ]
+            },
+            {
+                type: "The Technical Purist",
+                content: "CTO Marcus Singh: 'We already have Agile, DevOps, and LEAN methodologies. Adding another framework will create confusion and reduce our engineering velocity.'",
+                responses: [
+                    {text: "Show how CPR enhances existing methodologies rather than replacing them", correct: true},
+                    {text: "Explain that CPR is superior to their current methodologies", correct: false},
+                    {text: "Mandate CPR adoption regardless of existing processes", correct: false}
+                ]
+            },
+            {
+                type: "The ROI Gatekeeper",
+                content: "CFO Patricia Chen: 'I need to see concrete financial justification before disrupting our established processes. What's the quantified business case for this transformation?'",
+                responses: [
+                    {text: "Present specific metrics and ROI projections with pilot data", correct: true},
+                    {text: "Explain that transformation benefits are hard to quantify", correct: false},
+                    {text: "Reference other companies' success without specific data", correct: false}
+                ]
+            }
+        ];
+
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            try {
+                initializeScrollAnimations();
+                updateProgress(45);
+                
+                // Show welcome RS Coach message
+                setTimeout(() => {
+                    showRSCoach('🎯 Welcome to cross-department integration! I\'ll help you master stakeholder alignment and executive training strategies. Let\'s transform the entire organization together!');
+                }, 2000);
+                
+                console.log('Lesson 3 initialized successfully');
+            } catch (error) {
+                console.error('Initialization error:', error);
+            }
+        });
+
+        // Initialize scroll animations
+        function initializeScrollAnimations() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.content-card').forEach(card => {
+                observer.observe(card);
+            });
+        }
+
+        // Progress bar update
+        function updateProgress(percentage) {
+            const progressFill = document.querySelector('.progress-fill');
+            if (progressFill) {
+                progressFill.style.width = percentage + '%';
+                progressLevel = percentage;
+            }
+        }
+
+        // RS Coach functions
+        function showRSCoach(message) {
+            const coach = document.getElementById('rs-coach');
+            const messageEl = document.getElementById('coach-message');
+            
+            messageEl.textContent = message;
+            coach.style.display = 'block';
+            
+            // Auto-hide after 8 seconds
+            setTimeout(() => {
+                coach.style.display = 'none';
+            }, 8000);
+        }
+
+        function closeRSCoach() {
+            document.getElementById('rs-coach').style.display = 'none';
+        }
+
+        // Integration challenge starter
+        function startIntegrationChallenge() {
+            document.getElementById('integration-preview').style.display = 'block';
+            showRSCoach('🚀 Integration challenge activated! Use all the tools below to navigate department resistance and build transformation champions.');
+            updateProgress(50);
+        }
+
+        // Stakeholder mapping functions
+        function selectStakeholder(stakeholderId) {
+            try {
+                const stakeholderCard = document.querySelector(`[data-stakeholder="${stakeholderId}"]`);
+                
+                if (selectedStakeholders.includes(stakeholderId)) {
+                    // Deselect
+                    selectedStakeholders = selectedStakeholders.filter(id => id !== stakeholderId);
+                    stakeholderCard.classList.remove('selected');
+                } else {
+                    // Select
+                    selectedStakeholders.push(stakeholderId);
+                    stakeholderCard.classList.add('selected');
+                }
+                
+                updateProgress(55);
+                
+                if (selectedStakeholders.length === 3) {
+                    showRSCoach('Great selection! You\'ve identified key stakeholders. Consider their influence levels when planning your integration strategy.');
+                }
+            } catch (error) {
+                console.error('Stakeholder selection error:', error);
+            }
+        }
+
+        function analyzeStakeholderMap() {
+            try {
+                if (selectedStakeholders.length === 0) {
+                    showRSCoach('Select at least 3 stakeholders to analyze their influence dynamics.');
+                    return;
+                }
+
+                const stakeholderData = {
+                    ceo: {name: 'CEO Sarah Thompson', influence: 'High', strategy: 'Leverage as transformation champion and visible sponsor'},
+                    sales: {name: 'VP Sales Jennifer Walsh', influence: 'High', strategy: 'Focus on revenue impact and customer experience improvements'},
+                    cto: {name: 'CTO Marcus Singh', influence: 'High', strategy: 'Integrate with existing methodologies, emphasize technical excellence'},
+                    cfo: {name: 'CFO Patricia Chen', influence: 'High', strategy: 'Lead with ROI data and financial performance metrics'},
+                    hr: {name: 'CHRO David Kim', influence: 'Medium', strategy: 'Partner on change management and capability building'},
+                    marketing: {name: 'CMO Lisa Rodriguez', influence: 'Medium', strategy: 'Connect to customer experience and brand value'},
+                    legal: {name: 'General Counsel Amy Foster', influence: 'Low', strategy: 'Address compliance and risk mitigation benefits'},
+                    supply: {name: 'VP Supply Chain Robert Lee', influence: 'Medium', strategy: 'Focus on operational efficiency and cost optimization'}
+                };
+
+                let analysisHTML = '<h5>🎯 Strategic Influence Analysis</h5>';
+                
+                selectedStakeholders.forEach(stakeholder => {
+                    const data = stakeholderData[stakeholder];
+                    if (data) {
+                        analysisHTML += `
+                            <div style="background: white; padding: 15px; border-radius: 8px; margin: 10px 0; border-left: 4px solid #667eea;">
+                                <strong>${data.name}</strong> (${data.influence} Influence)<br>
+                                <em>Strategy:</em> ${data.strategy}
+                            </div>
+                        `;
+                    }
+                });
+
+                analysisHTML += `
+                    <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                        <strong>Recommended Approach:</strong> Start with high-influence stakeholders as champions, then leverage their credibility to influence medium and low-influence stakeholders.
+                    </div>
+                `;
+
+                document.getElementById('analysis-content').innerHTML = analysisHTML;
+                document.getElementById('stakeholder-analysis').style.display = 'block';
+                
+                showRSCoach('Excellent analysis! Use these influence strategies to build a coalition of transformation champions.');
+                updateProgress(60);
+            } catch (error) {
+                console.error('Stakeholder analysis error:', error);
+            }
+        }
+
+        // Department tab functions
+        function openDepartmentTab(evt, tabName) {
+            try {
+                // Hide all tab contents
+                const tabContents = document.querySelectorAll('.tab-content');
+                tabContents.forEach(content => {
+                    content.classList.remove('active');
+                });
+
+                // Remove active class from all buttons
+                const tabButtons = document.querySelectorAll('.tab-button');
+                tabButtons.forEach(button => {
+                    button.classList.remove('active');
+                });
+
+                // Show selected tab and mark button as active
+                document.getElementById(tabName).classList.add('active');
+                evt.currentTarget.classList.add('active');
+            } catch (error) {
+                console.error('Tab switching error:', error);
+            }
+        }
+
+        function applyCPRCustomization(department) {
+            try {
+                const customizations = {
+                    sales: 'Sales CPR Framework applied! Focus on customer-centricity, pipeline performance, and revenue recalibration.',
+                    technology: 'Technology CPR Framework applied! Emphasizing code architecture, performance delivery, and rapid response.',
+                    finance: 'Finance CPR Framework applied! Centering on capital strategy, profitability focus, and risk recalibration.',
+                    hr: 'HR CPR Framework applied! Building culture capability, people performance, and responsive adaptation.',
+                    marketing: 'Marketing CPR Framework applied! Focusing on customer brand, pipeline impact, and real-time response.'
+                };
+
+                showRSCoach(customizations[department] || 'CPR framework customization applied successfully!');
+                updateProgress(65);
+            } catch (error) {
+                console.error('CPR customization error:', error);
+            }
+        }
+
+        // Resistance simulation functions
+        function startResistanceSimulation() {
+            try {
+                currentResistanceScenario = 0;
+                loadResistanceScenario();
+                showRSCoach('Practice makes perfect! Handle each resistance scenario with empathy and data-driven responses.');
+                updateProgress(70);
+            } catch (error) {
+                console.error('Resistance simulation error:', error);
+            }
+        }
+
+        function loadResistanceScenario() {
+            try {
+                if (currentResistanceScenario >= resistanceScenarios.length) {
+                    showCompletionMessage();
+                    return;
+                }
+
+                const scenario = resistanceScenarios[currentResistanceScenario];
+                document.querySelector('.resistance-type').textContent = scenario.type;
+                document.getElementById('scenario-content').textContent = scenario.content;
+
+                let optionsHTML = '';
+                scenario.responses.forEach((response, index) => {
+                    optionsHTML += `
+                        <button class="response-btn" onclick="handleResponse(${index})">
+                            ${response.text}
+                        </button>
+                    `;
+                });
+
+                document.getElementById('response-options').innerHTML = optionsHTML;
+                document.getElementById('response-options').style.display = 'block';
+                document.getElementById('next-scenario-btn').style.display = 'none';
+            } catch (error) {
+                console.error('Scenario loading error:', error);
+            }
+        }
+
+        function handleResponse(responseIndex) {
+            try {
+                const scenario = resistanceScenarios[currentResistanceScenario];
+                const responseButtons = document.querySelectorAll('.response-btn');
+                
+                responseButtons.forEach((btn, index) => {
+                    if (index === responseIndex) {
+                        if (scenario.responses[index].correct) {
+                            btn.classList.add('correct');
+                            showRSCoach('Excellent! That\'s the ideal approach for handling this type of resistance.');
+                        } else {
+                            btn.classList.add('incorrect');
+                            showRSCoach('That approach might increase resistance. Try focusing on their specific concerns and showing value.');
+                        }
+                    } else {
+                        btn.disabled = true;
+                        btn.style.opacity = '0.6';
+                    }
+                });
+
+                document.getElementById('next-scenario-btn').style.display = 'inline-block';
+                updateProgress(75);
+            } catch (error) {
+                console.error('Response handling error:', error);
+            }
+        }
+
+        function nextScenario() {
+            currentResistanceScenario++;
+            if (currentResistanceScenario < resistanceScenarios.length) {
+                loadResistanceScenario();
+            } else {
+                showCompletionMessage();
+            }
+        }
+
+        function showCompletionMessage() {
+            document.querySelector('.resistance-type').textContent = 'Simulation Complete!';
+            document.getElementById('scenario-content').textContent = 'You\'ve successfully navigated all resistance scenarios. You\'re now equipped to handle executive pushback with confidence.';
+            document.getElementById('response-options').style.display = 'none';
+            document.getElementById('next-scenario-btn').style.display = 'none';
+            
+            showRSCoach('🎉 Resistance simulation mastered! You\'re ready to handle any executive pushback with confidence.');
+            updateProgress(80);
+        }
+
+        // Alignment dashboard functions
+        function syncAlignment() {
+            try {
+                // Simulate data refresh with slight improvements
+                alignmentData.overall = Math.min(95, alignmentData.overall + Math.floor(Math.random() * 5) + 1);
+                alignmentData.executive = Math.min(98, alignmentData.executive + Math.floor(Math.random() * 3) + 1);
+                alignmentData.training = Math.min(100, alignmentData.training + Math.floor(Math.random() * 2) + 1);
+                alignmentData.implementation = Math.min(90, alignmentData.implementation + Math.floor(Math.random() * 4) + 2);
+                alignmentData.resistance = Math.max(5, alignmentData.resistance - Math.floor(Math.random() * 3) - 1);
+                alignmentData.collaboration = Math.min(95, alignmentData.collaboration + Math.floor(Math.random() * 2) + 1);
+
+                // Update display
+                document.getElementById('overall-alignment').textContent = alignmentData.overall + '%';
+                document.getElementById('executive-buy-in').textContent = alignmentData.executive + '%';
+                document.getElementById('training-completion').textContent = alignmentData.training + '%';
+                document.getElementById('implementation-rate').textContent = alignmentData.implementation + '%';
+                document.getElementById('resistance-level').textContent = alignmentData.resistance + '%';
+                document.getElementById('cross-collaboration').textContent = alignmentData.collaboration + '%';
+
+                showRSCoach('📊 Alignment data refreshed! Your integration efforts are showing measurable improvements across all metrics.');
+                updateProgress(85);
+            } catch (error) {
+                console.error('Sync alignment error:', error);
+            }
+        }
+
+        function generateAlignmentReport() {
+            try {
+                const reportContent = `
+                    <h3>🎯 Cross-Functional Alignment Report</h3>
+                    <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin: 20px 0;">
+                        <h4>Executive Summary</h4>
+                        <p>Overall transformation alignment has reached <strong>${alignmentData.overall}%</strong>, indicating strong cross-departmental adoption of CPR methodology.</p>
+                        
+                        <h4>Key Metrics</h4>
+                        <ul>
+                            <li><strong>Executive Buy-in:</strong> ${alignmentData.executive}% - Leadership is fully committed</li>
+                            <li><strong>Training Completion:</strong> ${alignmentData.training}% - Ahead of schedule</li>
+                            <li><strong>Implementation Rate:</strong> ${alignmentData.implementation}% - Accelerating deployment</li>
+                            <li><strong>Resistance Level:</strong> ${alignmentData.resistance}% - Effectively managed</li>
+                            <li><strong>Cross-Collaboration:</strong> ${alignmentData.collaboration}% - Excellent synergy</li>
+                        </ul>
+                        
+                        <h4>Recommendations</h4>
+                        <p>Continue current integration strategy with focus on sustaining momentum and addressing remaining resistance pockets through targeted coaching.</p>
+                    </div>
+                `;
+
+                document.getElementById('modal-content').innerHTML = reportContent;
+                document.getElementById('reportModal').style.display = 'block';
+                
+                showRSCoach('📋 Comprehensive alignment report generated! Use this data to communicate progress to stakeholders.');
+            } catch (error) {
+                console.error('Report generation error:', error);
+            }
+        }
+
+        // Training module builder functions
+        function selectTrainingComponent(element, componentId) {
+            try {
+                if (element.classList.contains('selected')) {
+                    // Deselect
+                    element.classList.remove('selected');
+                    trainingComponents = trainingComponents.filter(id => id !== componentId);
+                } else {
+                    // Select (max 6 components)
+                    if (trainingComponents.length < 6) {
+                        element.classList.add('selected');
+                        trainingComponents.push(componentId);
+                    } else {
+                        showRSCoach('Maximum 6 training components can be selected for optimal effectiveness.');
+                        return;
+                    }
+                }
+
+                updateTrainingMetrics();
+            } catch (error) {
+                console.error('Training component selection error:', error);
+            }
+        }
+
+        function updateTrainingMetrics() {
+            try {
+                const componentHours = {
+                    'cpr-foundation': 4,
+                    'change-leadership': 6,
+                    'resistance-management': 3,
+                    'metrics-tracking': 2,
+                    'team-coaching': 5,
+                    'stakeholder-alignment': 4
+                };
+
+                const totalHours = trainingComponents.reduce((sum, comp) => sum + (componentHours[comp] || 0), 0);
+                
+                document.getElementById('selected-count').textContent = trainingComponents.length;
+                document.getElementById('training-duration').textContent = totalHours + ' hours';
+
+                let deliveryMethod = 'Select components to see recommendations';
+                if (totalHours > 0) {
+                    if (totalHours <= 8) {
+                        deliveryMethod = '1-day intensive workshop';
+                    } else if (totalHours <= 16) {
+                        deliveryMethod = '2-day executive retreat';
+                    } else {
+                        deliveryMethod = 'Weekly sessions over 4-6 weeks';
+                    }
+                }
+                
+                document.getElementById('delivery-method').textContent = deliveryMethod;
+            } catch (error) {
+                console.error('Training metrics update error:', error);
+            }
+        }
+
+        function buildTrainingProgram() {
+            try {
+                if (trainingComponents.length === 0) {
+                    showRSCoach('Select at least one training component to build a program.');
+                    return;
+                }
+
+                const componentTitles = {
+                    'cpr-foundation': 'CPR Foundation',
+                    'change-leadership': 'Change Leadership',
+                    'resistance-management': 'Resistance Management',
+                    'metrics-tracking': 'Metrics & Tracking',
+                    'team-coaching': 'Team Coaching',
+                    'stakeholder-alignment': 'Stakeholder Alignment'
+                };
+
+                let programHTML = `
+                    <div style="background: rgba(255,255,255,0.1); border-radius: 10px; padding: 20px;">
+                        <h4>🎓 Custom Executive Training Program</h4>
+                        <p><strong>Selected Components:</strong></p>
+                        <ul>
+                `;
+
+                trainingComponents.forEach(comp => {
+                    programHTML += `<li>${componentTitles[comp]}</li>`;
+                });
+
+                programHTML += `
+                        </ul>
+                        <p><strong>Total Duration:</strong> ${document.getElementById('training-duration').textContent}</p>
+                        <p><strong>Delivery Method:</strong> ${document.getElementById('delivery-method').textContent}</p>
+                        <p><strong>Target Audience:</strong> Department heads and senior executives</p>
+                        <p><strong>Success Metrics:</strong> Post-training assessment scores, implementation progress tracking, and department alignment improvements</p>
+                    </div>
+                `;
+
+                document.getElementById('training-program-result').innerHTML = programHTML;
+                document.getElementById('training-program-result').style.display = 'block';
+                
+                showRSCoach('🔧 Training program built successfully! This customized approach will accelerate executive adoption.');
+                updateProgress(90);
+            } catch (error) {
+                console.error('Training program building error:', error);
+            }
+        }
+
+        // Final integration challenge
+        function startIntegrationMaster() {
+            try {
+                // Simulate comprehensive integration success
+                setTimeout(() => {
+                    document.getElementById('integration-master-result').style.display = 'block';
+                    updateProgress(100);
+                    showRSCoach('🏆 Congratulations! You\'ve mastered cross-department integration. You\'re ready for enterprise-scale transformation leadership.');
+                }, 1500);
+            } catch (error) {
+                console.error('Integration master error:', error);
+            }
+        }
+
+        // Modal functions
+        function closeModal() {
+            document.getElementById('reportModal').style.display = 'none';
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('reportModal');
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>
