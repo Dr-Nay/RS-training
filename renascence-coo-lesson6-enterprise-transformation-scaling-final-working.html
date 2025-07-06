@@ -476,6 +476,7 @@
 <body>
     <div class="enterprise-container">
         <div class="enterprise-header">
+            <div style="font-size: 1.5rem; font-weight: 600; margin-bottom: 15px; opacity: 0.9;">Renaissance Solutions</div>
             <h1 class="enterprise-title">🚀 ENTERPRISE TRANSFORMATION</h1>
             <p class="enterprise-subtitle">Multi-Division Implementation & Change Management</p>
         </div>
@@ -835,6 +836,35 @@
             <button class="enterprise-btn" onclick="optimizeResources()">⚡ OPTIMIZE RESOURCE ALLOCATION</button>
         </div>
 
+        <!-- Coming Up Section -->
+        <div class="coming-up-section" style="margin-top: 50px; padding: 30px; background: rgba(255, 255, 255, 0.05); border-radius: 15px; border: 2px solid #667eea;">
+            <h2 style="color: #667eea; font-size: 2rem; font-weight: 700; text-align: center; margin-bottom: 20px;">🎯 Coming Up in Lesson 7</h2>
+            <div style="text-align: center; font-size: 1.2rem; line-height: 1.6; margin-bottom: 25px;">
+                <strong>Advanced Crisis Leadership & Rapid Response Systems</strong><br>
+                Master real-time crisis management with AI-powered decision support, stakeholder psychology, and rapid response protocols that turn chaos into competitive advantage.
+            </div>
+            
+            <div style="background: rgba(102, 126, 234, 0.1); padding: 20px; border-radius: 10px; margin-bottom: 25px;">
+                <h3 style="color: #764ba2; font-size: 1.3rem; font-weight: 600; margin-bottom: 15px;">💫 Pre-Lesson 7 Challenge</h3>
+                <p style="font-size: 1rem; line-height: 1.5; margin-bottom: 15px;">
+                    Before advancing to Lesson 7, ensure you've mastered enterprise-wide transformation by achieving:
+                </p>
+                <ul style="list-style-type: none; padding-left: 0;">
+                    <li style="margin: 8px 0;">✅ <strong>85%+ Overall Adoption Rate</strong> across all divisions</li>
+                    <li style="margin: 8px 0;">✅ <strong>90%+ Cultural Alignment Score</strong> enterprise-wide</li>
+                    <li style="margin: 8px 0;">✅ <strong>10+ Active Divisions</strong> successfully transformed</li>
+                    <li style="margin: 8px 0;">✅ <strong>150+ Change Champions</strong> deployed and active</li>
+                    <li style="margin: 8px 0;">✅ <strong>Complete Enterprise Transformation Report</strong> generated</li>
+                </ul>
+            </div>
+
+            <div style="text-align: center;">
+                <button class="enterprise-btn" onclick="proceedToLesson7()" style="background: linear-gradient(45deg, #4CAF50, #45a049); font-size: 1.3rem; padding: 20px 50px;">
+                    🚀 PROCEED TO LESSON 7
+                </button>
+            </div>
+        </div>
+
         <div class="enterprise-pulse"></div>
     </div>
 
@@ -1024,6 +1054,48 @@
             
             enterpriseMetrics.overallAdoption += 6;
             updateMetrics();
+        }
+
+        function proceedToLesson7() {
+            // Check if requirements are met
+            const requirements = {
+                adoption: enterpriseMetrics.overallAdoption >= 85,
+                alignment: enterpriseMetrics.culturalAlignment >= 90,
+                divisions: Object.values(divisionData).filter(div => div.status === 'active').length >= 10,
+                champions: enterpriseMetrics.champions >= 150
+            };
+            
+            const allRequirementsMet = Object.values(requirements).every(req => req);
+            
+            if (allRequirementsMet) {
+                document.getElementById('transformationMessage').innerHTML = `
+                    <strong>🏆 LESSON 6 MASTERY ACHIEVED!</strong><br>
+                    All pre-lesson 7 requirements completed. You have demonstrated master-level enterprise transformation skills.
+                    <br><br>
+                    <strong>Redirecting to Lesson 7: Advanced Crisis Leadership...</strong>
+                `;
+                
+                // Simulate redirect (replace with actual URL when available)
+                setTimeout(() => {
+                    // window.location.href = 'renascence-coo-lesson7-crisis-leadership-final-working.html';
+                    alert('🚀 Ready for Lesson 7! (Redirect would happen here in production)');
+                }, 2000);
+            } else {
+                let missing = [];
+                if (!requirements.adoption) missing.push(`Overall Adoption: ${Math.round(enterpriseMetrics.overallAdoption)}% (need 85%+)`);
+                if (!requirements.alignment) missing.push(`Cultural Alignment: ${Math.round(enterpriseMetrics.culturalAlignment)}% (need 90%+)`);
+                if (!requirements.divisions) missing.push(`Active Divisions: ${Object.values(divisionData).filter(div => div.status === 'active').length}/12 (need 10+)`);
+                if (!requirements.champions) missing.push(`Change Champions: ${enterpriseMetrics.champions} (need 150+)`);
+                
+                document.getElementById('transformationMessage').innerHTML = `
+                    <strong>⚠️ PRE-LESSON 7 REQUIREMENTS NOT MET</strong><br>
+                    Complete the following to unlock Lesson 7:
+                    <br><br>
+                    ${missing.map(item => `• ${item}`).join('<br>')}
+                    <br><br>
+                    <strong>Continue your transformation efforts to meet these requirements.</strong>
+                `;
+            }
         }
 
         // Start the simulation
