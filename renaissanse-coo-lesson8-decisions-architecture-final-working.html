@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Renaissanse Solutions - Executive Decision Architecture</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0a0e1a 0%, #1a2847 50%, #0a0e1a 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        .quantum-field {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: 1;
+            background: 
+                radial-gradient(circle at 20% 20%, rgba(0, 212, 255, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(139, 92, 246, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 40% 70%, rgba(251, 191, 36, 0.08) 0%, transparent 50%);
+            animation: quantumPulse 8s ease-in-out infinite alternate;
+        }
+        
+        @keyframes quantumPulse {
+            0% { opacity: 0.4; transform: scale(1); }
+            100% { opacity: 0.8; transform: scale(1.02); }
+        }
+        
+        .particle {
+            position: absolute; width: 4px; height: 4px; border-radius: 50%;
+            background: rgba(0, 212, 255, 0.7); box-shadow: 0 0 8px currentColor;
+            animation: floatParticle 8s ease-in-out infinite;
+        }
+        
+        @keyframes floatParticle {
+            0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.4; }
+            50% { transform: translateY(-30px) rotate(180deg); opacity: 0.8; }
+        }
+        
+        .container { position: relative; z-index: 10; max-width: 1400px; margin: 0 auto; padding: 20px; }
+        
+        .header {
+            text-align: center; margin-bottom: 30px; padding: 40px 20px;
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+            border-radius: 20px; border: 1px solid rgba(0, 212, 255, 0.3);
+            backdrop-filter: blur(20px);
+        }
+        
+        .company-name {
+            font-size: 1.8em; font-weight: 700; color: #00d4ff; margin-bottom: 15px;
+            text-shadow: 0 0 15px rgba(0, 212, 255, 0.5); letter-spacing: 2px;
+        }
+        
+        .header h1 {
+            font-size: 2.5em; font-weight: 700; margin-bottom: 10px;
+            background: linear-gradient(135deg, #00d4ff, #8b5cf6);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        
+        .subtitle { font-size: 1.2em; color: rgba(255, 255, 255, 0.8); }
+        
+        .control-panel {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 30px; padding: 20px; border-radius: 15px;
+            background: rgba(26, 40, 71, 0.4); border: 1px solid rgba(0, 212, 255, 0.2);
+            backdrop-filter: blur(10px); flex-wrap: wrap; gap: 15px;
+        }
+        
+        .timer-display {
+            font-size: 1.5em; font-weight: 600; color: #00d4ff;
+            text-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+        }
+        
+        .score-display {
+            font-size: 1.2em; font-weight: 600; color: #fbbf24;
+            text-shadow: 0 0 10px rgba(251, 191, 36, 0.3);
+        }
+        
+        .training-grid { display: grid; grid-template-columns: 1fr 450px; gap: 30px; margin-bottom: 30px; }
+        
+        .scenario-panel {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.08) 0%, rgba(139, 92, 246, 0.08) 100%);
+            border-radius: 20px; padding: 30px; border: 1px solid rgba(0, 212, 255, 0.3);
+            backdrop-filter: blur(20px); box-shadow: 0 8px 32px rgba(0, 212, 255, 0.15);
+        }
+        
+        .scenario-title {
+            font-size: 1.4em; font-weight: 600; color: #00d4ff; margin-bottom: 20px;
+            text-shadow: 0 0 10px rgba(0, 212, 255, 0.3);
+        }
+        
+        .scenario-text {
+            font-size: 1.1em; line-height: 1.6; color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 20px;
+        }
+        
+        .ai-assistant {
+            background: rgba(139, 92, 246, 0.1); border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 10px; padding: 15px; margin-bottom: 20px;
+        }
+        
+        .ai-assistant h4 { color: #8b5cf6; margin-bottom: 10px; }
+        
+        .ai-controls { display: flex; gap: 10px; margin-bottom: 10px; }
+        
+        .ai-query-input {
+            flex: 1; background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(139, 92, 246, 0.3); border-radius: 5px;
+            padding: 10px; color: white; font-size: 0.9em;
+        }
+        
+        .ai-response {
+            background: rgba(255, 255, 255, 0.05); border-radius: 5px; padding: 15px;
+            color: rgba(255, 255, 255, 0.9); font-size: 0.9em; line-height: 1.4; min-height: 60px;
+        }
+        
+        .ask-ai-btn {
+            background: linear-gradient(135deg, #8b5cf6, #6d28d9); border: none;
+            color: white; padding: 10px 15px; border-radius: 5px; font-size: 0.9em;
+            cursor: pointer; transition: all 0.3s ease;
+        }
+        
+        .ask-ai-btn:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(139, 92, 246, 0.4); }
+        
+        .aria-btn { background: linear-gradient(135deg, #ef4444, #dc2626); }
+        .aria-btn:hover { box-shadow: 0 5px 15px rgba(239, 68, 68, 0.4); }
+        
+        .decision-options { display: flex; flex-direction: column; gap: 15px; }
+        
+        .decision-option {
+            background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 10px; padding: 20px; cursor: pointer; transition: all 0.3s ease;
+        }
+        
+        .decision-option:hover {
+            border-color: #00d4ff; background: rgba(0, 212, 255, 0.1);
+            transform: translateY(-2px); box-shadow: 0 10px 30px rgba(0, 212, 255, 0.2);
+        }
+        
+        .decision-option.selected { border-color: #fbbf24; background: rgba(251, 191, 36, 0.1); }
+        .decision-option.correct { border-color: #10b981; background: rgba(16, 185, 129, 0.1); }
+        .decision-option.incorrect { border-color: #ef4444; background: rgba(239, 68, 68, 0.1); }
+        
+        .mind-palace-panel {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.08) 0%, rgba(251, 191, 36, 0.08) 100%);
+            border-radius: 15px; padding: 20px; border: 1px solid rgba(139, 92, 246, 0.3);
+            backdrop-filter: blur(15px);
+        }
+        
+        .mind-palace-title {
+            font-size: 1.2em; font-weight: 600; color: #8b5cf6; margin-bottom: 15px;
+        }
+        
+        .executive-dna-matcher {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+            border: 1px solid rgba(0, 212, 255, 0.3); border-radius: 10px;
+            padding: 15px; margin-bottom: 20px; text-align: center;
+        }
+        
+        .dna-label { color: rgba(255, 255, 255, 0.7); font-size: 0.9em; margin-right: 10px; }
+        .dna-match { color: #00d4ff; font-weight: 600; text-shadow: 0 0 10px rgba(0, 212, 255, 0.3); }
+        
+        .cognitive-skill {
+            background: rgba(255, 255, 255, 0.05); border-radius: 8px; padding: 12px;
+            margin-bottom: 10px; border: 1px solid rgba(139, 92, 246, 0.2);
+            cursor: pointer; transition: all 0.3s ease;
+        }
+        
+        .cognitive-skill:hover {
+            background: rgba(139, 92, 246, 0.1); border-color: #8b5cf6;
+            transform: translateX(5px); box-shadow: 0 5px 15px rgba(139, 92, 246, 0.2);
+        }
+        
+        .skill-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+        .skill-name { font-weight: 600; color: #fbbf24; font-size: 0.9em; }
+        .skill-benchmark { font-size: 0.8em; color: #00d4ff; font-weight: 600; }
+        
+        .skill-level { display: flex; align-items: center; gap: 10px; margin-bottom: 5px; }
+        
+        .skill-bar {
+            flex: 1; height: 4px; background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px; overflow: hidden;
+        }
+        
+        .skill-fill {
+            height: 100%; background: linear-gradient(90deg, #8b5cf6, #fbbf24);
+            transition: width 0.5s ease;
+        }
+        
+        .skill-percentage { color: rgba(255, 255, 255, 0.7); font-size: 0.8em; min-width: 35px; }
+        .skill-preview { font-size: 0.8em; color: rgba(255, 255, 255, 0.6); font-style: italic; }
+        
+        .psychology-modal {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.8); z-index: 1000; display: flex;
+            align-items: center; justify-content: center; backdrop-filter: blur(10px);
+        }
+        
+        .modal-content {
+            background: linear-gradient(135deg, rgba(10, 14, 26, 0.95) 0%, rgba(26, 40, 71, 0.95) 100%);
+            border: 1px solid rgba(0, 212, 255, 0.3); border-radius: 20px;
+            max-width: 700px; max-height: 80vh; overflow-y: auto;
+            backdrop-filter: blur(20px); box-shadow: 0 20px 60px rgba(0, 212, 255, 0.2);
+        }
+        
+        .modal-header {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 25px 30px 15px; border-bottom: 1px solid rgba(0, 212, 255, 0.2);
+        }
+        
+        .modal-header h3 { color: #00d4ff; font-size: 1.4em; font-weight: 600; }
+        
+        .close-modal {
+            background: none; border: none; color: rgba(255, 255, 255, 0.7);
+            font-size: 1.5em; cursor: pointer; padding: 5px; border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .close-modal:hover { color: #ef4444; background: rgba(239, 68, 68, 0.1); }
+        
+        .modal-body { padding: 25px 30px 30px; color: rgba(255, 255, 255, 0.9); line-height: 1.6; }
+        
+        .executive-case {
+            background: rgba(0, 212, 255, 0.05); border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: 10px; padding: 20px; margin: 15px 0;
+        }
+        
+        .executive-name { font-size: 1.2em; font-weight: 600; color: #fbbf24; margin-bottom: 10px; }
+        
+        .case-scenario {
+            margin-bottom: 15px; padding-left: 15px;
+            border-left: 3px solid rgba(0, 212, 255, 0.5);
+        }
+        
+        .case-impact {
+            background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 8px; padding: 12px; margin-top: 10px;
+        }
+        
+        .impact-label { font-weight: 600; color: #10b981; margin-bottom: 5px; }
+        
+        .psychology-insight {
+            background: rgba(139, 92, 246, 0.1); border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 8px; padding: 15px; margin: 15px 0;
+        }
+        
+        .insight-label { font-weight: 600; color: #8b5cf6; margin-bottom: 8px; }
+        
+        .action-buttons {
+            display: flex; justify-content: center; gap: 20px; margin-top: 30px; flex-wrap: wrap;
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, #00d4ff, #8b5cf6); border: none;
+            color: white; padding: 15px 30px; border-radius: 10px; font-size: 1.1em;
+            font-weight: 600; cursor: pointer; transition: all 0.3s ease;
+            text-transform: uppercase; letter-spacing: 1px;
+        }
+        
+        .btn:hover { transform: translateY(-3px); box-shadow: 0 15px 35px rgba(0, 212, 255, 0.4); }
+        .btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+        
+        .btn-secondary { background: linear-gradient(135deg, #fbbf24, #f59e0b); }
+        .btn-secondary:hover { box-shadow: 0 15px 35px rgba(251, 191, 36, 0.4); }
+        
+        .hidden { display: none !important; }
+        
+        @media (max-width: 1200px) {
+            .training-grid { grid-template-columns: 1fr; }
+        }
+        
+        @media (max-width: 768px) {
+            .control-panel { flex-direction: column; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+    <div class="quantum-field"></div>
+
+    <!-- RS Logo Branding -->
+<div style="text-align: center; margin-top: 30px; margin-bottom: 20px;">
+  <img src="https://raw.githubusercontent.com/dr-nay/RS-training/main/assets/img/rs_logo.png" 
+       alt="Renaissanse Solutions Logo"
+       style="height: 90px; max-width: 280px; filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.6));">
+  <p style="color: rgba(255, 255, 255, 0.7); font-style: italic; font-size: 0.9em; margin-top: 10px;">
+    Transforming Performance. Empowering Growth.
+  </p>
+</div>
+
+    <div class="container">
+        <div class="header">
+            <div class="company-name"><strong>RENAISSANSE SOLUTIONS</strong></div>
+            <h1>Executive Decision Architecture</h1>
+            <p class="subtitle">Lesson 8: The Executive Mind Palace Training</p>
+        </div>
+        
+        <div class="control-panel">
+            <div class="timer-display">Time: <span id="timer">00:00</span></div>
+            <div class="score-display">Executive Score: <span id="score">0</span></div>
+        </div>
+        
+        <div class="training-grid">
+            <div class="scenario-panel">
+                <h2 class="scenario-title">🕐 Executive Time Machine</h2>
+                <div class="scenario-text">
+                    Your Fortune 500 company has discovered that three major competitors have been acquired by tech giants in the past 6 months. Stock prices initially dropped 15% but recovered to 40% gains within 12 months. A startup with revolutionary AI technology is now approaching your board with acquisition discussions.
+                    <br><br>
+                    <strong>Pattern recognition challenge:</strong> Based on industry consolidation trends, what's your strategic response?
+                </div>
+                
+                <div class="ai-assistant">
+                    <h4>🤖 AI Executive Assistant</h4>
+                    <div class="ai-controls">
+                        <input type="text" class="ai-query-input" id="aiQuery" placeholder="Ask me anything about this scenario...">
+                        <button class="ask-ai-btn" onclick="askAI()">Ask AI</button>
+                        <button class="ask-ai-btn aria-btn" onclick="activateAria()">🚨 Aria Crisis</button>
+                    </div>
+                    <div class="ai-response" id="aiResponse">
+                        Ready to provide strategic insights. Industry analysis shows SaaS consolidation increased 340% in past 18 months. Companies with AI integration demonstrate 23% higher growth rates.
+                    </div>
+                </div>
+                
+                <div class="decision-options">
+                    <div class="decision-option" onclick="selectOption(0)">
+                        <strong>Option A:</strong> Resist acquisition and maintain independence to preserve company culture and strategic control
+                    </div>
+                    <div class="decision-option" onclick="selectOption(1)">
+                        <strong>Option B:</strong> Enter acquisition discussions immediately to capitalize on favorable market timing
+                    </div>
+                    <div class="decision-option" onclick="selectOption(2)">
+                        <strong>Option C:</strong> Strategic evaluation with multiple pathways including partnerships, joint ventures, and acquisition
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mind-palace-panel">
+                <h2 class="mind-palace-title">🧠 Your Executive Mind Palace</h2>
+                
+                <div class="executive-dna-matcher">
+                    <div class="dna-label">Executive DNA Match:</div>
+                    <div class="dna-match" id="dnaMatch">Analyzing your cognitive patterns...</div>
+                </div>
+                
+                <div class="cognitive-skill" onclick="showSkillDetails('patternRecognition')">
+                    <div class="skill-header">
+                        <div class="skill-name">Pattern Recognition</div>
+                        <div class="skill-benchmark">Top CEOs: 94%</div>
+                    </div>
+                    <div class="skill-level">
+                        <div class="skill-bar">
+                            <div class="skill-fill" style="width: 20%" id="patternBar"></div>
+                        </div>
+                        <div class="skill-percentage">20%</div>
+                    </div>
+                    <div class="skill-preview">Click to learn from Reed Hastings' Netflix transformation</div>
+                </div>
+                
+                <div class="cognitive-skill" onclick="showSkillDetails('strategicThinking')">
+                    <div class="skill-header">
+                        <div class="skill-name">Strategic Thinking</div>
+                        <div class="skill-benchmark">Fortune 500: 89%</div>
+                    </div>
+                    <div class="skill-level">
+                        <div class="skill-bar">
+                            <div class="skill-fill" style="width: 15%" id="strategicBar"></div>
+                        </div>
+                        <div class="skill-percentage">15%</div>
+                    </div>
+                    <div class="skill-preview">Discover Satya Nadella's Microsoft revolution strategy</div>
+                </div>
+                
+                <div class="cognitive-skill" onclick="showSkillDetails('biasMastery')">
+                    <div class="skill-header">
+                        <div class="skill-name">Bias Mastery</div>
+                        <div class="skill-benchmark">Leaders: 91%</div>
+                    </div>
+                    <div class="skill-level">
+                        <div class="skill-bar">
+                            <div class="skill-fill" style="width: 10%" id="biasBar"></div>
+                        </div>
+                        <div class="skill-percentage">10%</div>
+                    </div>
+                    <div class="skill-preview">Study Andy Grove's Intel pivot mastery</div>
+                </div>
+                
+                <div class="cognitive-skill" onclick="showSkillDetails('systemsThinking')">
+                    <div class="skill-header">
+                        <div class="skill-name">Systems Thinking</div>
+                        <div class="skill-benchmark">Executives: 87%</div>
+                    </div>
+                    <div class="skill-level">
+                        <div class="skill-bar">
+                            <div class="skill-fill" style="width: 25%" id="systemsBar"></div>
+                        </div>
+                        <div class="skill-percentage">25%</div>
+                    </div>
+                    <div class="skill-preview">Learn Jeff Bezos' ecosystem approach</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="action-buttons">
+            <button class="btn" id="nextBtn" onclick="nextScenario()" disabled>Continue Journey</button>
+            <button class="btn btn-secondary hidden" onclick="showResults()">Generate Decision DNA</button>
+            <button class="btn btn-secondary hidden" onclick="showSave()">Save Training</button>
+        </div>
+        
+        <!-- Psychology Modal -->
+        <div class="psychology-modal hidden" id="psychologyModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 id="modalTitle">Executive Psychology Deep Dive</h3>
+                    <button class="close-modal" onclick="closeModal()">×</button>
+                </div>
+                <div class="modal-body" id="modalBody"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Global variables
+        let startTime = Date.now();
+        let currentScore = 0;
+        let currentScenario = 1;
+        
+        // Executive Psychology Database
+        const executivePsychology = {
+            patternRecognition: {
+                title: "Pattern Recognition Mastery",
+                benchmark: "Top CEOs average 94% proficiency",
+                neuroscience: "Activates the prefrontal cortex and anterior cingulate cortex, enabling rapid pattern matching and trend identification crucial for strategic foresight.",
+                successCase: {
+                    name: "Reed Hastings (Netflix)",
+                    scenario: "In 2007, Netflix dominated DVD-by-mail with 7.5 million subscribers and growing profits. Most executives would have doubled down on their winning formula. But Hastings recognized a critical pattern: every major entertainment shift destroyed incumbent leaders who couldn't see change coming.",
+                    decision: "He launched Netflix streaming while cannibalizing his own profitable DVD business, despite fierce internal resistance and Wall Street skepticism.",
+                    impact: "Netflix transformed from a $1B DVD company to a $240B streaming empire. Companies that missed this pattern (Blockbuster, Hollywood Video) went extinct.",
+                    psychology: "Pattern recognition allowed Hastings to see beyond current success to identify future disruption trends before competitors."
+                },
+                development: "Practice identifying 3-5 year industry trends weekly. Study pattern failures in business history. Use scenario planning to anticipate market shifts."
+            },
+            strategicThinking: {
+                title: "Strategic Thinking Architecture", 
+                benchmark: "Fortune 500 CEOs score 89% average",
+                neuroscience: "Integrates the dorsolateral prefrontal cortex (analysis) with default mode network (creative synthesis), enabling multi-dimensional strategic planning.",
+                successCase: {
+                    name: "Satya Nadella (Microsoft)",
+                    scenario: "When Nadella became CEO in 2014, Microsoft was losing relevance. Windows dominated desktop but mobile belonged to Apple/Google. Cloud computing was emerging but Amazon led. Investors wanted focus - pick one battle to win.",
+                    decision: "Instead of choosing, Nadella saw strategic interconnections. He repositioned Microsoft as a platform company: Azure cloud enabling Office 365, supporting LinkedIn data, powering AI development, integrating with gaming.",
+                    impact: "Microsoft's market cap grew from $300B to $3 trillion. The interconnected strategy created compounding advantages no competitor could replicate.",
+                    psychology: "Strategic thinking enabled Nadella to see systems rather than individual products, creating sustainable competitive advantages."
+                },
+                development: "Map industry ecosystems monthly. Practice scenario planning with 3-horizon thinking. Study how decisions create strategic optionality."
+            },
+            biasMastery: {
+                title: "Cognitive Bias Mastery",
+                benchmark: "Top performers achieve 91% bias resistance", 
+                neuroscience: "Strengthens the anterior cingulate cortex's conflict monitoring and reduces amygdala-driven emotional decision-making.",
+                successCase: {
+                    name: "Andy Grove (Intel)",
+                    scenario: "By 1985, Intel dominated memory chips - their founding business and emotional identity. But Japanese competitors were winning through lower costs and better quality. Grove's team loved memory chips and resisted acknowledging the competitive reality.",
+                    decision: "Grove recognized confirmation bias in his organization. He asked: 'If we got kicked out and the board brought in new management, what would they do?' The answer was clear: exit memory and focus on microprocessors.",
+                    impact: "Intel became the world's dominant microprocessor company, worth $200B+. Memory competitors like Fairchild and Mostek disappeared.",
+                    psychology: "Bias mastery allowed Grove to overcome sunk cost fallacy and confirmation bias, making rational decisions despite emotional attachment."
+                },
+                development: "Implement red team exercises monthly. Use pre-mortem analysis for major decisions. Create bias checklists for strategic choices."
+            },
+            systemsThinking: {
+                title: "Systems Thinking Mastery",
+                benchmark: "Leading executives score 87% average",
+                neuroscience: "Engages the frontoparietal network for complex integration and the default mode network for holistic perspective synthesis.",
+                successCase: {
+                    name: "Jeff Bezos (Amazon)",
+                    scenario: "In the late 1990s, investors demanded Amazon focus on profitability instead of expansion. Wall Street wanted a simple bookstore business model. Bezos saw something different: customer obsession as a flywheel system.",
+                    decision: "He built an interconnected system: customer experience drives traffic, traffic attracts suppliers, suppliers improve selection and lower costs, which improves customer experience. Each element reinforces others.",
+                    impact: "Amazon grew from online bookstore to $1.5 trillion everything company. The systems approach created unstoppable momentum that competitors couldn't replicate.",
+                    psychology: "Systems thinking enabled Bezos to see interconnected feedback loops rather than individual business lines."
+                },
+                development: "Map stakeholder interdependencies quarterly. Practice systems diagramming for complex decisions. Study unintended consequences in business history."
+            }
+        };
+        
+        // Core Functions
+        function selectOption(optionIndex) {
+            document.querySelectorAll('.decision-option').forEach(opt => {
+                opt.classList.remove('selected', 'correct', 'incorrect');
+            });
+            
+            const options = document.querySelectorAll('.decision-option');
+            options[optionIndex].classList.add('selected');
+            
+            setTimeout(() => {
+                if (optionIndex === 2) {
+                    options[optionIndex].classList.add('correct');
+                    currentScore += 90;
+                    updateSkillBar('patternBar', 12);
+                    updateSkillBar('strategicBar', 15);
+                    showDecisionInsight("Excellent strategic thinking! Like Reed Hastings at Netflix, you recognized the pattern and chose a multi-option approach that preserves flexibility while evaluating opportunities.");
+                } else {
+                    options[optionIndex].classList.add('incorrect');
+                    currentScore += optionIndex === 1 ? 70 : 40;
+                    updateSkillBar('patternBar', 5);
+                    updateSkillBar('strategicBar', 3);
+                    
+                    if (optionIndex === 0) {
+                        showDecisionInsight("This shows status quo bias - similar to how Yahoo's Jerry Yang resisted change. Market leaders who resist transformation often lose their position.");
+                    } else {
+                        showDecisionInsight("This reactive approach shows availability heuristic bias. While speed has value, rushed decisions without proper evaluation can lead to poor outcomes.");
+                    }
+                }
+                
+                document.getElementById('score').textContent = Math.round(currentScore / currentScenario);
+                document.getElementById('nextBtn').disabled = false;
+                updateExecutiveDNA();
+            }, 1000);
+        }
+        
+        function updateSkillBar(barId, increase) {
+            const bar = document.getElementById(barId);
+            if (!bar) return;
+            
+            const currentWidth = parseInt(bar.style.width) || 0;
+            const newWidth = Math.min(100, currentWidth + increase);
+            bar.style.width = newWidth + '%';
+            
+            const skill = bar.closest('.cognitive-skill');
+            const percentage = skill.querySelector('.skill-percentage');
+            if (percentage) {
+                percentage.textContent = newWidth + '%';
+            }
+            
+            // Quantum visual feedback
+            bar.style.boxShadow = '0 0 15px rgba(0, 212, 255, 0.8)';
+            setTimeout(() => {
+                bar.style.boxShadow = '0 0 10px rgba(0, 212, 255, 0.5)';
+            }, 2000);
+        }
+        
+        function showDecisionInsight(message) {
+            const insight = document.createElement('div');
+            insight.style.cssText = `
+                position: fixed; top: 20px; right: 20px; z-index: 1000;
+                background: linear-gradient(135deg, rgba(139, 92, 246, 0.9) 0%, rgba(0, 212, 255, 0.9) 100%);
+                color: white; padding: 15px 20px; border-radius: 10px; max-width: 400px;
+                border: 1px solid rgba(255, 255, 255, 0.3); backdrop-filter: blur(10px);
+                box-shadow: 0 10px 30px rgba(139, 92, 246, 0.3);
+                animation: slideInRight 0.5s ease-out;
+            `;
+            
+            insight.innerHTML = `
+                <div style="font-weight: 600; margin-bottom: 5px; color: #fbbf24;">🧠 Cognitive Insight</div>
+                <div style="font-size: 0.9em; line-height: 1.4;">${message}</div>
+            `;
+            
+            document.body.appendChild(insight);
+            
+            setTimeout(() => {
+                insight.style.animation = 'slideOutRight 0.5s ease-in';
+                setTimeout(() => {
+                    if (document.body.contains(insight)) {
+                        document.body.removeChild(insight);
+                    }
+                }, 500);
+            }, 5000);
+        }
+        
+        function updateExecutiveDNA() {
+            const executiveProfiles = {
+                "Reed Hastings": ["patternRecognition", "strategicThinking"],
+                "Satya Nadella": ["strategicThinking", "systemsThinking"],
+                "Andy Grove": ["biasMastery", "systemsThinking"],
+                "Jeff Bezos": ["systemsThinking", "strategicThinking"]
+            };
+            
+            let bestMatch = "Reed Hastings";
+            let bestScore = Math.random() * 20 + 70;
+            
+            const matchPercentage = Math.round(bestScore);
+            document.getElementById('dnaMatch').textContent = `${matchPercentage}% match with ${bestMatch}'s profile`;
+        }
+        
+        function showSkillDetails(skillKey) {
+            const skill = executivePsychology[skillKey];
+            if (!skill) return;
+            
+            const modal = document.getElementById('psychologyModal');
+            const title = document.getElementById('modalTitle');
+            const body = document.getElementById('modalBody');
+            
+            title.textContent = skill.title;
+            
+            body.innerHTML = `
+                <div class="psychology-insight">
+                    <div class="insight-label">🧠 Neuroscience Foundation</div>
+                    <div>${skill.neuroscience}</div>
+                </div>
+                
+                <div class="psychology-insight">
+                    <div class="insight-label">📊 Executive Benchmark</div>
+                    <div>${skill.benchmark}</div>
+                </div>
+                
+                <div class="executive-case">
+                    <div class="executive-name">✨ Success Story: ${skill.successCase.name}</div>
+                    <div class="case-scenario">
+                        <strong>The Challenge:</strong><br>
+                        ${skill.successCase.scenario}
+                    </div>
+                    <div class="case-scenario">
+                        <strong>The Decision:</strong><br>
+                        ${skill.successCase.decision}
+                    </div>
+                    <div class="case-impact">
+                        <div class="impact-label">💎 Transformational Impact</div>
+                        ${skill.successCase.impact}
+                    </div>
+                    <div class="psychology-insight">
+                        <div class="insight-label">🎯 Cognitive Psychology</div>
+                        ${skill.successCase.psychology}
+                    </div>
+                </div>
+                
+                <div class="psychology-insight">
+                    <div class="insight-label">🚀 Your Development Path</div>
+                    <div>${skill.development}</div>
+                </div>
+            `;
+            
+            modal.classList.remove('hidden');
+        }
+        
+        function closeModal() {
+            document.getElementById('psychologyModal').classList.add('hidden');
+        }
+        
+        function nextScenario() {
+            currentScenario++;
+            document.getElementById('nextBtn').disabled = true;
+            
+            if (currentScenario <= 10) {
+                document.querySelector('.scenario-text').innerHTML = `
+                    <strong>Scenario ${currentScenario}:</strong> Your next executive decision scenario is loading...
+                    <br><br>
+                    This will test different aspects of your cognitive architecture including systems thinking, bias mastery, and stakeholder awareness.
+                `;
+                document.querySelectorAll('.decision-option').forEach(opt => {
+                    opt.classList.remove('selected', 'correct', 'incorrect');
+                });
+            } else {
+                document.querySelector('.scenario-text').textContent = 
+                    "🎉 Congratulations! You've completed all executive decision scenarios. Your cognitive architecture has been significantly enhanced.";
+                document.getElementById('nextBtn').style.display = 'none';
+                document.querySelectorAll('.btn-secondary').forEach(btn => btn.classList.remove('hidden'));
+            }
+        }
+        
+        function askAI() {
+            const query = document.getElementById('aiQuery').value;
+            if (query.trim()) {
+                document.getElementById('aiResponse').textContent = 
+                    `Strategic Analysis: Based on your query about "${query}", current market consolidation patterns suggest evaluating multiple strategic options. Consider stakeholder impact, competitive positioning, and long-term value creation. Pattern recognition indicates companies that maintain optionality during market transitions achieve superior outcomes.`;
+                document.getElementById('aiQuery').value = '';
+            }
+        }
+        
+        function activateAria() {
+            document.getElementById('aiResponse').innerHTML = 
+                `<strong style="color: #ef4444;">🚨 ARIA CRISIS ADVISOR ACTIVATED</strong><br><br>
+                <strong>CRISIS INJECTION:</strong> Breaking news - your largest competitor just announced a hostile takeover attempt targeting your company. Stock price dropping 12%. Emergency board meeting called in 90 minutes. Media requesting immediate statement. Key shareholders are panicking.<br><br>
+                <strong style="color: #fbbf24;">How does this crisis pressure change your acquisition decision approach? Consider stakeholder psychology under stress.</strong>`;
+        }
+        
+        function showResults() {
+            const finalScore = Math.round(currentScore / currentScenario);
+            const skills = ['patternBar', 'strategicBar', 'biasBar', 'systemsBar'];
+            const avgSkillLevel = Math.round(skills.reduce((sum, skill) => {
+                const bar = document.getElementById(skill);
+                return sum + (parseInt(bar?.style.width) || 0);
+            }, 0) / skills.length);
+            
+            alert(`🧬 Your Executive Decision DNA Report:
+            
+Final Decision Score: ${finalScore}/100
+Cognitive Development: ${avgSkillLevel}%
+${document.getElementById('dnaMatch').textContent}
+
+Performance Tier: ${finalScore >= 90 ? 'Executive Mastery' : finalScore >= 80 ? 'Strategic Leadership' : finalScore >= 70 ? 'Operational Excellence' : 'Management Competency'}
+
+Your cognitive architecture shows ${avgSkillLevel >= 80 ? 'exceptional' : avgSkillLevel >= 60 ? 'strong' : 'developing'} executive potential.
+
+C-Suite Readiness: ${avgSkillLevel >= 75 ? 'READY for advancement' : 'Continue development recommended'}`);
+        }
+        
+        function showSave() {
+            alert('💾 Training would be saved as: renaissanse-coo-lesson8-decision-architecture-final-working.html\n\nReady for GitHub upload to TalentLMS platform!');
+        }
+        
+        function updateTimer() {
+            setInterval(() => {
+                const elapsed = Date.now() - startTime;
+                const minutes = Math.floor(elapsed / 60000);
+                const seconds = Math.floor((elapsed % 60000) / 1000);
+                document.getElementById('timer').textContent = 
+                    `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            }, 1000);
+        }
+        
+        // Quantum Visual Effects Functions
+        function createQuantumParticles() {
+            const quantumField = document.querySelector('.quantum-field');
+            
+            // Create floating particles with different colors and animations
+            for (let i = 0; i < 30; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 8 + 's';
+                particle.style.animationDuration = (Math.random() * 4 + 6) + 's';
+                
+                // Quantum Nexus colors
+                const colors = [
+                    'rgba(0, 212, 255, 0.7)',   // Electric cyan
+                    'rgba(139, 92, 246, 0.7)',  // Quantum violet  
+                    'rgba(251, 191, 36, 0.6)'   // Neural gold
+                ];
+                particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+                
+                quantumField.appendChild(particle);
+            }
+            
+            // Create neural network lines
+            for (let i = 0; i < 15; i++) {
+                const line = document.createElement('div');
+                line.style.cssText = `
+                    position: absolute;
+                    height: 1px;
+                    width: ${Math.random() * 300 + 150}px;
+                    background: linear-gradient(90deg, 
+                        transparent, 
+                        rgba(0, 212, 255, 0.4), 
+                        rgba(139, 92, 246, 0.6), 
+                        rgba(0, 212, 255, 0.4), 
+                        transparent);
+                    left: ${Math.random() * 100}%;
+                    top: ${Math.random() * 100}%;
+                    transform: rotate(${Math.random() * 360}deg);
+                    animation: neuralPulse ${Math.random() * 2 + 3}s ease-in-out infinite;
+                    box-shadow: 0 0 4px rgba(0, 212, 255, 0.3);
+                `;
+                quantumField.appendChild(line);
+            }
+        }
+        
+        function createQuantumRipple(x, y) {
+            const ripple = document.createElement('div');
+            ripple.style.cssText = `
+                position: fixed;
+                left: ${x - 25}px;
+                top: ${y - 25}px;
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                border: 2px solid rgba(0, 212, 255, 0.6);
+                pointer-events: none;
+                z-index: 9999;
+                animation: quantumRipple 1.5s ease-out forwards;
+            `;
+            
+            document.body.appendChild(ripple);
+            setTimeout(() => {
+                if (document.body.contains(ripple)) {
+                    document.body.removeChild(ripple);
+                }
+            }, 1500);
+        }
+        
+        function addHolographicScans() {
+            const panels = ['.scenario-panel', '.mind-palace-panel'];
+            panels.forEach(panelSelector => {
+                const panel = document.querySelector(panelSelector);
+                if (panel) {
+                    const scan = document.createElement('div');
+                    scan.style.cssText = `
+                        position: absolute;
+                        top: 0;
+                        left: -100%;
+                        width: 100%;
+                        height: 100%;
+                        background: linear-gradient(90deg, 
+                            transparent, 
+                            rgba(0, 212, 255, 0.1), 
+                            rgba(139, 92, 246, 0.15), 
+                            rgba(0, 212, 255, 0.1), 
+                            transparent);
+                        animation: hologramSweep 6s ease-in-out infinite;
+                        pointer-events: none;
+                    `;
+                    panel.style.position = 'relative';
+                    panel.appendChild(scan);
+                }
+            });
+        }
+        
+        // Initialize everything
+        document.addEventListener('DOMContentLoaded', function() {
+            updateTimer();
+            updateExecutiveDNA();
+            
+            // Create quantum effects after DOM is ready
+            setTimeout(() => {
+                createQuantumParticles();
+                addHolographicScans();
+            }, 500);
+            
+            // Quantum ripple effects on click
+            document.addEventListener('click', function(e) {
+                createQuantumRipple(e.clientX, e.clientY);
+            });
+            
+            // Enter key for AI
+            document.getElementById('aiQuery').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    askAI();
+                }
+            });
+            
+            // Close modal on background click
+            document.getElementById('psychologyModal').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeModal();
+                }
+            });
+        });
+        
+        // Add all quantum animations to CSS
+        const quantumAnimations = document.createElement('style');
+        quantumAnimations.textContent = `
+            @keyframes neuralPulse {
+                0%, 100% { 
+                    opacity: 0.2;
+                    transform: scaleX(0.8);
+                }
+                50% { 
+                    opacity: 0.9;
+                    transform: scaleX(1.1);
+                    box-shadow: 0 0 8px rgba(0, 212, 255, 0.6);
+                }
+            }
+            
+            @keyframes quantumRipple {
+                0% {
+                    width: 0;
+                    height: 0;
+                    opacity: 1;
+                    border-width: 3px;
+                }
+                100% {
+                    width: 200px;
+                    height: 200px;
+                    opacity: 0;
+                    border-width: 0;
+                    box-shadow: 0 0 30px rgba(0, 212, 255, 0.3);
+                }
+            }
+            
+            @keyframes hologramSweep {
+                0% { left: -100%; }
+                50% { left: 100%; }
+                100% { left: -100%; }
+            }
+            
+            @keyframes slideInRight {
+                0% { transform: translateX(100%); opacity: 0; }
+                100% { transform: translateX(0); opacity: 1; }
+            }
+            
+            @keyframes slideOutRight {
+                0% { transform: translateX(0); opacity: 1; }
+                100% { transform: translateX(100%); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(quantumAnimations);
+    </script>
+</body>
+</html>
