@@ -1,0 +1,1273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RS Executive Decision Architecture - ARIA Enhanced</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        .floating-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.6; }
+            50% { transform: translateY(-20px) rotate(180deg); opacity: 1; }
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .company-header {
+            font-size: 2.5em;
+            font-weight: 900;
+            color: #B80000;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            margin-bottom: 15px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .header h1 {
+            font-size: 2.8em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            background: linear-gradient(45deg, #fff, #e3f2fd);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header-subtitle {
+            font-size: 1.2em;
+            opacity: 0.9;
+            font-weight: 300;
+            margin-bottom: 15px;
+        }
+
+        .company-branding {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 15px 30px;
+            border-radius: 25px;
+            display: inline-block;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            margin-top: 10px;
+        }
+
+        .company-tagline {
+            font-size: 0.9em;
+            color: rgba(255, 255, 255, 0.8);
+            font-style: italic;
+        }
+
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 25px;
+            margin-bottom: 20px;
+        }
+
+        .scenario-panel {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 25px;
+            padding: 35px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .scenario-panel::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #B80000, #ff6b6b, #4ecdc4);
+        }
+
+        .aria-assistant {
+            background: rgba(0, 123, 255, 0.1);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 25px;
+            border: 1px solid rgba(0, 123, 255, 0.2);
+            position: sticky;
+            top: 20px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .aria-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(0, 123, 255, 0.2);
+        }
+
+        .aria-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #007bff, #6610f2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5em;
+            margin-right: 15px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .aria-name {
+            font-weight: bold;
+            color: #007bff;
+            font-size: 1.1em;
+        }
+
+        .aria-status {
+            font-size: 0.9em;
+            color: #666;
+            font-style: italic;
+        }
+
+        .aria-message {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 15px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            border-left: 3px solid #007bff;
+            line-height: 1.6;
+            animation: slideInLeft 0.5s ease-out;
+        }
+
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .scenario-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .scenario-icon {
+            font-size: 2.5em;
+            margin-right: 20px;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        .scenario-title {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #B80000;
+            margin-bottom: 5px;
+        }
+
+        .scenario-difficulty {
+            background: #ff6b6b;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+
+        .scenario-content {
+            line-height: 1.8;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+            color: #555;
+        }
+
+        .cpr-diagnostic {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 25px 0;
+            border: 1px solid #dee2e6;
+        }
+
+        .cpr-diagnostic h3 {
+            color: #B80000;
+            margin-bottom: 20px;
+            font-size: 1.4em;
+            display: flex;
+            align-items: center;
+        }
+
+        .cpr-diagnostic h3::before {
+            content: '🧭';
+            margin-right: 10px;
+            font-size: 1.2em;
+        }
+
+        .cpr-input-group {
+            margin-bottom: 20px;
+        }
+
+        .cpr-input-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #333;
+            font-size: 1.05em;
+        }
+
+        .cpr-label-c { color: #007bff; }
+        .cpr-label-p { color: #28a745; }
+        .cpr-label-r { color: #dc3545; }
+
+        .cpr-textarea {
+            width: 100%;
+            min-height: 80px;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 1em;
+            resize: vertical;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        .cpr-textarea:focus {
+            outline: none;
+            border-color: #007bff;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+        }
+
+        .cpr-progress {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+
+        .cpr-progress-item {
+            text-align: center;
+            font-size: 0.9em;
+        }
+
+        .cpr-progress-circle {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: #e0e0e0;
+            margin: 0 auto 5px;
+            transition: all 0.3s ease;
+        }
+
+        .cpr-progress-circle.complete {
+            background: #28a745;
+        }
+
+        .decision-options {
+            margin-top: 30px;
+        }
+
+        .decision-title {
+            font-size: 1.4em;
+            font-weight: bold;
+            margin-bottom: 25px;
+            color: #2c3e50;
+            display: flex;
+            align-items: center;
+        }
+
+        .decision-title::before {
+            content: '🧠';
+            margin-right: 10px;
+        }
+
+        .option {
+            background: rgba(248, 249, 250, 0.9);
+            border: 2px solid #dee2e6;
+            padding: 25px;
+            margin-bottom: 20px;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .option::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .option:hover::before {
+            left: 100%;
+        }
+
+        .option:hover {
+            border-color: #007bff;
+            background: rgba(227, 242, 253, 0.9);
+            transform: translateX(8px) translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 123, 255, 0.15);
+        }
+
+        .option.selected {
+            border-color: #B80000;
+            background: rgba(184, 0, 0, 0.1);
+            transform: scale(1.02);
+        }
+
+        .option-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .option-letter {
+            background: #007bff;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2em;
+            margin-right: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .option.selected .option-letter {
+            background: #B80000;
+            transform: scale(1.1);
+        }
+
+        .option-cpr-tag {
+            background: linear-gradient(135deg, #17a2b8, #20c997);
+            color: white;
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: bold;
+            margin-left: auto;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .option-text {
+            font-size: 1.1em;
+            line-height: 1.7;
+            color: #555;
+        }
+
+        .deep-dive-section {
+            background: rgba(255, 193, 7, 0.1);
+            border: 2px solid rgba(255, 193, 7, 0.3);
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 20px;
+            display: none;
+        }
+
+        .deep-dive-section.show {
+            display: block;
+            animation: expandIn 0.5s ease-out;
+        }
+
+        @keyframes expandIn {
+            from { opacity: 0; max-height: 0; padding: 0 20px; }
+            to { opacity: 1; max-height: 500px; padding: 20px; }
+        }
+
+        .deep-dive-title {
+            font-weight: bold;
+            color: #856404;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+
+        .deep-dive-question {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            border-left: 4px solid #ffc107;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 40px;
+            padding-top: 25px;
+            border-top: 2px solid #e0e0e0;
+        }
+
+        .btn {
+            padding: 15px 35px;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            transform: translate(-50%, -50%);
+        }
+
+        .btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #B80000, #ff4757);
+            color: white;
+            box-shadow: 0 4px 15px rgba(184, 0, 0, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #a00000, #e63946);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(184, 0, 0, 0.4);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #6c757d, #495057);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: linear-gradient(135deg, #545b62, #343a40);
+            transform: translateY(-2px);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .progress-section {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 12px;
+            background: rgba(224, 224, 224, 0.6);
+            border-radius: 6px;
+            overflow: hidden;
+            margin-bottom: 15px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #B80000, #ff4757, #2ed573);
+            transition: width 0.8s ease;
+            border-radius: 6px;
+        }
+
+        .achievement-popup {
+            position: fixed;
+            top: 20px;
+            right: -350px;
+            background: #28a745;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(40, 167, 69, 0.3);
+            transition: right 0.5s ease;
+            z-index: 1000;
+            max-width: 300px;
+        }
+
+        .achievement-popup.show {
+            right: 20px;
+        }
+
+        .achievement-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .cpr-analytics {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .cpr-stat {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            border: 1px solid #e0e0e0;
+        }
+
+        .cpr-stat-value {
+            font-size: 2em;
+            font-weight: bold;
+            color: #B80000;
+        }
+
+        .cpr-stat-label {
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        .loading-animation {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #007bff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 1200px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .aria-assistant {
+                position: relative;
+                top: 0;
+                max-height: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .controls {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .cpr-analytics {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-particles" id="particles"></div>
+    
+    <div class="container">
+        <div class="header">
+            <div class="company-header">Renaissanse Solutions</div>
+            <h1>🕐 Executive Decision Architecture</h1>
+            <p class="header-subtitle">Master Complex Decisions with CPR Framework & ARIA 4.0 Intelligence</p>
+            <div class="company-branding">
+                <div class="company-tagline">Transforming Performance. Empowering Growth.</div>
+            </div>
+        </div>
+
+        <div class="progress-section">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="cpr-analytics">
+                <div class="cpr-stat">
+                    <div class="cpr-stat-value" id="comprehensiveScore">0</div>
+                    <div class="cpr-stat-label">Comprehensive</div>
+                </div>
+                <div class="cpr-stat">
+                    <div class="cpr-stat-value" id="performanceScore">0</div>
+                    <div class="cpr-stat-label">Performance</div>
+                </div>
+                <div class="cpr-stat">
+                    <div class="cpr-stat-value" id="recalibrationScore">0</div>
+                    <div class="cpr-stat-label">Recalibration</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-grid">
+            <div class="scenario-panel" id="scenarioPanel">
+                <!-- Scenario content will be loaded here -->
+            </div>
+
+            <div class="aria-assistant">
+                <div class="aria-header">
+                    <div class="aria-avatar">🤖</div>
+                    <div>
+                        <div class="aria-name">ARIA 4.0</div>
+                        <div class="aria-status" id="ariaStatus">Ready to assist</div>
+                    </div>
+                </div>
+                <div id="ariaMessages">
+                    <div class="aria-message">
+                        Hello! I'm ARIA 4.0, your executive decision coach. I'll guide you through complex scenarios using the CPR framework. Let's start by understanding your approach to decision-making. Are you ready to begin?
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="achievement-popup" id="achievementPopup">
+        <div class="achievement-title" id="achievementTitle"></div>
+        <div id="achievementText"></div>
+    </div>
+
+    <script>
+        // Enhanced Scenario Data with Deep Dive Questions
+        const scenarios = [
+            {
+                id: 1,
+                icon: "🏢",
+                title: "Market Disruption Response",
+                difficulty: "Executive Level",
+                content: "Your company has lost 18% market share in the last 12 months due to two fast-moving competitors offering AI-based solutions. Employee morale is down, innovation feels stalled, and your board is calling for decisive action. The quarterly earnings call is in 3 weeks, and stakeholders are demanding a concrete response strategy.",
+                cprPrompts: {
+                    C: "What comprehensive analysis must be completed before taking action? Consider competitor capabilities, customer migration patterns, internal innovation barriers, and financial implications.",
+                    P: "What specific performance actions must be executed immediately to demonstrate progress? Think about team deployment, resource allocation, and operational changes.",
+                    R: "What signals and feedback loops will indicate whether your strategy needs recalibration? Consider employee metrics, customer response, and competitive reactions."
+                },
+                options: [
+                    {
+                        letter: "A",
+                        cprType: "C",
+                        text: "Pause all initiatives and launch a comprehensive 90-day market and internal strategy diagnostic, including competitive intelligence, customer research, and innovation audit",
+                        deepDive: [
+                            "What specific competitive intelligence gaps must be filled immediately?",
+                            "How will you maintain team momentum during this analysis phase?",
+                            "What's the risk of competitors gaining further advantage during your 90-day pause?"
+                        ]
+                    },
+                    {
+                        letter: "B", 
+                        cprType: "P",
+                        text: "Announce an immediate 60-day performance sprint, redirecting all teams to compete with urgency while launching rapid prototype development",
+                        deepDive: [
+                            "How will you ensure quality doesn't suffer under this aggressive timeline?",
+                            "What resources need immediate reallocation to support this sprint?",
+                            "How will you measure success within the 60-day window?"
+                        ]
+                    },
+                    {
+                        letter: "C",
+                        cprType: "R",
+                        text: "Host company-wide town halls and cross-functional leadership recalibration sessions to gather ground-level insights and adapt strategy based on employee and customer feedback",
+                        deepDive: [
+                            "How will you structure these sessions to generate actionable insights?",
+                            "What mechanisms will ensure honest feedback from all organizational levels?",
+                            "How will you balance transparency with competitive confidentiality?"
+                        ]
+                    }
+                ],
+                ariaInsights: [
+                    "This scenario tests your ability to balance urgency with thoroughness. Notice how each option emphasizes a different CPR dimension.",
+                    "Consider the stakeholder pressure: board wants action, employees need direction, customers are defecting. How does timing affect your choice?",
+                    "Executive decision-making often requires choosing between competing goods. What are you optimizing for here?"
+                ]
+            },
+            {
+                id: 2,
+                icon: "🌐",
+                title: "Global Expansion Under Pressure",
+                difficulty: "Strategic Level",
+                content: "Your tech startup has achieved remarkable domestic success, growing 400% in 18 months. Three major international markets are demanding entry: Europe (complex regulations, established competitors), Asia-Pacific (cultural adaptation required, high growth potential), and Latin America (infrastructure challenges, first-mover advantage). Your investors are pushing for rapid international expansion, but resources are limited to pursuing only one market initially. A competitor just announced plans to enter two of these markets.",
+                cprPrompts: {
+                    C: "What comprehensive market analysis is essential before international expansion? Consider regulatory landscapes, cultural factors, competitive positioning, and resource requirements.",
+                    P: "What specific execution capabilities must be in place for successful market entry? Think about operational setup, local partnerships, team deployment, and go-to-market strategy.",
+                    R: "What performance indicators and feedback mechanisms will guide ongoing strategy adjustments? Consider market response metrics, operational efficiency, and strategic learning opportunities."
+                },
+                options: [
+                    {
+                        letter: "A",
+                        cprType: "C",
+                        text: "Invest 6 months in comprehensive market research across all three regions, including regulatory analysis, competitive landscape mapping, and cultural adaptation requirements before committing resources",
+                        deepDive: [
+                            "How will you prevent analysis paralysis while maintaining thoroughness?",
+                            "What's the opportunity cost of this extended research period?",
+                            "How will you keep your team and investors aligned during this analysis phase?"
+                        ]
+                    },
+                    {
+                        letter: "B",
+                        cprType: "P",
+                        text: "Choose the most operationally feasible market (Latin America) and execute rapid market entry within 90 days, leveraging existing capabilities and establishing first-mover advantage",
+                        deepDive: [
+                            "What operational risks are you accepting with this rapid deployment?",
+                            "How will you adapt your product for Latin American markets quickly?",
+                            "What contingency plans will you establish for unexpected challenges?"
+                        ]
+                    },
+                    {
+                        letter: "C",
+                        cprType: "R",
+                        text: "Launch small pilot programs simultaneously in all three markets to test assumptions, gather real-world feedback, and let market response guide your primary expansion strategy",
+                        deepDive: [
+                            "How will you manage resource allocation across three pilot programs?",
+                            "What success metrics will determine which market gets full investment?",
+                            "How will you maintain quality and focus across multiple simultaneous launches?"
+                        ]
+                    }
+                ],
+                ariaInsights: [
+                    "International expansion is where many successful companies stumble. The CPR framework becomes critical for managing complexity.",
+                    "Notice the tension between investor pressure and operational reality. How do you balance external expectations with internal capabilities?",
+                    "Your competitor's announcement changes the strategic landscape. How does competitive timing affect your CPR priorities?"
+                ]
+            }
+        ];
+
+        // Application State
+        let currentScenarioIndex = 0;
+        let cprResponses = [];
+        let selectedOptions = [];
+        let cprScores = { C: 0, P: 0, R: 0 };
+        let achievements = [];
+        let sessionStartTime = Date.now();
+
+        // ARIA Assistant
+        class ARIAAssistant {
+            constructor() {
+                this.messages = [];
+                this.isTyping = false;
+            }
+
+            async addMessage(text, delay = 1000) {
+                if (this.isTyping) return;
+                
+                this.isTyping = true;
+                document.getElementById('ariaStatus').textContent = 'Analyzing...';
+                
+                // Show typing indicator
+                const typingDiv = document.createElement('div');
+                typingDiv.className = 'aria-message';
+                typingDiv.innerHTML = '<div class="loading-animation"></div> ARIA is thinking...';
+                document.getElementById('ariaMessages').appendChild(typingDiv);
+                
+                await new Promise(resolve => setTimeout(resolve, delay));
+                
+                // Remove typing indicator and add real message
+                typingDiv.remove();
+                
+                const messageDiv = document.createElement('div');
+                messageDiv.className = 'aria-message';
+                messageDiv.textContent = text;
+                document.getElementById('ariaMessages').appendChild(messageDiv);
+                
+                // Scroll to bottom
+                const messagesContainer = document.getElementById('ariaMessages');
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+                
+                this.isTyping = false;
+                document.getElementById('ariaStatus').textContent = 'Ready to assist';
+            }
+
+            async provideScenarioInsight(scenarioIndex) {
+                const scenario = scenarios[scenarioIndex];
+                const insights = scenario.ariaInsights;
+                
+                for (let i = 0; i < insights.length; i++) {
+                    await this.addMessage(insights[i], 1500 + (i * 500));
+                }
+            }
+
+            async analyzeCPRResponse(cprType, response) {
+                const analyses = {
+                    C: "Your comprehensive analysis shows strong strategic thinking. Remember that thorough analysis should inform action, not replace it.",
+                    P: "Your performance-focused approach demonstrates decisiveness. Ensure you're building on solid analytical foundations.",
+                    R: "Your recalibration mindset shows adaptive leadership. This approach works best when combined with clear performance metrics."
+                };
+                
+                await this.addMessage(analyses[cprType]);
+            }
+
+            async provideDeepDiveGuidance() {
+                await this.addMessage("Excellent choice! Let me help you think deeper about this decision. Consider these strategic questions as you refine your approach.");
+            }
+        }
+
+        const aria = new ARIAAssistant();
+
+        // Initialize Application
+        function initializeApp() {
+            createParticles();
+            loadScenario(currentScenarioIndex);
+            updateProgressBar();
+            updateCPRStats();
+            aria.addMessage("Welcome to Executive Decision Architecture! I'll be your strategic thinking partner throughout this training. Let's begin with your first complex scenario.", 2000);
+        }
+
+        // Create floating particles
+        function createParticles() {
+            const container = document.getElementById('particles');
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 6 + 's';
+                particle.style.animationDuration = (6 + Math.random() * 4) + 's';
+                container.appendChild(particle);
+            }
+        }
+
+        // Load Scenario
+        function loadScenario(index) {
+            const scenario = scenarios[index];
+            const container = document.getElementById('scenarioPanel');
+            
+            container.innerHTML = `
+                <div class="scenario-header">
+                    <div class="scenario-icon">${scenario.icon}</div>
+                    <div>
+                        <div class="scenario-title">${scenario.title}</div>
+                        <div class="scenario-difficulty">${scenario.difficulty}</div>
+                    </div>
+                </div>
+                
+                <div class="scenario-content">
+                    ${scenario.content}
+                </div>
+                
+                <div class="cpr-diagnostic">
+                    <h3>CPR Diagnostic Panel</h3>
+                    <div class="cpr-input-group">
+                        <label for="cpr-c" class="cpr-label-c">📊 C — Comprehensive Analysis</label>
+                        <textarea id="cpr-c" class="cpr-textarea" placeholder="${scenario.cprPrompts.C}" 
+                                  oninput="updateCPRProgress('C', this.value)"></textarea>
+                    </div>
+                    <div class="cpr-input-group">
+                        <label for="cpr-p" class="cpr-label-p">⚡ P — Performance Execution</label>
+                        <textarea id="cpr-p" class="cpr-textarea" placeholder="${scenario.cprPrompts.P}" 
+                                  oninput="updateCPRProgress('P', this.value)"></textarea>
+                    </div>
+                    <div class="cpr-input-group">
+                        <label for="cpr-r" class="cpr-label-r">🔄 R — Recalibration</label>
+                        <textarea id="cpr-r" class="cpr-textarea" placeholder="${scenario.cprPrompts.R}" 
+                                  oninput="updateCPRProgress('R', this.value)"></textarea>
+                    </div>
+                    <div class="cpr-progress">
+                        <div class="cpr-progress-item">
+                            <div class="cpr-progress-circle" id="progress-c"></div>
+                            <div>Comprehensive</div>
+                        </div>
+                        <div class="cpr-progress-item">
+                            <div class="cpr-progress-circle" id="progress-p"></div>
+                            <div>Performance</div>
+                        </div>
+                        <div class="cpr-progress-item">
+                            <div class="cpr-progress-circle" id="progress-r"></div>
+                            <div>Recalibration</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="decision-options">
+                    <div class="decision-title">Strategic Response Options</div>
+                    ${scenario.options.map(option => `
+                        <div class="option" data-option="${option.letter}" data-cpr="${option.cprType}" 
+                             onclick="selectOption(this)">
+                            <div class="option-header">
+                                <div class="option-letter">${option.letter}</div>
+                                <div class="option-cpr-tag">${getCPRLabel(option.cprType)}</div>
+                            </div>
+                            <div class="option-text">${option.text}</div>
+                        </div>
+                    `).join('')}
+                </div>
+                
+                <div class="deep-dive-section" id="deepDiveSection">
+                    <div class="deep-dive-title">🎯 Deep Dive Analysis</div>
+                    <div id="deepDiveQuestions"></div>
+                </div>
+                
+                <div class="controls">
+                    <button class="btn btn-secondary" onclick="previousScenario()" ${index === 0 ? 'disabled' : ''}>
+                        ← Previous
+                    </button>
+                    <span>Scenario ${index + 1} of ${scenarios.length}</span>
+                    <button class="btn btn-primary" id="nextBtn" onclick="nextScenario()" disabled>
+                        ${index === scenarios.length - 1 ? 'Complete Training' : 'Next Scenario →'}
+                    </button>
+                </div>
+            `;
+            
+            // Trigger ARIA insights
+            setTimeout(() => {
+                aria.provideScenarioInsight(index);
+            }, 1000);
+        }
+
+        // Update CPR Progress
+        function updateCPRProgress(cprType, value) {
+            const circle = document.getElementById(`progress-${cprType.toLowerCase()}`);
+            const wordCount = value.trim().split(/\s+/).filter(word => word.length > 0).length;
+            
+            if (wordCount >= 20) {
+                circle.classList.add('complete');
+                cprResponses[currentScenarioIndex] = cprResponses[currentScenarioIndex] || {};
+                cprResponses[currentScenarioIndex][cprType] = value;
+                
+                // ARIA feedback
+                aria.analyzeCPRResponse(cprType, value);
+                
+                // Check if all CPR areas are complete
+                checkCPRCompletion();
+            } else {
+                circle.classList.remove('complete');
+            }
+        }
+
+        // Check CPR Completion
+        function checkCPRCompletion() {
+            const circles = ['progress-c', 'progress-p', 'progress-r'];
+            const allComplete = circles.every(id => 
+                document.getElementById(id).classList.contains('complete')
+            );
+            
+            if (allComplete) {
+                showAchievement("CPR Master", "You've completed comprehensive analysis across all CPR dimensions!");
+                aria.addMessage("Excellent work! You've demonstrated thorough CPR thinking. Now make your strategic decision.", 1000);
+            }
+        }
+
+        // Select Option
+        function selectOption(selectedOption) {
+            const scenario = scenarios[currentScenarioIndex];
+            const optionLetter = selectedOption.dataset.option;
+            const cprType = selectedOption.dataset.cpr;
+            
+            // Update UI
+            document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+            selectedOption.classList.add('selected');
+            
+            // Store selection
+            selectedOptions[currentScenarioIndex] = {
+                scenario: scenario.title,
+                option: optionLetter,
+                cprType: cprType
+            };
+            
+            // Update CPR scores
+            cprScores[cprType]++;
+            updateCPRStats();
+            
+            // Show deep dive questions
+            showDeepDive(scenario.options.find(opt => opt.letter === optionLetter));
+            
+            // Enable next button
+            document.getElementById('nextBtn').disabled = false;
+            
+            // ARIA feedback
+            const feedback = `You chose option ${optionLetter}, emphasizing ${getCPRLabel(cprType)}. This decision reflects a ${cprType === 'C' ? 'thorough analytical' : cprType === 'P' ? 'action-oriented' : 'adaptive learning'} approach.`;
+            aria.addMessage(feedback, 800);
+        }
+
+        // Show Deep Dive
+        function showDeepDive(option) {
+            const section = document.getElementById('deepDiveSection');
+            const questionsDiv = document.getElementById('deepDiveQuestions');
+            
+            questionsDiv.innerHTML = option.deepDive.map(question => `
+                <div class="deep-dive-question">
+                    <strong>💭 Strategic Question:</strong> ${question}
+                    <textarea class="cpr-textarea" style="margin-top: 10px; min-height: 60px;" 
+                              placeholder="Enter your strategic thinking here..."></textarea>
+                </div>
+            `).join('');
+            
+            section.classList.add('show');
+            aria.provideDeepDiveGuidance();
+        }
+
+        // Get CPR Label
+        function getCPRLabel(cprType) {
+            const labels = {
+                C: 'Comprehensive Analysis',
+                P: 'Performance Execution', 
+                R: 'Recalibration'
+            };
+            return labels[cprType];
+        }
+
+        // Show Achievement
+        function showAchievement(title, text) {
+            const popup = document.getElementById('achievementPopup');
+            document.getElementById('achievementTitle').textContent = title;
+            document.getElementById('achievementText').textContent = text;
+            
+            popup.classList.add('show');
+            setTimeout(() => {
+                popup.classList.remove('show');
+            }, 4000);
+        }
+
+        // Next Scenario
+        function nextScenario() {
+            if (currentScenarioIndex < scenarios.length - 1) {
+                currentScenarioIndex++;
+                loadScenario(currentScenarioIndex);
+                updateProgressBar();
+                
+                // Reset deep dive section
+                document.getElementById('deepDiveSection').classList.remove('show');
+            } else {
+                completeTraining();
+            }
+        }
+
+        // Previous Scenario
+        function previousScenario() {
+            if (currentScenarioIndex > 0) {
+                currentScenarioIndex--;
+                loadScenario(currentScenarioIndex);
+                updateProgressBar();
+                
+                // Reset deep dive section
+                document.getElementById('deepDiveSection').classList.remove('show');
+            }
+        }
+
+        // Update Progress Bar
+        function updateProgressBar() {
+            const progress = ((currentScenarioIndex + 1) / scenarios.length) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+        }
+
+        // Update CPR Stats
+        function updateCPRStats() {
+            document.getElementById('comprehensiveScore').textContent = cprScores.C;
+            document.getElementById('performanceScore').textContent = cprScores.P;
+            document.getElementById('recalibrationScore').textContent = cprScores.R;
+        }
+
+        // Complete Training
+        function completeTraining() {
+            const sessionTime = Math.round((Date.now() - sessionStartTime) / 60000);
+            
+            aria.addMessage(`🎉 Congratulations! You've completed the Executive Decision Architecture training in ${sessionTime} minutes. Your CPR profile shows balanced strategic thinking.`, 1000);
+            
+            setTimeout(() => {
+                aria.addMessage("Your decisions demonstrate executive-level strategic thinking. You've successfully integrated comprehensive analysis, performance execution, and recalibration into your decision-making framework.", 2000);
+            }, 3000);
+            
+            showAchievement("Executive Certified", `Training completed in ${sessionTime} minutes with balanced CPR approach!`);
+            
+            // Generate completion report
+            setTimeout(() => {
+                generateCompletionReport();
+            }, 5000);
+        }
+
+        // Generate Completion Report
+        function generateCompletionReport() {
+            const reportData = {
+                company: "Renaissanse Solutions",
+                executive: "[Executive Name]",
+                date: new Date().toLocaleDateString(),
+                sessionTime: Math.round((Date.now() - sessionStartTime) / 60000),
+                cprScores: cprScores,
+                decisions: selectedOptions,
+                recommendations: generateRecommendations()
+            };
+            
+            aria.addMessage("Your executive performance report is ready for download. This includes your CPR profile, decision analysis, and personalized development recommendations.", 1000);
+            
+            // Add download button
+            setTimeout(() => {
+                const downloadBtn = document.createElement('button');
+                downloadBtn.className = 'btn btn-primary';
+                downloadBtn.textContent = '📄 Download Executive Report';
+                downloadBtn.onclick = () => downloadReport(reportData);
+                downloadBtn.style.margin = '20px auto';
+                downloadBtn.style.display = 'block';
+                
+                document.querySelector('.scenario-panel').appendChild(downloadBtn);
+            }, 2000);
+        }
+
+        // Generate Recommendations
+        function generateRecommendations() {
+            const total = Math.max(cprScores.C + cprScores.P + cprScores.R, 1);
+            const percentages = {
+                C: Math.round((cprScores.C / total) * 100),
+                P: Math.round((cprScores.P / total) * 100),
+                R: Math.round((cprScores.R / total) * 100)
+            };
+            
+            const recommendations = [];
+            
+            if (percentages.C < 25) {
+                recommendations.push("Strengthen comprehensive analysis skills through strategic planning workshops");
+            }
+            if (percentages.P < 25) {
+                recommendations.push("Develop performance execution capabilities through operational leadership training");
+            }
+            if (percentages.R < 25) {
+                recommendations.push("Enhance recalibration mindset through adaptive leadership coaching");
+            }
+            
+            if (recommendations.length === 0) {
+                recommendations.push("Maintain balanced CPR approach while applying to real-world executive challenges");
+            }
+            
+            return recommendations;
+        }
+
+        // Download Report
+        function downloadReport(data) {
+            const report = `
+RENAISSANSE SOLUTIONS
+EXECUTIVE DECISION ARCHITECTURE
+Performance Report
+==================================================
+
+Executive: ${data.executive}
+Completion Date: ${data.date}
+Session Duration: ${data.sessionTime} minutes
+Training Module: Executive Decision Architecture with ARIA 4.0
+
+CPR FRAMEWORK PERFORMANCE:
+--------------------------
+Comprehensive Analysis: ${data.cprScores.C} decisions (${Math.round((data.cprScores.C/data.decisions.length)*100)}%)
+Performance Execution: ${data.cprScores.P} decisions (${Math.round((data.cprScores.P/data.decisions.length)*100)}%)
+Recalibration: ${data.cprScores.R} decisions (${Math.round((data.cprScores.R/data.decisions.length)*100)}%)
+
+EXECUTIVE DECISIONS ANALYSIS:
+-----------------------------
+${data.decisions.map((decision, index) => `
+Scenario ${index + 1}: ${decision.scenario}
+Decision: Option ${decision.option} (${getCPRLabel(decision.cprType)} Focus)
+Strategic Approach: ${decision.cprType === 'C' ? 'Analytical Leadership' : decision.cprType === 'P' ? 'Action-Oriented Leadership' : 'Adaptive Leadership'}
+`).join('')}
+
+DEVELOPMENT RECOMMENDATIONS:
+----------------------------
+${data.recommendations.map(rec => `• ${rec}`).join('\n')}
+
+NEXT STEPS:
+-----------
+1. Apply CPR framework to current business challenges
+2. Schedule follow-up assessment in 90 days
+3. Share insights with executive team
+4. Implement recommended development actions
+
+CERTIFICATION:
+--------------
+This executive has successfully completed the Renaissanse Solutions
+Executive Decision Architecture training program and demonstrated
+proficiency in the proprietary CPR framework.
+
+---
+Renaissanse Solutions
+Transforming Performance. Empowering Growth.
+Report Generated: ${new Date().toISOString()}
+            `;
+            
+            const blob = new Blob([report], { type: 'text/plain' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `Renaissanse_Executive_Report_${data.date.replace(/\//g, '_')}.txt`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+        }
+
+        // Initialize the application when page loads
+        document.addEventListener('DOMContentLoaded', initializeApp);
+    </script>
+</body>
+</html>
