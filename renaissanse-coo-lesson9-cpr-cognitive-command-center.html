@@ -493,6 +493,7 @@
             padding: 30px;
             margin-top: 40px;
             text-align: center;
+            position: relative;
         }
 
         .action-center::before {
@@ -772,7 +773,7 @@
 
         <!-- Action Center -->
         <section class="action-center">
-            <h2 class="panel-title">🚀 Renaissance Command Actions</h2>
+            <h2 class="panel-title">🚀 Renaissanse Command Actions</h2>
             <p style="color: rgba(255,255,255,0.8); margin-bottom: 30px; font-size: 1.1em;">
                 Advanced cognitive development and organizational transformation tools
             </p>
@@ -791,6 +792,14 @@
     </main>
 
     <script>
+        // Application State
+        let currentScenarioIndex = 0;
+        let cprResponses = [];
+        let selectedOptions = [];
+        let cprScores = { C: 0, P: 0, R: 0 };
+        let achievements = [];
+        let sessionStartTime = Date.now();
+
         // Initialize particles
         function createParticles() {
             const container = document.getElementById('particles');
@@ -835,21 +844,21 @@
             });
         }
 
-        // Interactive functions
+        // Interactive functions with simple approach
         function openLesson(lessonNumber) {
-            alert(`Opening detailed analysis for Lesson ${lessonNumber}. This would show cognitive patterns, decision analysis, and growth metrics for this specific module.`);
+            alert('Lesson ' + lessonNumber + ' Analysis:\n\nDetailed cognitive patterns, decision analysis, and growth metrics for this specific module would be displayed here in a comprehensive dashboard.');
         }
 
         function generateAssessment() {
-            alert('Generating comprehensive 15-page executive assessment report including:\n\n• Cognitive DNA Analysis\n• Decision Pattern Behavioral Matrix\n• Psychological SWOT Analysis\n• Leadership Chemistry Report\n• 90-Day Development Roadmap');
+            alert('Generating Executive Assessment Report:\n\n• 15-page comprehensive analysis\n• Cognitive DNA mapping\n• Decision pattern behavioral matrix\n• Psychological SWOT analysis\n• Leadership chemistry report\n• 90-day development roadmap');
         }
 
         function viewCognitiveDNA() {
-            alert('Opening detailed Cognitive DNA Analysis:\n\n• Neural pathway mapping\n• Decision-making algorithms\n• Cognitive bias patterns\n• Executive archetype profile\n• Psychological flexibility index');
+            alert('Cognitive DNA Analysis:\n\n• Neural pathway mapping\n• Decision-making algorithms\n• Cognitive bias patterns\n• Executive archetype profile\n• Psychological flexibility index\n\nOpening detailed analysis window...');
         }
 
         function startCrisisSimulation() {
-            alert('Launching Crisis Simulation Environment:\n\n• Real-world crisis scenarios\n• Psychological pressure testing\n• Decision consequence modeling\n• Executive stress analysis\n• CPR framework application under pressure');
+            alert('Crisis Simulation Environment:\n\n• Real-world crisis scenarios\n• Psychological pressure testing\n• Decision consequence modeling\n• Executive stress analysis\n• CPR framework application under pressure\n\nLaunching simulation...');
         }
 
         function consultARIA() {
@@ -862,99 +871,33 @@
             ];
             
             const randomInsight = insights[Math.floor(Math.random() * insights.length)];
-            document.getElementById('ariaInsight').textContent = `"${randomInsight}"`;
+            document.getElementById('ariaInsight').textContent = '"' + randomInsight + '"';
             
             setTimeout(() => {
-                alert('ARIA 4.0 Psychology Session Initiated:\n\n• Deep cognitive pattern analysis\n• Unconscious bias detection\n• Executive personality profiling\n• Stress response optimization\n• Leadership psychology coaching');
+                alert('ARIA 4.0 Psychology Session:\n\n• Deep cognitive pattern analysis\n• Unconscious bias detection\n• Executive personality profiling\n• Stress response optimization\n• Leadership psychology coaching\n\nSession initiated...');
             }, 1000);
         }
 
         function requestCoaching() {
-            alert('Executive Coaching Session Available:\n\n• One-on-one cognitive development\n• Decision-making optimization\n• Crisis leadership preparation\n• CPR framework mastery\n• Personalized growth planning');
+            alert('Executive Coaching Request:\n\n• One-on-one cognitive development\n• Decision-making optimization\n• Crisis leadership preparation\n• CPR framework mastery\n• Personalized growth planning\n\nCoaching session scheduled...');
         }
 
         function generateCEOReport() {
-            alert('Generating CEO Leadership Compatibility Report:\n\n• COO cognitive profile summary\n• Decision-making style analysis\n• Communication preferences\n• Optimal delegation strategies\n• Leadership team dynamics\n• Performance optimization recommendations');
+            alert('CEO Leadership Compatibility Report:\n\n• COO cognitive profile summary\n• Decision-making style analysis\n• Communication preferences\n• Optimal delegation strategies\n• Leadership team dynamics\n• Performance optimization recommendations\n\nGenerating comprehensive report...');
         }
 
         function downloadCertification() {
-            alert('Preparing Executive Certification Package:\n\n• Official Renaissanse Solutions Certificate\n• CPR Framework Mastery Documentation\n• Cognitive Assessment Summary\n• Professional LinkedIn Endorsement\n• Executive Development Portfolio');
+            alert('Executive Certification Package:\n\n• Official Renaissanse Solutions Certificate\n• CPR Framework Mastery Documentation\n• Cognitive Assessment Summary\n• Professional Development Portfolio\n\nPreparing certification download...');
         }
 
         function scheduleCoaching() {
-            alert('Advanced Coaching Options Available:\n\n• Monthly cognitive fitness check-ups\n• Quarterly leadership assessments\n• Annual executive development planning\n• Crisis simulation training\n• Industry-specific scenario development');
+            alert('Advanced Coaching Options:\n\n• Monthly cognitive fitness check-ups\n• Quarterly leadership assessments\n• Annual executive development planning\n• Crisis simulation training\n• Industry-specific scenario development\n\nScheduling advanced coaching session...');
         }
 
         // Customize executive profile
         function setExecutiveProfile(name, initials) {
             document.getElementById('executiveName').textContent = name;
             document.getElementById('executiveAvatar').textContent = initials;
-        }
-
-        // Real-time cognitive health monitoring
-        function updateCognitiveHealth() {
-            const healthMetrics = [
-                { name: 'Stress Resilience', value: 85, color: 'excellent' },
-                { name: 'Decision Speed', value: 78, color: 'good' },
-                { name: 'Clarity Under Pressure', value: 92, color: 'excellent' }
-            ];
-
-            // This would integrate with real-time biometric data in production
-            // For now, we simulate minor variations
-            healthMetrics.forEach(metric => {
-                const variation = (Math.random() - 0.5) * 10;
-                const newValue = Math.max(0, Math.min(100, metric.value + variation));
-                // Update UI with new values
-            });
-        }
-
-        // Advanced analytics tracking
-        function trackCognitivePatterns() {
-            const patterns = {
-                decisionSpeed: [],
-                accuracyRates: [],
-                stressResponses: [],
-                cprBalance: { C: [], P: [], R: [] },
-                timeOfDayPerformance: {},
-                scenarioPreferences: {}
-            };
-
-            // This would collect real behavioral data during training
-            // Store in secure executive profile for long-term analysis
-            return patterns;
-        }
-
-        // Predictive modeling for executive development
-        function generatePredictiveInsights() {
-            const predictions = {
-                nextQuarterGrowthAreas: ['Crisis Decision Speed', 'Stakeholder Communication'],
-                riskAreas: ['Decision Fatigue Under Extended Pressure'],
-                recommendedTraining: ['Advanced Negotiation Psychology', 'Digital Transformation Leadership'],
-                optimalPerformanceConditions: 'Morning sessions with 15-minute breaks between scenarios',
-                leadershipArchetype: 'Adaptive Systems Leader with Strong Analytical Foundation'
-            };
-
-            return predictions;
-        }
-
-        // Integration with organizational systems
-        function integrateWithOrganization() {
-            // This would connect to:
-            // - Company HR systems
-            // - Performance management platforms
-            // - Leadership development tracking
-            // - Board reporting systems
-            // - Succession planning tools
-            
-            const integrationPoints = {
-                hrSystem: 'Connected',
-                performanceManagement: 'Synced',
-                boardReporting: 'Automated',
-                successionPlanning: 'Active',
-                peerBenchmarking: 'Industry Data Available'
-            };
-
-            return integrationPoints;
         }
 
         // Initialize the command center
@@ -965,89 +908,6 @@
             
             // Set default executive profile (would come from authentication)
             setExecutiveProfile('Executive Name', 'EN');
-            
-            // Start real-time monitoring
-            setInterval(updateCognitiveHealth, 30000); // Update every 30 seconds
-            
-            // Generate initial predictive insights
-            const insights = generatePredictiveInsights();
-            console.log('Predictive Executive Insights:', insights);
-            
-            // Initialize organizational integration
-            const integration = integrateWithOrganization();
-            console.log('System Integration Status:', integration);
-        }
-
-        // Advanced feature: Executive decision replay
-        function replayExecutiveDecisions() {
-            alert('Decision Replay System:\n\n• Chronological decision timeline\n• Alternative outcome modeling\n• Cognitive pattern evolution\n• Learning moment identification\n• Strategic insight generation');
-        }
-
-        // Advanced feature: Peer executive comparison
-        function compareToPeers() {
-            alert('Anonymous Peer Benchmarking:\n\n• Industry executive performance comparison\n• Cognitive pattern benchmarking\n• Leadership style analysis\n• Best practice identification\n• Competitive advantage insights');
-        }
-
-        // Advanced feature: Organizational impact assessment
-        function assessOrganizationalImpact() {
-            alert('Organizational Impact Analysis:\n\n• Decision ripple effect mapping\n• Team performance correlation\n• Culture influence assessment\n• Strategic alignment measurement\n• ROI of cognitive development');
-        }
-
-        // Advanced feature: Future scenario planning
-        function planFutureScenarios() {
-            alert('Future Scenario Planning:\n\n• Industry disruption modeling\n• Executive readiness assessment\n• Strategic option evaluation\n• Risk mitigation planning\n• Leadership pipeline development');
-        }
-
-        // Master reset function for demo purposes
-        function resetCommandCenter() {
-            if (confirm('Reset all training data and start fresh assessment?')) {
-                // Reset all scores and metrics
-                document.getElementById('comprehensiveScore').textContent = '0';
-                document.getElementById('performanceScore').textContent = '0';
-                document.getElementById('recalibrationScore').textContent = '0';
-                document.getElementById('overallScore').textContent = '0%';
-                
-                // Restart initialization
-                setTimeout(() => {
-                    initializeCommandCenter();
-                }, 1000);
-            }
-        }
-
-        // Export data for external analysis
-        function exportExecutiveData() {
-            const executiveData = {
-                profile: {
-                    name: document.getElementById('executiveName').textContent,
-                    role: 'Chief Operating Officer',
-                    company: 'Renaissanse Solutions'
-                },
-                cprScores: {
-                    comprehensive: parseInt(document.getElementById('comprehensiveScore').textContent),
-                    performance: parseInt(document.getElementById('performanceScore').textContent),
-                    recalibration: parseInt(document.getElementById('recalibrationScore').textContent)
-                },
-                trainingMetrics: {
-                    totalHours: parseInt(document.getElementById('totalHours').textContent),
-                    decisionsAnalyzed: parseInt(document.getElementById('decisionsAnalyzed').textContent),
-                    crisisScenarios: parseInt(document.getElementById('crisisHandled').textContent),
-                    cognitiveGrowth: document.getElementById('cognitiveGrowth').textContent
-                },
-                timestamp: new Date().toISOString()
-            };
-
-            // In production, this would integrate with enterprise systems
-            const dataBlob = new Blob([JSON.stringify(executiveData, null, 2)], { type: 'application/json' });
-            const url = URL.createObjectURL(dataBlob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `executive_cognitive_profile_${Date.now()}.json`;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
-
-            alert('Executive cognitive profile exported successfully!\n\nThis data can be imported into:\n• Enterprise HR systems\n• Leadership development platforms\n• Board reporting tools\n• Succession planning systems');
         }
 
         // Initialize everything when the page loads
@@ -1069,10 +929,6 @@
                         event.preventDefault();
                         consultARIA();
                         break;
-                    case 'e':
-                        event.preventDefault();
-                        exportExecutiveData();
-                        break;
                 }
             }
         });
@@ -1084,13 +940,7 @@
                 cognitiveGrowthTrends: '+31% average improvement',
                 scenarioEffectiveness: 'Crisis scenarios show highest learning impact',
                 cprFrameworkAdoption: '89% of executives report daily CPR usage',
-                organizationalROI: 'Decision quality improved 27% post-training',
-                recommendedEnhancements: [
-                    'Add real-time biometric integration',
-                    'Expand industry-specific scenarios',
-                    'Develop team-based cognitive challenges',
-                    'Create CEO-COO compatibility assessments'
-                ]
+                organizationalROI: 'Decision quality improved 27% post-training'
             };
 
             console.log('Renaissanse Solutions Internal Analytics:', analytics);
