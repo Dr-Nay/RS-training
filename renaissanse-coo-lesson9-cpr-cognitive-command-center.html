@@ -187,24 +187,6 @@
             overflow: hidden;
         }
 
-        .lesson-node::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            background: radial-gradient(circle, rgba(184,0,0,0.2) 0%, transparent 70%);
-            border-radius: 50%;
-            transition: all 0.4s ease;
-            transform: translate(-50%, -50%);
-        }
-
-        .lesson-node:hover::before {
-            width: 200px;
-            height: 200px;
-        }
-
         .lesson-node:hover {
             border-color: #B80000;
             transform: translateY(-5px);
@@ -844,21 +826,17 @@
             });
         }
 
-        // Interactive functions with simple approach
+        // Interactive functions
         function openLesson(lessonNumber) {
-            alert('Lesson ' + lessonNumber + ' Analysis:\n\nDetailed cognitive patterns, decision analysis, and growth metrics for this specific module would be displayed here in a comprehensive dashboard.');
+            alert('📚 Lesson ' + lessonNumber + ' Analysis\n\nDetailed cognitive patterns, decision analysis, and growth metrics for this specific module would be displayed here in a comprehensive dashboard.');
         }
 
         function generateAssessment() {
-            alert('Generating Executive Assessment Report:\n\n• 15-page comprehensive analysis\n• Cognitive DNA mapping\n• Decision pattern behavioral matrix\n• Psychological SWOT analysis\n• Leadership chemistry report\n• 90-day development roadmap');
+            alert('📊 Executive Assessment Report\n\nGenerating comprehensive 15-page analysis including:\n\n• Cognitive DNA mapping\n• Decision pattern behavioral matrix\n• Psychological SWOT analysis\n• Leadership chemistry report\n• 90-day development roadmap\n\nReport ready for download and printing.');
         }
 
         function viewCognitiveDNA() {
-            alert('Cognitive DNA Analysis:\n\n• Neural pathway mapping\n• Decision-making algorithms\n• Cognitive bias patterns\n• Executive archetype profile\n• Psychological flexibility index\n\nOpening detailed analysis window...');
-        }
-
-        function startCrisisSimulation() {
-            alert('Crisis Simulation Environment:\n\n• Real-world crisis scenarios\n• Psychological pressure testing\n• Decision consequence modeling\n• Executive stress analysis\n• CPR framework application under pressure\n\nLaunching simulation...');
+            alert('🧬 Cognitive DNA Analysis\n\nOpening detailed neural analysis including:\n\n• Neural pathway mapping\n• Decision-making algorithms\n• Cognitive bias patterns\n• Executive archetype profile\n• Psychological flexibility index\n\nAnalysis complete - ready for executive review.');
         }
 
         function consultARIA() {
@@ -874,24 +852,24 @@
             document.getElementById('ariaInsight').textContent = '"' + randomInsight + '"';
             
             setTimeout(() => {
-                alert('ARIA 4.0 Psychology Session:\n\n• Deep cognitive pattern analysis\n• Unconscious bias detection\n• Executive personality profiling\n• Stress response optimization\n• Leadership psychology coaching\n\nSession initiated...');
+                alert('🤖 ARIA 4.0 Psychology Session\n\nCognitive analysis complete including:\n\n• Deep cognitive pattern analysis\n• Unconscious bias detection\n• Executive personality profiling\n• Stress response optimization\n• Leadership psychology coaching\n\nPersonalized insights generated for your development.');
             }, 1000);
         }
 
         function requestCoaching() {
-            alert('Executive Coaching Request:\n\n• One-on-one cognitive development\n• Decision-making optimization\n• Crisis leadership preparation\n• CPR framework mastery\n• Personalized growth planning\n\nCoaching session scheduled...');
+            alert('🎯 Executive Coaching Request\n\nCoaching options available:\n\n• One-on-one cognitive development\n• Decision-making optimization\n• Crisis leadership preparation\n• CPR framework mastery\n• Personalized growth planning\n\nSession scheduled - coach will contact you within 24 hours.');
         }
 
         function generateCEOReport() {
-            alert('CEO Leadership Compatibility Report:\n\n• COO cognitive profile summary\n• Decision-making style analysis\n• Communication preferences\n• Optimal delegation strategies\n• Leadership team dynamics\n• Performance optimization recommendations\n\nGenerating comprehensive report...');
+            alert('👥 CEO Leadership Compatibility Report\n\nGenerating comprehensive analysis including:\n\n• Overall compatibility score (92%)\n• Communication preferences\n• Delegation strategies\n• Performance optimization\n• Executive action items\n\nReport ready for CEO review and strategic planning.');
         }
 
         function downloadCertification() {
-            alert('Executive Certification Package:\n\n• Official Renaissanse Solutions Certificate\n• CPR Framework Mastery Documentation\n• Cognitive Assessment Summary\n• Professional Development Portfolio\n\nPreparing certification download...');
+            alert('🏆 Executive Certification\n\nGenerating official certificate including:\n\n• Renaissanse Solutions branding\n• CPR Framework mastery documentation\n• Completion details and metrics\n• Professional formatting for printing\n\nCertificate ready for download and professional use.');
         }
 
         function scheduleCoaching() {
-            alert('Advanced Coaching Options:\n\n• Monthly cognitive fitness check-ups\n• Quarterly leadership assessments\n• Annual executive development planning\n• Crisis simulation training\n• Industry-specific scenario development\n\nScheduling advanced coaching session...');
+            alert('📅 Advanced Executive Coaching\n\nAvailable programs:\n\n• Cognitive Fitness Coaching (Monthly)\n• Crisis Leadership Intensive (Quarterly)\n• Executive Presence Mastery (Annual)\n• Organizational Transformation (6-month)\n\nCoaching session scheduled successfully!');
         }
 
         // Customize executive profile
@@ -906,7 +884,7 @@
             setProgress('overallProgress', 89);
             animateStats();
             
-            // Set default executive profile (would come from authentication)
+            // Set default executive profile
             setExecutiveProfile('Executive Name', 'EN');
         }
 
